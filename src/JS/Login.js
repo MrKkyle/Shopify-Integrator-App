@@ -30,7 +30,6 @@ function Login()
         let message = document.getElementById("message");
         message.style.display = "block";
 
-
         
         $.post("http://localhost:8080/api/login", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
@@ -50,14 +49,12 @@ function Login()
                 message.style.backgroundColor = "transparent";
                 message.style.display = "none";
                 window.location.href = '/dashboard';
-            }, 10000);
+            }, 1000);
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
-            message.innerHTML = "Error - Login failed";
+            message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
-            
             setTimeout(() =>
             {
                 message.innerHTML = "";
@@ -108,8 +105,7 @@ function Login()
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
-            message.innerHTML = "Error - Ensure the Token is entered correct";
+            message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
             setTimeout(() =>
             {
@@ -154,10 +150,8 @@ function Login()
         })
         .fail( function(xhr) 
         { 
-            alert(xhr.responseText);
-            message.innerHTML = "Error";
+            message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
-            
             setTimeout(() =>
             {
                 message.innerHTML = "";
