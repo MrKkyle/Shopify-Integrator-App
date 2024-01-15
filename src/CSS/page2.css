@@ -171,7 +171,10 @@ input[type = setting]
 {
     display: block;
     overflow: auto;
-    padding: 53px;
+    padding-top: 54px;
+    padding-right: 54px;
+    padding-bottom: 30px;
+    padding-left: 54px;
     text-align: center;
 }
 .application

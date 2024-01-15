@@ -14,6 +14,7 @@ function Dashboard()
         let navigation = document.getElementById("navbar");
         let logout = document.getElementById("logout");
         let header = document.querySelector('.header');
+        let message = document.getElementById("message");
 
         let ctx = document.getElementById('shopify_fetch_graph');
         let order_ctx = document.getElementById('shopify_order_graph');
@@ -67,7 +68,14 @@ function Dashboard()
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
 
         //Order Graph
@@ -84,7 +92,14 @@ function Dashboard()
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
 
         let graph_data3 = {};
@@ -96,7 +111,14 @@ function Dashboard()
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
 
         setTimeout(() =>
@@ -180,7 +202,14 @@ function Dashboard()
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
 
         /* Products Notifications */
@@ -199,7 +228,14 @@ function Dashboard()
         })
         .fail( function(xhr) 
         {
-            alert(xhr.responseText);
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
         
         setTimeout(() => 
@@ -247,7 +283,9 @@ function Dashboard()
                     <canvas id="shopify_order_graph"></canvas>
                 </div>
             </div>
+            <div className = 'info-message' id = 'message' />
         </div>
+        
                 
     );
 }

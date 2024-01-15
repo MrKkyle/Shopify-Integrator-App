@@ -16,6 +16,7 @@ function Settings()
     {
         /* Ensures the page elements are set correctly */
         let navigation = document.getElementById("navbar");
+        let message = document.getElementById("message");
         navigation.style.left = "25%";
         navigation.style.position = "absolute";
         navigation.style.width = "75%";
@@ -95,12 +96,29 @@ function Settings()
                     })
                     .fail( function(xhr) 
                     {
-                        alert(xhr.responseText);
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
                     });
                 });
                 
             })
-            .fail( function(xhr) { alert(xhr.responseText); });
+            .fail( function(xhr) 
+            { 
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
+            });
         }
     
         function createLocationsDOM(locations) 
@@ -268,7 +286,14 @@ function Settings()
         })
         .fail( function(xhr) 
         { 
-            alert(xhr.responseText); 
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
 
         /*  API INITIAL-REQUEST for SHOPIFY_SETTINGS*/
@@ -364,7 +389,14 @@ function Settings()
         })
         .fail( function(xhr) 
         { 
-            alert(xhr.responseText); 
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
         });
 
         /* Restrictions Settings */
@@ -460,7 +492,17 @@ function Settings()
                 }
             } 
         })
-        .fail( function(xhr) { alert(xhr.responseText); });
+        .fail( function(xhr) 
+        { 
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000); 
+        });
 
         /* Restrictions Settings */
         $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
@@ -556,7 +598,17 @@ function Settings()
             }
             
         })
-        .fail( function(xhr) { alert(xhr.responseText); });
+        .fail( function(xhr) 
+        { 
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
+        });
 
         let confirm_line = document.querySelector(".confirm-line");
     
@@ -782,7 +834,14 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
             });
 
             /* Push Restriction Put Setting */
@@ -802,7 +861,14 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
             });
             
             
@@ -823,7 +889,14 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
             });
 
             /* Shopify Setting Put Request */
@@ -844,7 +917,14 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
             });
         });
 
@@ -897,7 +977,14 @@ function Settings()
                 })
                 .fail( function(xhr) 
                 {
-                    alert(xhr.responseText);
+                    message.innerHTML = JSON.parse(xhr.responseText).error;
+                    message.style.background = "#9f0a0a";
+                    setTimeout(() =>
+                    {
+                        message.innerHTML = "";
+                        message.style.backgroundColor = "transparent";
+                        message.style.display = "none";
+                    }, 1000);
                 });
                 
                 webhook_button.addEventListener("click", () =>
@@ -938,7 +1025,14 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
             });
         });
 
@@ -1053,7 +1147,14 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
             });
         });
 
@@ -1177,7 +1278,8 @@ function Settings()
             </div>
             <div className = 'rtn-button' style={{display: 'none'}}/>
             <div className = "warehouse-mapp"></div>
-            <div className = "info-message" id = "info-message"></div>
+            <div className = "info-message" id = "info-message" />
+            <div className = 'info-message' id = 'message' />
             
         </div>
     );

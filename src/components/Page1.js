@@ -548,6 +548,7 @@ function Page1(props)
         {
             fetch.disabled = true;
             fetch.style.cursor = "not-allowed";
+            fetch.style.backgroundColor = "rgb(11, 11, 11, 0.55)";
 
             let message = document.getElementById("message");
             message.style.display = "block";
@@ -560,6 +561,7 @@ function Page1(props)
                 console.log(_data);
                 fetch.disabled = false;
                 fetch.style.cursor = "pointer";
+                fetch.style.backgroundColor = "rgba(61, 61, 61, 0.55)";
 
                 message.innerHTML = "success";
                 message.style.background = "#1a5e12";
@@ -581,10 +583,11 @@ function Page1(props)
         {
             push.disabled = true;
             push.style.cursor = "not-allowed";
+            push.style.backgroundColor = "rgb(11, 11, 11, 0.55)";
 
             let message = document.getElementById("message");
             message.style.display = "block";
-
+            
             const api_key = localStorage.getItem('api_key');
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
             $.get("http://localhost:8080/api//shopify/sync", [], [])
@@ -593,6 +596,7 @@ function Page1(props)
                 console.log(_data);
                 push.disabled = false;
                 push.style.cursor = "pointer";
+                push.style.backgroundColor = "rgba(61, 61, 61, 0.55)";
 
                 message.innerHTML = _data.message;
                 message.style.background = "#1a5e12";
