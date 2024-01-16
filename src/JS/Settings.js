@@ -419,7 +419,7 @@ function Settings()
                 _main.appendChild(div);
                 root = createRoot(div);
                 root.render(<Restriction_details key={`${_data.id}`} restriction = { _data.map((el, i) => <Detailed_Restriction key={`${el.title}_${i}`} 
-                Name = {el.field[0].toUpperCase() + el.field.slice(1)} Flag = {el.flag}
+                Name = {(el.field[0].toUpperCase() + el.field.slice(1)).replace("_", " ")} Flag = {el.flag}
                 />)}/>)
 
                 //create new setting_2
@@ -459,7 +459,7 @@ function Settings()
                 _main.appendChild(div);
                 root = createRoot(div);
                 root.render(<Restriction_details key={`${_data.id}`} restriction = { _data.map((el, i) => <Detailed_Restriction key={`${el.title}_${i}`} 
-                Name = {el.field[0].toUpperCase() + el.field.slice(1)} Flag = {el.flag}
+                Name = {(el.field[0].toUpperCase() + el.field.slice(1)).replace("_", " ")} Flag = {el.flag}
                 />)}/>)
 
                 //create new setting_2
@@ -524,7 +524,7 @@ function Settings()
                 _main.appendChild(div);
                 root = createRoot(div);
                 root.render(<Restriction_details key={`${_data.id}`} restriction = { _data.map((el, i) => <Detailed_Restriction key={`${el.title}_${i}`} 
-                Name = {el.field[0].toUpperCase() + el.field.slice(1)} Flag = {el.flag}
+                Name = {(el.field[0].toUpperCase() + el.field.slice(1)).replace("_", " ")} Flag = {el.flag}
                 />)}/>)
 
                 //create new setting_2
@@ -564,7 +564,7 @@ function Settings()
                 _main.appendChild(div);
                 root = createRoot(div);
                 root.render(<Restriction_details key={`${_data.id}`} restriction = { _data.map((el, i) => <Detailed_Restriction key={`${el.title}_${i}`} 
-                Name = {el.field[0].toUpperCase() + el.field.slice(1)} Flag = {el.flag}
+                Name = {(el.field[0].toUpperCase() + el.field.slice(1)).replace("_", " ")} Flag = {el.flag}
                 />)}/>)
 
                 //create new setting_2
@@ -771,7 +771,7 @@ function Settings()
                 {
                     _fetch = 
                     {
-                        field : fetch_field[i].innerHTML.toLowerCase(),
+                        field : (fetch_field[i].innerHTML.toLowerCase()).replace(" ", "_"),
                         flag : "app"
                     }
                     fetch_restrict[_c] = _fetch;
@@ -780,7 +780,7 @@ function Settings()
                 {
                     _fetch = 
                     {
-                        field : fetch_field[i].innerHTML.toLowerCase(),
+                        field : (fetch_field[i].innerHTML.toLowerCase()).replace(" ", "_"),
                         flag : "shopify"
                     }
                     fetch_restrict[_c] = _fetch;
@@ -794,7 +794,7 @@ function Settings()
                 {
                     _push = 
                     {
-                        field : fetch_field[i].innerHTML.toLowerCase(),
+                        field : (push_field[i].innerHTML.toLowerCase()).replace(" ", "_"),
                         flag : "app"
                     }
                     push_restrict[c_] = _push;
@@ -803,7 +803,7 @@ function Settings()
                 {
                     _push = 
                     {
-                        field : fetch_field[i].innerHTML.toLowerCase(),
+                        field : (push_field[i].innerHTML.toLowerCase()).replace(" ", "_"),
                         flag : "shopify"
                     }
                     push_restrict[c_] = _push;
@@ -834,6 +834,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
+                alert(xhr.responseText);
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -861,6 +862,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
+                alert(xhr.responseText);
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -1054,7 +1056,7 @@ function Settings()
                     true_false.style.display = "none";
                 }
             }
-        }, 250);
+        }, 350);
 
         //If the user changes any of the input fields/buttons show the save button
         setTimeout(() =>
@@ -1085,7 +1087,7 @@ function Settings()
                     confirm_line.style.display = "block";
                 });
             }
-        }, 250);
+        }, 350);
 
 
         /* Displays the warehouse map */
@@ -1178,14 +1180,26 @@ function Settings()
             /* Switch event Change*/
             let _switch = document.querySelectorAll(".switch");
             let confirm_line = document.querySelector(".confirm-line");
+            let flag_value = document.querySelectorAll(".flag_value");
+            let switch_check = document.querySelectorAll("#lide");
+
+
             for(let i = 0; i < _switch.length; i++)
             {
                 _switch[i].addEventListener("click", () =>
                 {
                     confirm_line.style.display = "block";
+                    if(switch_check[i].checked == true)
+                    {
+                        flag_value[i].innerHTML = "app"
+                    }
+                    else 
+                    {
+                        flag_value[i].innerHTML = "shopify"
+                    }
                 });
             }
-        }, 300);
+        }, 400);
         
 
     }, []);
@@ -1248,11 +1262,15 @@ function Settings()
                         <div className = "_shopify"></div>
                     </div> 
                     <div className = "restriction-settings">
-                        <div className = "title" title = "Restricts certain information from Shopify Fetch">Fetch Restrictions</div>
+                        <div className = "title" style ={{top: '-14px'}}>Fetch Restrictions
+                            <div className="info_icon" title="Restricts certain information when Fetching eg. Setting the title flag to 'shopify' means Shopify's value of that title will be fetched"></div>
+                        </div>
                     </div> 
 
                     <div className = "restriction-settings-2">
-                        <div className = "title" title = "Restricts certain information when pushing to Shopify">Push Restrictions</div>
+                        <div className = "title" style ={{top: '-14px'}}>Push Restrictions
+                            <div className="info_icon" title="Restricts certain information when pushing to Shopify eg. Setting the title flag to 'app' implies the Local value of that title will be pushed"></div>
+                        </div>
                     </div>
 
                 </div> 
