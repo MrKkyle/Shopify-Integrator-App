@@ -40,19 +40,17 @@ function Detailed_customer(props)
 
         /* When the user clicks on the return button */
         let close = document.querySelector(".rtn-button");
-        let filter = document.querySelector(".filter");
         let main = document.querySelector(".main");
         let navbar = document.getElementById("navbar");
         let details = document.querySelector(".details");
         close.addEventListener("click", ()=> 
         {
             close.style.display = "none";
-            details.style.animation = "Fadeout 0.5s ease-out";
-            
+            details.style.animation = "Fadeout 0.9s ease-out";
             setTimeout(() => 
             {
-                main.style.animation = "FadeIn ease-in 0.6s";
-                navbar.style.animation = "FadeIn ease-in 0.6s";
+                main.style.animation = "FadeIn ease-in 0.9s";
+                navbar.style.animation = "FadeIn ease-in 0.9s";
                 details.style.display = "none";
                 navbar.style.display = "block";
                 main.style.display = "block";
@@ -90,9 +88,7 @@ function Detailed_customer(props)
                                     <td>{props.Customer_Phone}</td>
                                 </tr>
                             </tbody>
-                        </table> 
-                        <div className = "details-description">Customer Warehousing</div> 
-                        <div className = "details-warehousing"></div>  
+                        </table>  
                     </div>
                     <div className = "details-right" style={{backgroundColor: 'transparent'}}></div>
                     <div className = "details-left" style={{backgroundColor: 'transparent'}}></div>
@@ -104,7 +100,9 @@ function Detailed_customer(props)
                 <div className = "detailed-image" />
                     <div className = "detailed" style={{backgroundColor: 'transparent'}}>
                         <div className = "details-title"> {props.Customer_firstName} Shipping Addresses</div>
-                        <div className = "variants" id="_variants" ></div>
+                        <div className = "variants" id="_variants" >
+                            <h2>Coming Soon ...</h2>
+                        </div>
                     </div>
                     <div className = "details-right" style={{backgroundColor: 'transparent'}}></div>
                     <div className = "details-left" style={{backgroundColor: 'transparent'}}></div>

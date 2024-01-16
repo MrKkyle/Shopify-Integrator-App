@@ -5,7 +5,12 @@ function Detailed_Table_View(props)
 {
     useEffect(()=> 
     {
+        let shipping = document.getElementById("Shipping_Type"); let shipping_amount = document.getElementById("Shipping_Amount");
+        let shipping_total = document.getElementById("Shipping_Total");
 
+        if(shipping.innerHTML == "") { shipping.innerHTML = "N/A"; console.log("XD");}
+        if(shipping_amount.innerHTML == "") { shipping_amount.innerHTML = 0; }
+        if(shipping_total.innerHTML == "") { shipping_total.innerHTML = 0; }
         
     }, []);
 
@@ -29,15 +34,15 @@ function Detailed_Table_View(props)
                 <td className="order_totals_headers">
                     Shipping
                 </td>
-                <td className="order_totals_middle">{props.Shipping_Type}</td>
-                <td className="order_totals_value">{props.Shipping_Amount}</td>
+                <td className="order_totals_middle" id = "Shipping_Type">{props.Shipping_Type}</td>
+                <td className="order_totals_value" id = "Shipping_Amount">{props.Shipping_Amount}</td>
             </tr>
             <tr className="order_totals_line">
                 <td className="order_totals_headers">
                     Total
                 </td>
                 <td className="order_totals_middle"></td>
-                <td className="order_totals_value">{props.Total}</td>
+                <td className="order_totals_value" id = "Shipping_Total">{props.Total}</td>
             </tr>
 
         </>

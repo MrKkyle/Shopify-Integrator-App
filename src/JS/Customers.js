@@ -107,7 +107,7 @@ function Customers()
                 let root = createRoot(div);
 
                 root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
-                Customer_firstName={el.first_name} Customer_lastName={el.last_name}
+                Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
                 />))
 
                 setTimeout(() =>
@@ -145,7 +145,7 @@ function Customers()
                     main_elements.appendChild(pan_main);
                     root = createRoot(pan_main);
                     root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
-                    Customer_firstName={el.first_name} Customer_lastName={el.last_name}
+                    Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
                     />))
                     DetailedView();
                     Pagintation(1);
@@ -164,7 +164,6 @@ function Customers()
                 pan[i].addEventListener("click", () =>
                 {
                     let id = pan[i].querySelector(".p-d-title").innerHTML;
-                    console.log(id);
                     /*  API  */
                     const api_key = localStorage.getItem('api_key');
                     $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
@@ -183,7 +182,7 @@ function Customers()
 
                             let rot = createRoot(details);
                             rot.render( <Detailed_customer key={`${_data.title}_${i}`} Customer_ID={_data.id}
-                            Customer_firstName={_data.first_name} Customer_lastName={_data.last_name}
+                            Customer_firstName={_data.first_name} Customer_lastName={_data.last_name} Customer_Phone={_data.phone}
                             />)
                         }
                         else 
@@ -193,7 +192,7 @@ function Customers()
                             customers.appendChild(details);
                             let rot = createRoot(details);
                             rot.render( <Detailed_customer key={`${_data.title}_${i}`} Customer_ID={_data.id}
-                            Customer_firstName={_data.first_name} Customer_lastName={_data.last_name}
+                            Customer_firstName={_data.first_name} Customer_lastName={_data.last_name} Customer_Phone={_data.phone}
                             />)
                         }
                     })
@@ -297,7 +296,7 @@ function Customers()
                         flushSync(() => 
                         { 
                             root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
-                            Customer_firstName={el.first_name} Customer_lastName={el.last_name}
+                            Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
                             />))
                         });
                     })
@@ -347,7 +346,7 @@ function Customers()
                         flushSync(() => 
                         { 
                             root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
-                            Customer_firstName={el.first_name} Customer_lastName={el.last_name}
+                            Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
                             />))
                         });
                     })
@@ -401,7 +400,7 @@ function Customers()
                         flushSync(() => 
                         { 
                             root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
-                            Customer_firstName={el.first_name} Customer_lastName={el.last_name}
+                            Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
                             />))
                         });
                     })
@@ -433,7 +432,7 @@ function Customers()
                         flushSync(() => 
                         { 
                             root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
-                            Customer_firstName={el.first_name} Customer_lastName={el.last_name}
+                            Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
                             />))
                         });
                     })

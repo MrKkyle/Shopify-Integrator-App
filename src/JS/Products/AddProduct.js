@@ -21,70 +21,85 @@ function Add_Product()
     {
         event.preventDefault();
 
-        let element = document.querySelector(".fr-element").firstChild;
-        console.log(element.innerHTML);
+        if(inputs.product_title == null)
+        {
+            let message = document.getElementById("message");
+            message.style.display = "block";
+            message.innerHTML = "Error - fill all required fields!";
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 2000);
+        }
+        else 
+        {
+            let element = document.querySelector(".fr-element").firstChild;
+            let select = document.querySelectorAll(".options");
 
-        let Object = 
-        {
-            product_code: inputs.product_code, 
-            title: inputs.product_title, 
-            body_html: element.innerHTML, 
-            category: inputs.product_category, 
-            vendor: inputs.product_vendor,
-            product_type: inputs.product_type, 
-            variants: 
-            [
-                {
-                    sku: inputs.variant_sku, 
-                    option1: inputs.variant_option1, 
-                    option2: inputs.variant_option2, 
-                    option3: inputs.variant_option3, 
-                    barcode: inputs.variant_barcode,
-                    variant_price_tiers: 
-                    [
-                        {
-                            name: inputs.price_tier_name,
-                            value: inputs.price_tier_value
-                        },
-                        {
-                            name: inputs.compareprice_tier_name,
-                            value: inputs.price_tier_value2
-                        }
-                    ],
-                    variant_quantities: 
-                    [
-                        {
-                            name: inputs.quantity_warehouse_name,
-                            value: parseInt(inputs.warehouse_quantity)
-                        }
-                    ]
-                }
-            ],
-            options: 
-            [
-                {
-                    value: inputs.product_options
-                },
-                {
-                    value: inputs.product_options2
-                }
-            ]
-        };
+            let Object = 
+            {
+                product_code: inputs.product_code, 
+                title: inputs.product_title, 
+                body_html: element.innerHTML, 
+                category: inputs.product_category, 
+                vendor: inputs.product_vendor,
+                product_type: inputs.product_type, 
+                variants: 
+                [
+                    {
+                        sku: inputs.variant_sku, 
+                        option1: inputs.variant_option1, 
+                        option2: inputs.variant_option2, 
+                        option3: inputs.variant_option3, 
+                        barcode: inputs.variant_barcode,
+                        variant_price_tiers: 
+                        [
+                            {
+                                name: inputs.price_tier_name,
+                                value: inputs.price_tier_value
+                            },
+                            {
+                                name: inputs.compareprice_tier_name,
+                                value: inputs.price_tier_value2
+                            }
+                        ],
+                        variant_quantities: 
+                        [
+                            {
+                                name: select[0].options[select[0].selectedIndex].innerHTML,
+                                value: parseInt(inputs.warehouse_quantity)
+                            }
+                        ]
+                    }
+                ],
+                options: 
+                [
+                    {
+                        value: inputs.product_options
+                    },
+                    {
+                        value: inputs.product_options2
+                    }
+                ]
+            };
 
-        console.log(Object);
-        const api_key = localStorage.getItem('api_key');
-        
-        $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-        $.post("http://localhost:8080/api/products", JSON.stringify(Object),[], 'json')
-        .done(function( _data) 
-        {
-            console.log(_data);
-        })
-        .fail( function(xhr) 
-        {
-            alert(xhr.responseText);
-        });
-        
+            console.log(Object);
+            const api_key = localStorage.getItem('api_key');
+            
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.post("http://localhost:8080/api/products", JSON.stringify(Object),[], 'json')
+            .done(function( _data) 
+            {
+                console.log(_data);
+            })
+            .fail( function(xhr) 
+            {
+                alert(xhr.responseText);
+            });
+        }  
     }
 
     useEffect(() =>
@@ -97,6 +112,8 @@ function Add_Product()
         /* Fix any incorrect elements */
         let navigation = document.getElementById("navbar");
         let modal = document.getElementById("model");
+        let message = document.getElementById("message");
+
         modal.style.display = "block";
         navigation.style.animation = "MoveRight 1.2s ease";
         navigation.style.position = "fixed";
@@ -191,7 +208,88 @@ function Add_Product()
             let element_box = document.querySelector(".fr-box");
             element_box.style.width = "95%"; element_box.style.left = "50%"; element_box.style.transform = "translate(-50%)";
         }, 20);
-        
+
+        function fetchShopify() 
+        {
+            const api_key = localStorage.getItem('api_key');
+            let shopify_locations  = [];
+            let warehouse_locations  = [];
+
+            /* Api-Request for shopify locations & warehouses */
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get('http://localhost:8080/api/inventory/config', [], [])
+            .done(function( _data) 
+            {
+                console.log(_data);
+
+                for(let i = 0; i < _data.warehouses.length; i++)
+                {
+                    warehouse_locations[i] = _data.warehouses[i].name;
+                }
+
+                for(let i = 0; i < _data.shopify_locations.locations.length; i++)
+                {
+                    shopify_locations[i] = _data.shopify_locations.locations[i].name; 
+                }
+
+                warehouseLocationsDOM(warehouse_locations);
+                
+            })
+            .fail( function(xhr) 
+            { 
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
+            });
+        }
+
+        function warehouseLocationsDOM(locations) 
+        {
+            let elements = document.querySelectorAll('.warehouse');
+            for (let i = 0; i < elements.length; i++) 
+            {
+                elements[i].innerHTML = "";
+                let drop_down = document.createElement('select')
+                drop_down.className = "options";
+                drop_down.style.padding = "8px";
+                drop_down.style.width = "90%";
+                let default_option = createOptions(true, "")
+                drop_down.appendChild(default_option);
+                for (let j = 0; j < locations.length; j++) 
+                {
+                    let option = createOptions(false, locations[j]);
+                    drop_down.appendChild(option);
+                }
+                elements[i].appendChild(drop_down);
+            }
+        }
+    
+        function createOptions(isDefault, location) 
+        {
+            let option = document.createElement('option');
+            if (isDefault) 
+            {
+                option.setAttribute("value", location);
+                option.innerHTML = "Select a location";
+            } 
+            else 
+            {
+                option.setAttribute("value", location);
+                option.innerHTML = location;
+            }
+            return option;
+        }
+
+        /* Timeout for the Warehouse/Location setting */
+        setTimeout(() =>
+        {
+            fetchShopify();
+        }, 100);
 
 
     }, []);
@@ -259,19 +357,16 @@ function Add_Product()
                         <div className = "details-details">
                             <div className = "detailed" style = {{backgroundColor: 'transparent'}}>
                                 <div className = "details-title">Variants</div>
-                                <div className = "variants" id="_variants" >
+                                <div className = "variants" id="_variants" style = {{width: '95%'}}>
                                 <table>
                                         <tbody>
                                             <tr>
                                                 <th>Variant Barcode</th>
-                                                <th>Variant ID</th>
                                                 <th>Variant SKU</th>
                                             </tr>
                                             <tr>
                                                 <td><input type = '_text' style = {{width: '100%'}} placeholder = "Variant Barcode" name = "variant_barcode" 
                                                 value = {inputs.variant_barcode || ""} onChange = {handleChange} required></input></td>
-                                                <td><input type = '_text' style = {{width: '100%'}} placeholder = "Variant ID" name = "variant_id" 
-                                                value = {inputs.variant_id || ""} onChange = {handleChange} required></input></td>
                                                 <td><input type = '_text' style = {{width: '100%'}} placeholder = "Variant SKU" name = "variant_sku" 
                                                 value = {inputs.variant_sku || ""} onChange = {handleChange} required></input></td>
                                             </tr>
@@ -318,26 +413,20 @@ function Add_Product()
                                         </table>
 
                                     <div className = "details-description">Variant Quantites</div>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <th>Warehouse Name</th>
-                                                    <th>Quantity</th>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type = '_text' style = {{width: '100%'}} placeholder = "Warehouse Name" name = "quantity_warehouse_name" 
-                                                    value = {inputs.quantity_warehouse_name || ""} onChange = {handleChange} required></input></td>
-                                                    <td><input type = '_text' style = {{width: '100%'}} placeholder = "Warehouse Quantity" name = "warehouse_quantity" 
+                                    <table style = {{marginBottom: '20px'}}>
+                                        <tbody>
+                                            <tr>
+                                                <th style = {{width: '40%'}}>Warehouse</th>
+                                                <th style = {{width: '20%'}}>Quantity</th>
+                                            </tr>
+                                            <tr>
+                                                <td className = "warehouse" style = {{width: '40%'}}></td>
+                                                <td><input type = '_text' style = {{width: '100%'}} name = "warehouse_quantity" 
                                                     value = {inputs.warehouse_quantity || ""} onChange = {handleChange} ></input></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type = '_text' style = {{width: '100%'}} placeholder = "Warehouse 2 Name" name = "quantity_warehouse_name2" 
-                                                    value = {inputs.quantity_warehouse_name2 || ""} onChange = {handleChange} required></input></td>
-                                                    <td><input type = '_text' style = {{width: '100%'}} placeholder = "Warehouse 2 Quantity" name = "warehouse_quantity2" 
-                                                    value = {inputs.warehouse_quantity2 || ""} onChange = {handleChange} ></input></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
                                     <div className = "details-description">Product Variant Options</div>
                                         <table>
                                             <tbody>
@@ -364,6 +453,7 @@ function Add_Product()
                 </div>
                 <button type = "submit" className = "submiit" style={{zIndex: '2'}}>Add Product</button>
                 </form>
+                <div className = 'info-message' style = {{zIndex: '5'}} id = 'message' />
             </div>    
         </>
     );

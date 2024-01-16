@@ -5,7 +5,7 @@ function Detailed_Restriction(props)
 {
     useEffect(()=> 
     {
-    
+
     }, []);
 
     return (
