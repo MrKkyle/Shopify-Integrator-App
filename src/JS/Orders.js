@@ -187,6 +187,69 @@ function Orders()
                                 let div_ = details.querySelector("#detailed_table");
                                 let rt = createRoot(_div);
                                 let _rt = createRoot(div_);
+                                if(_data.shipping_lines == "")
+                                {
+                                    rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
+                                    Tax_Amount={_data.tax_total} Shipping_Type={''} Shipping_Amount={''} 
+                                    Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(null)}
+                                    />)
+                                    _rt.render(_data.line_items.map((el, i) => <Detailed_table  key={`${_data.title}_${i}`} Order_SKU={el.sku} 
+                                    Quantity={el.qty} Barcode={el.barcode} Order_Price={el.price}
+                                    />))
+
+                                    let address = document.getElementById("address");
+                                    let rt_ = createRoot(address);
+                                    rt_.render(_data.customer.addresses.map((el, i) => <Detailed_Address key={`${_data.title}_${i}`}
+                                    Address_Name={el.address_type.charAt(0).toUpperCase() + el.address_type.slice(1)} Address1={el.address_1} Address2={el.address_2} 
+                                    Address3 ={el.city} Address4={el.suburb} Address5={el.postal_code}
+                                    />))
+                                }
+                                else 
+                                {
+                                    rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
+                                    Tax_Amount={_data.tax_total} Shipping_Type={_data.shipping_lines[0].sku} Shipping_Amount={_data.shipping_lines[0].price} 
+                                    Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(_data.shipping_lines[0].price)}
+                                    />)
+                                    _rt.render(_data.line_items.map((el, i) => <Detailed_table  key={`${_data.title}_${i}`} Order_SKU={el.sku} 
+                                    Quantity={el.qty} Barcode={el.barcode} Order_Price={el.price}
+                                    />))
+
+                                    let address = document.getElementById("address");
+                                    let rt_ = createRoot(address);
+                                    rt_.render(_data.customer.addresses.map((el, i) => <Detailed_Address key={`${_data.title}_${i}`}
+                                    Address_Name={el.address_type.charAt(0).toUpperCase() + el.address_type.slice(1)} Address1={el.address_1} Address2={el.address_2} 
+                                    Address3 ={el.city} Address4={el.suburb} Address5={el.postal_code}
+                                    />))
+                                }
+                                
+                            }, 10);    
+                        }
+                        else 
+                        //create new div
+                        {
+                            let _div = details.querySelector("#detailed_table_view");
+                            let div_ = details.querySelector("#detailed_table");
+                            let rt = createRoot(_div);
+                            let _rt = createRoot(div_);
+                            if(_data.shipping_lines == "")
+                            {
+                                rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
+                                Tax_Amount={_data.tax_total} Shipping_Type={''} Shipping_Amount={''} 
+                                Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(null)}
+                                />)
+                                _rt.render(_data.line_items.map((el, i) => <Detailed_table  key={`${_data.title}_${i}`} Order_SKU={el.sku} 
+                                Quantity={el.qty} Barcode={el.barcode} Order_Price={el.price}
+                                />))
+
+                                let address = document.getElementById("address");
+                                let rt_ = createRoot(address);
+                                rt_.render(_data.customer.addresses.map((el, i) => <Detailed_Address key={`${_data.title}_${i}`}
+                                Address_Name={el.address_type.charAt(0).toUpperCase() + el.address_type.slice(1)} Address1={el.address_1} Address2={el.address_2} 
+                                Address3 ={el.city} Address4={el.suburb} Address5={el.postal_code}
+                                />))
+                            }
+                            else 
+                            {
                                 rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
                                 Tax_Amount={_data.tax_total} Shipping_Type={_data.shipping_lines[0].sku} Shipping_Amount={_data.shipping_lines[0].price} 
                                 Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(_data.shipping_lines[0].price)}
@@ -201,30 +264,7 @@ function Orders()
                                 Address_Name={el.address_type.charAt(0).toUpperCase() + el.address_type.slice(1)} Address1={el.address_1} Address2={el.address_2} 
                                 Address3 ={el.city} Address4={el.suburb} Address5={el.postal_code}
                                 />))
-                            }, 0);    
-                        }
-                        else 
-                        //create new div
-                        {
-                            let _div = details.querySelector("#detailed_table_view");
-                            let div_ = details.querySelector("#detailed_table");
-                            let rt = createRoot(_div);
-                            let _rt = createRoot(div_);
-                            rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
-                            Tax_Amount={_data.tax_total} Shipping_Type={_data.shipping_lines[0].sku} Shipping_Amount={_data.shipping_lines[0].price} 
-                            Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(_data.shipping_lines[0].price)}
-                            />)
-
-                            _rt.render(_data.line_items.map((el, i) => <Detailed_table  key={`${_data.title}_${i}`}Order_SKU={el.sku} 
-                            Quantity={el.qty} Barcode={el.barcode} Order_Price={el.price}
-                            />))
-
-                            let address = document.getElementById("address");
-                            let rt_ = createRoot(address);
-                            rt_.render(_data.customer.addresses.map((el, i) => <Detailed_Address key={`${_data.title}_${i}`}
-                            Address_Name={el.address_type.charAt(0).toUpperCase() + el.address_type.slice(1)} Address1={el.address_1} Address2={el.address_2} 
-                            Address3 ={el.city} Address4={el.suburb} Address5={el.postal_code}
-                            />))
+                            }
                         }
                     })
                     .fail( function(xhr) 

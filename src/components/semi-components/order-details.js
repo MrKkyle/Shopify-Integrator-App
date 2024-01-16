@@ -52,7 +52,7 @@ function Order_details(props)
                 <a href = "/#" className = "p-d-code">{props.Order_WebCode}</a>
                 <br/><br/>
 
-                <a href = "/#" className = "p-d-id">{props.Order_ID}</a> <a href = "/#" className = "p-d-category">{props.Order_firstName}</a> <b>|</b> <a href = "/#" className = "p-d-type">{props.Order_lastName}</a> 
+                <a href = "/#" className = "p-d-id">{props.Order_ID}</a> <a href = "/#" className = "p-d-category">{props.Order_firstName} {props.Order_lastName}</a> 
             </div>
         </div>
     );

@@ -18,7 +18,6 @@ function Detailed_shipping(props)
 
     return (
         <>
-
             <table>
                 <tbody>
                     <tr>

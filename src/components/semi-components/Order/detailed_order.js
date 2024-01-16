@@ -65,7 +65,7 @@ function Detailed_order(props)
             <div className="tabcontent" id="_Order" >
                 <div className = "details-details">
                     <div className = "detailed" style={{backgroundColor: 'transparent'}}>
-                        <div className = "details-title">Customer Orders</div>
+                        <div className = "details-title" style = {{paddingBottom: '0px'}}>Customer Orders</div>
 
                         <div className="order_header_div">
                             <div className="view_order_title">

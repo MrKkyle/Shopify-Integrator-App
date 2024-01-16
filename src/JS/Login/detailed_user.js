@@ -42,18 +42,18 @@ function Detailed_User(props)
                 <tbody>
                     <tr>
                         <td style= {{width: '25%'}}>Name</td>
-                        <td style= {{width: '25%'}} className = 'user_info'>{props.name}</td>
-                        <td style= {{width: '25%'}}><button className = 'button' type = 'button'>Copy to Clipboard</button></td>
+                        <td style= {{width: '25%'}}>{props.name}</td>
+                        <td style= {{width: '25%'}}></td>
                     </tr>
                     <tr>
                         <td style= {{width: '25%'}}>Email</td>
-                        <td style= {{width: '25%'}} className = 'user_info'>{props.email}</td>
-                        <td style= {{width: '25%'}}><button className = 'button' type = 'button'>Copy to Clipboard</button></td>
+                        <td style= {{width: '25%'}}>{props.email}</td>
+                        <td style= {{width: '25%'}}></td>
                     </tr>
                     <tr>
                         <td style= {{width: '25%'}}>Api Key</td>
                         <td style= {{width: '25%'}} className = 'user_info'>{props.api_key}</td>
-                        <td style= {{width: '25%'}}><button className = 'button' type = 'button'>Copy to Clipboard</button></td>
+                        <td style= {{width: '25%'}}><button className = 'button' type = 'button'>Copy</button></td>
                     </tr>
                 </tbody>
             </table>

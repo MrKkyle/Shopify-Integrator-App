@@ -134,7 +134,6 @@ function Dashboard()
                         borderWidth: 1,
                         borderColor: "rgba(255, 94, 0, 0.5)",
                         backgroundColor: "orange",
-                        pointRadius: "5",
                         color: "red",
                     }]
                 },
