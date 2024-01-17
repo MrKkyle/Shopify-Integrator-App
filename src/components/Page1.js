@@ -24,23 +24,23 @@ function Page1(props)
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))
-      }
+    }
 
     const Filter = (event) =>
     {
         event.preventDefault();
 
-        let category = document.querySelector(".category");
-        let type = document.querySelector(".type");
-        let vendor = document.querySelector(".vendor");
+        let category = document.querySelector("#_category"); let _category = document.querySelector(".category");
+        let type = document.querySelector("#_type"); let _type = document.querySelector(".type");
+        let vendor = document.querySelector("#_vendor"); let _vendor = document.querySelector(".vendor");
+        
+        if(category.value == undefined) {category.value = "";}
+        if(type.value == undefined) {type.value = "";}
+        if(vendor.value == undefined) {vendor.value = "";}
 
-        if(inputs.category == undefined) {inputs.category = "";}
-        if(inputs.vendor == undefined){inputs.vendor = ""; }
-        if(inputs.type == undefined){inputs.type = ""; }
+        _category.innerHTML = category.value; _type.innerHTML = type.value;
+        _vendor.innerHTML = vendor.value;
 
-        category.innerHTML = inputs.category;
-        type.innerHTML = inputs.type;
-        vendor.innerHTML = inputs.vendor;
 
         let filter_input = document.querySelectorAll(".filter-selection-main");
         let navbar = document.querySelector(".navbar"); let main = document.querySelector(".main"); 
@@ -118,6 +118,8 @@ function Page1(props)
                 filter_img[i].style.display = "none";
                 filter[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
                 filter_input[i].style.display = "none";
+                let element = close[i].parentElement;
+                element.querySelector(".input_field").value = "";
             });
 
             /* Clear Filter */
@@ -251,10 +253,13 @@ function Page1(props)
             let vendor = document.querySelector(".vendor").innerHTML;
             let next = document.getElementById("next");
 
+            console.log(category); console.log(type); console.log(vendor); 
+
             $.get("http://localhost:8080/api/products/filter?type=" +type + "&" + "vendor="+ vendor +"&category="+category,[], [], 'json')
             .done(function( _data) 
             {
                 console.log(_data);
+                category = ""; type = ""; vendor = "";
                 
                 if(_data.length < 10)
                 {
@@ -609,11 +614,6 @@ function Page1(props)
             })
             .fail( function(xhr) { alert(xhr.responseText); }); 
         });
-        
-        
-        
-
-
     }, []);
 
     return (
@@ -626,19 +626,16 @@ function Page1(props)
                     <div className = "type"></div>
                 </div>
                 <div className = "filter-elements">
-                    <div className = "filter-elements-text">Filter By Type</div>
+                    <div className = "filter-elements-text">Filter By Vendor</div>
                     <div className = "filter-img"/>
                     <div className = "vendor"></div>
                 </div>
                 <div className = "filter-elements">
-                    <div className = "filter-elements-text">Filter By Type</div>
+                    <div className = "filter-elements-text">Filter By Category</div>
                     <div className = "filter-img"/>
                     <div className = "category"></div>
                 </div>
-                <br />
-                <div className = "vendor"></div>
-                <div className = "type"></div>
-                <div className = "category"></div>
+                <br/>
 
                 <div id = "button-hold">
                     <button id = "clear_filter"className = "filter-button">Clear Filter</button>
@@ -657,7 +654,7 @@ function Page1(props)
                     <div className = 'close-filter'>&times;</div>
                     <div className = "filter-selection-title">Filter Type</div>
                     <form method = 'post' onSubmit={(event) => Filter(event)} autoComplete='off'>
-                        <span><input type = 'type' placeholder = "Enter Type" name = "type" value = {inputs.type || ""} onChange = {handleChange} required></input></span>
+                        <span><input className = "input_field" id = "_type" type = 'type' placeholder = "Enter Type" name = "type" required></input></span>
                         <br/><br/><br/>
                         <button className = 'button' type = 'submit'>Confirm</button>
                     </form>
@@ -669,7 +666,7 @@ function Page1(props)
                     <div className = 'close-filter'>&times;</div>
                     <div className = "filter-selection-title">Filter Vendor</div>
                     <form method = 'post' onSubmit={(event) => Filter(event)} autoComplete='off'>
-                        <span><input type = 'vendor' placeholder = "Enter Vendor" name = "vendor" value = {inputs.vendor || ""} onChange = {handleChange} required></input></span>
+                        <span><input className = "input_field" id = "_vendor" type = 'vendor' placeholder = "Enter Vendor" name = "vendor"required></input></span>
                         <br/><br/><br/>
                         <button className = 'button' type = 'submit'>Confirm</button>
                     </form>
@@ -680,7 +677,7 @@ function Page1(props)
                     <div className = 'close-filter'>&times;</div>
                     <div className = "filter-selection-title">Filter Category</div>
                     <form method = 'post' onSubmit={(event) => Filter(event)} autoComplete='off'>
-                        <span><input type = 'type' placeholder = "Enter Category" name = "category" value = {inputs.category || ""} onChange = {handleChange} required></input></span>
+                        <span><input className = "input_field" id = "_category" type = 'type' placeholder = "Enter Category" name = "category" required></input></span>
                         <br/><br/><br/>
                         <button className = 'button' type = 'submit'>Confirm</button>
                     </form>

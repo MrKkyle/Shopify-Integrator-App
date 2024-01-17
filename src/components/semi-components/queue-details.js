@@ -47,7 +47,6 @@ function Queue_details(props)
             }
         }
 
-
         /* Activity of pan elements */
         let activity = document.querySelectorAll(".status");
         let option = document.querySelectorAll("#options");
@@ -65,6 +64,16 @@ function Queue_details(props)
             {
                 option[i].className = "p-d-false";
             }
+        }
+
+        let id = document.querySelectorAll(".p-d-id"); let type = document.querySelectorAll(".p-d-type");
+        let status = document.querySelectorAll(".p-d-status");
+
+        for(let i = 0; i < id.length; i++)
+        {
+            if(id[i].innerHTML == "") { id[i].style.display = "none"; }
+            if(type[i].innerHTML == "") { type[i].style.display = "none"; }
+            if(status[i].innerHTML == "") { status[i].style.display = "none"; }
         }
     }, []);
 

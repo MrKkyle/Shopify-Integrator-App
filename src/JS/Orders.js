@@ -191,7 +191,7 @@ function Orders()
                                 {
                                     rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
                                     Tax_Amount={_data.tax_total} Shipping_Type={''} Shipping_Amount={''} 
-                                    Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(null)}
+                                    Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total)}
                                     />)
                                     _rt.render(_data.line_items.map((el, i) => <Detailed_table  key={`${_data.title}_${i}`} Order_SKU={el.sku} 
                                     Quantity={el.qty} Barcode={el.barcode} Order_Price={el.price}
@@ -235,7 +235,7 @@ function Orders()
                             {
                                 rt.render(<Detailed_Table_View key={`${_data.title}_${i}`} Sub_Total={_data.order_total} Tax_Percent={((_data.tax_total)/(_data.order_total))*100}
                                 Tax_Amount={_data.tax_total} Shipping_Type={''} Shipping_Amount={''} 
-                                Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total) + parseFloat(null)}
+                                Total={parseFloat(_data.order_total) + parseFloat(_data.tax_total)}
                                 />)
                                 _rt.render(_data.line_items.map((el, i) => <Detailed_table  key={`${_data.title}_${i}`} Order_SKU={el.sku} 
                                 Quantity={el.qty} Barcode={el.barcode} Order_Price={el.price}
