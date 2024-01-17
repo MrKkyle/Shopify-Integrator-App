@@ -595,7 +595,7 @@ function Page1(props)
             
             const api_key = localStorage.getItem('api_key');
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-            $.get("http://localhost:8080/api//shopify/sync", [], [])
+            $.post("http://localhost:8080/api/shopify/sync", [], [])
             .done(function( _data) 
             {
                 console.log(_data);
