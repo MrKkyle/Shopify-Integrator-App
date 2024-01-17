@@ -494,6 +494,13 @@ function Products()
         C_filter.addEventListener("click", () => 
         {
             document.querySelector(".empty-message").style.display = "none";
+            let category = document.getElementById("_category"); 
+            let type = document.getElementById("_type")
+            let vendor = document.getElementById("_vendor");
+
+            category.value = "";
+            type.value = "";
+            vendor.value = "";
 
             const api_key = localStorage.getItem('api_key');
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });

@@ -123,6 +123,8 @@ function Dashboard()
 
         setTimeout(() =>
         {
+            let order_label = (graph_data2.days).concat(graph_data3.days);
+
             /* FETCH GRAPH */
             new Chart(ctx, {
                 type: 'line',
@@ -151,7 +153,7 @@ function Dashboard()
             new Chart(order_ctx, {
                 type: 'bar',
                 data: {
-                    labels: graph_data2.days,
+                    labels: order_label,
                     datasets: [{
                         label: 'Paid orders from Shopify (totals)',
                         data: graph_data3.count,
@@ -215,7 +217,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/products?page=1", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 let bubble = document.createElement("div");

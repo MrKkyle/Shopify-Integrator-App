@@ -40,6 +40,13 @@ function Order_details(props)
                 pan_details[i].style.color = "black";
             }
         }
+
+        let category = document.querySelectorAll(".p-d-category");
+
+        for(let i = 0; i < category.length; i++)
+        {
+            if(category[i].innerHTML == "") { category[i].style.display = "none"; }
+        }
     }, []);
 
     return (
