@@ -3,6 +3,7 @@ import {useState} from "react";
 import $ from 'jquery';
 import '../../CSS/login.css';
 
+
 function Export_Product()
 {
     const ExportProduct = (event) =>
@@ -49,7 +50,7 @@ function Export_Product()
         <>
             <div className = 'modal1' id = "model" style={{background:'linear-gradient(to bottom, #202020c7, #111119f0)', zIndex: '2'}}>
 
-                <form className = 'modal-content' style ={{backgroundColor: 'none'}} method = 'post' onSubmit={(event) => ExportProduct(event)} autoComplete='off' id = 'form1'>
+                <form className = 'modal-content' style ={{backgroundColor: 'none', top: '40%'}} method = 'post' onSubmit={(event) => ExportProduct(event)} autoComplete='off' id = 'form1'>
                     <div className = 'modal-container'style = {{backgroundColor: 'transparent'}} id = "main">
                         <label style = {{fontSize: '18px', textDecoration:'underline'}}><b>Export Product</b></label>
                         <br /><br /><br />

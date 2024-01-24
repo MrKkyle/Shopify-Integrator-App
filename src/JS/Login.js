@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import Detailed_User from './Login/detailed_user';
 import '../CSS/login.css';
+import google_image from '../media/google.png';
 
 function Login()
 {
@@ -163,6 +164,32 @@ function Login()
 
     useEffect(()=> 
     {
+        let message = document.getElementById("message");
+        window.onload = function(event)
+        {
+            /* Check done to see if user's cookie already exists */
+            $.get("http://localhost:8080/api/google/oauth2/login", [], [], 'json')
+            .done(function( _data) 
+            {
+                console.log(_data);
+
+                
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 2000);
+            })
+            .fail( function(xhr) 
+            {
+                message.innerHTML = "Please login again";
+                message.style.background = "#9f0a0a";
+                setTimeout(() => { message.innerHTML = ""; message.style.backgroundColor = "transparent"; message.style.display = "none"; }, 2000);
+            });
+            
+        }
+
         /* Ensure the model is shown */
         let model = document.getElementById("model");
         let navbar = document.getElementById("navbar");
@@ -206,7 +233,7 @@ function Login()
             return_button.style.display = "block";
         });
 
-        
+        /* Proceed button on registration form */
         let clip = document.getElementById("clip");
         clip.addEventListener("click", () =>
         {   
@@ -220,6 +247,13 @@ function Login()
                 
                 setTimeout(() =>{ window.location.reload(); }, 1000);
             }, 1000)
+        });
+        
+        /* Google login button */
+        let google_button = document.querySelector(".google-btn");
+        google_button.addEventListener("click", () =>
+        {
+            window.location.href = 'http://localhost:8080/api/google/login';
         });
 
         /* Rain Functions */
@@ -312,6 +346,13 @@ function Login()
                     <span><input type = 'password' placeholder = "Password" name = "password" value = {inputs.password || ""} onChange = {handleChange} required></input></span>
                     <br /><br />
                     <button className = 'button' type = 'submit'>Proceed</button> <div id = "reg" className = 'text'>Or Register</div>
+
+                    <div className="google-btn">
+                        <div className="google-icon-wrapper">
+                            <img className="google-icon" src={google_image}/>
+                        </div>
+                        <p className="btn-text"><b>Sign in with google</b></p>
+                    </div>
                 </div>
             </form>
 

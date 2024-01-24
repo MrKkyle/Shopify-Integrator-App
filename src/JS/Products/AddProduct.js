@@ -7,6 +7,11 @@ import FroalaEditorComponent from 'react-froala-wysiwyg';
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+
+
 function Add_Product()
 {
     const[inputs, setInputs] = useState({});
@@ -36,7 +41,7 @@ function Add_Product()
         }
         else 
         {
-            let element = document.querySelector(".fr-element").firstChild;
+            let element = document.querySelector(".ql-editor");
             let select = document.querySelectorAll(".options");
 
             let Object = 
@@ -87,6 +92,7 @@ function Add_Product()
             };
 
             console.log(Object);
+            
             const api_key = localStorage.getItem('api_key');
             
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
@@ -99,6 +105,7 @@ function Add_Product()
             {
                 alert(xhr.responseText);
             });
+            
         }  
     }
 
@@ -205,8 +212,7 @@ function Add_Product()
         /* Styles for fr-box element */
         setTimeout(() => 
         {
-            let element_box = document.querySelector(".fr-box");
-            element_box.style.width = "95%"; element_box.style.left = "50%"; element_box.style.transform = "translate(-50%)";
+
         }, 20);
 
         function fetchShopify() 
@@ -337,10 +343,8 @@ function Add_Product()
                                     </tbody>
                                 </table> 
                                 <div className = "details-description">Product Description</div>
-                                    <FroalaEditorComponent name = "product_description" tag = 'textarea' 
-                                    placeholderText = "Product Description" value = {inputs.product_description || ""}/>
-
-                                    
+                                    <ReactQuill id = "react-quill" theme="snow" name = "product_description" />
+  
                             </div>
                             <div className = "details-left" style = {{backgroundColor: 'transparent'}}/>
                             <div className = "details-right" style = {{backgroundColor: 'transparent'}}>

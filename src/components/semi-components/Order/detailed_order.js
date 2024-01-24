@@ -59,7 +59,6 @@ function Detailed_order(props)
             <div className = 'rtn-button'></div>
             <div className = "button-holder">
                 <button className="tablink" id = "Order">Order</button>
-                <button className="tablink" id ="Variants">Addresses</button>
             </div>
         
             <div className="tabcontent" id="_Order" >

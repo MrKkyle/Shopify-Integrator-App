@@ -2,6 +2,9 @@ import {useEffect} from 'react';
 import $ from 'jquery';
 import '../../../CSS/detailed.css';
 import '../../../CSS/page1.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 function Detailed_product(props)
 {
     useEffect(()=> 
@@ -63,6 +66,15 @@ function Detailed_product(props)
         let slider = document.querySelector(".switch"); let title = document.querySelector("#title");
         edit.addEventListener("click", () =>
         {
+            /* Repalce with quill editor */
+            let description = document.getElementById("description");
+            let div = document.createElement("div");
+
+
+            edit.style.backgroundColor= "rgb(72, 101, 128)";
+            edit.style.color="aliceblue";
+            edit.disabled = "true";
+            edit.style.cursor = "not-allowed";
             /* find the number of product_options */
             let product_options = document.querySelectorAll(".product_options"); 
             let d_options = document.getElementById("d_options");
@@ -84,7 +96,7 @@ function Detailed_product(props)
             }
 
 
-            let td_list = document.querySelectorAll("td"); let description = document.getElementById("description");
+            let td_list = document.querySelectorAll("td");
             let variant_updateDate = document.querySelector(".variant-updateDate");
             slider.style.pointerEvents = "auto";
             confirm.style.display = "block";
@@ -98,6 +110,10 @@ function Detailed_product(props)
 
         confirm.addEventListener("click", () =>
         {
+            edit.style.backgroundColor= "white";
+            edit.style.color = "black";
+            edit.disabled = "false";
+            edit.style.cursor = "pointer";
             let td_list = document.querySelectorAll("td"); let description = document.getElementById("description");
             let variant_updateDate = document.querySelector(".variant-updateDate"); let price = document.querySelectorAll(".price");
             let barcode = document.querySelectorAll(".barcode"); let sku = document.querySelectorAll(".sku"); 
@@ -225,7 +241,7 @@ function Detailed_product(props)
             let id = document.querySelector("._id").innerHTML;
             console.log(object);
             
-            
+            /*
             const api_key = localStorage.getItem('api_key');
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key}, type: 'PUT' });
 
@@ -240,6 +256,7 @@ function Detailed_product(props)
             {
                 alert(xhr.responseText);
             });
+            */
             
         });
 
@@ -309,7 +326,11 @@ function Detailed_product(props)
                             </tbody>
                         </table> 
                         <div className = "details-description">Product Description</div>
-                        <div className = "description" id = "description" style = {{resize:'none'}} rows = "5" cols = "80">{props.Product_Description}</div>
+                        <ReactQuill  >
+                            <div id = "description" />
+                        </ReactQuill>
+                        <br />  
+
 
                         <div className = "details-description">Product Options</div> 
                         <div className = "details-options">
@@ -343,7 +364,7 @@ function Detailed_product(props)
                 </div>
             </div>
             <div className = "confirm-line">
-                <button className="tablink" id = "confirm" style ={{left: '50%'/*, transform: 'translate(-50%)'*/}}>Save</button>
+                <button className="tablink" id = "confirm" style ={{left: '50%'}}>Save</button>
             </div>
         </div>
     );

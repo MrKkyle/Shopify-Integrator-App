@@ -146,7 +146,8 @@ input[type = return]
     height: 40px;
     position: relative;
     color: black;
-    border: 1px solid #000000;
+    border: none;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
     border-radius: 4px;
     color: white;
     transition-duration: 0.4s;
@@ -155,7 +156,7 @@ input[type = return]
 .button:hover
 {
 	color: rgb(255, 255, 255);
-	border: 1px solid white;
+    box-shadow: 0 0 6px #686868;
 }
 .reg-portion 
 {
@@ -544,5 +545,79 @@ input #file-upload-button
 {
     top: 20px;
 }
-
-
+/* Imported file output table */
+.output 
+{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: rgba(92, 92, 92, 0.438);
+    height: 220px;
+    width: 50%;
+    overflow: auto;
+    z-index: 3;
+}
+.output-table 
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 40px;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+}
+/* Google Login button */
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+.google-btn 
+{
+    position: relative;
+    margin-top: 15px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 184px;
+    height: 42px;
+    background-color: #4285f4;
+    border-radius: 2px;
+    transition-duration: 0.2s;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+    cursor: pointer;
+}
+.google-btn .google-icon-wrapper 
+{
+	 position: absolute;
+	 margin-top: 1px;
+	 margin-left: 1px;
+	 width: 40px;
+	 height: 40px;
+	 border-radius: 2px;
+	 background-color: #fff;
+}
+.google-btn .google-icon 
+{
+    margin-top: 9px;
+    width: 22px;
+    height: 22px;
+}
+.google-btn .btn-text 
+{
+    float: right;
+    margin: 11px 11px 0 0;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    padding: 2px;
+}
+.google-btn:hover 
+{
+	 box-shadow: 0 0 6px #4285f4;
+}
+.google-btn:active 
+{
+	 background: #1669f2;
+}
+ 

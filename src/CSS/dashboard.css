@@ -28,6 +28,7 @@
     width: 100%;
     animation: FadeIn ease-in 1s;
     transition-duration: 0.4s;
+    z-index: 1;
 }
 
 /* KEENAN CSS */

@@ -34,13 +34,10 @@ function Products()
     {
         /* Ensures the page elements are set correctly */
         let navigation = document.getElementById("navbar");
-        window.onload = function(event)
-        {
-            navigation.style.left = "30%";
-            navigation.style.position = "absolute";
-            navigation.style.width = "70%";
-            navigation.style.animation = "MoveLeft 0.8s ease";
-        }
+        navigation.style.left = "30%";
+        navigation.style.position = "absolute";
+        navigation.style.width = "70%";
+        navigation.style.animation = "MoveLeft 0.8s ease";
 
         /*  API INITIAL-REQUEST */
         const api_key = localStorage.getItem('api_key');
@@ -173,7 +170,8 @@ function Products()
                             /* For some reason it wont pick up the element unless it throw it here */
                             setTimeout(() =>
                             {
-                                details.querySelector(".description").innerHTML = _data.body_html;
+                                
+                                details.querySelector("#description").innerHTML = _data.body_html;
                                 let _div = details.querySelectorAll(".auto-slideshow-container");
                                 for(let i = 0; i < _div.length; i++)
                                 {
@@ -190,7 +188,7 @@ function Products()
                                 Quantities={el.variant_quantities.map((el, i) => <Detailed_Quantities key={`${el.title}_${i}`} quantity_value = {el.value} 
                                 quantity_name={el.name}/>)}
                                 />))
-                            }, 10);
+                            }, 20);
                         }
                         else 
                         //create new div
@@ -205,7 +203,7 @@ function Products()
                             /* For some reason it wont pick up the element unless it throw it here */
                             setTimeout(() =>
                             {
-                                details.querySelector(".description").innerHTML = _data.body_html;
+                                details.querySelector("#description").innerHTML = _data.body_html;
                                 let _div = details.querySelectorAll(".auto-slideshow-container");
                                 for(let i = 0; i < _div.length; i++)
                                 {
@@ -228,7 +226,7 @@ function Products()
                                 Quantities={el.variant_quantities.map((el, i) => <Detailed_Quantities key={`${el.title}_${i}`} quantity_value = {el.value} 
                                 quantity_name={el.name}/>)}
                                 /> ))
-                            }, 0);
+                            }, 20);
                         }
                     })
                     .fail( function(xhr) 

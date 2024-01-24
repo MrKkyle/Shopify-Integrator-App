@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 import Chart from "chart.js/auto";
 import Queue_details from './semi-components/queue-details';
 import Detailed_queue from './semi-components/Queue/detailed_queue';
-import Background from './Background';
 import $ from 'jquery';
 
 import '../CSS/page1.css';
@@ -54,9 +53,49 @@ function Page2(props)
         let filter = document.querySelectorAll(".filter-elements");
         let filter_img = document.querySelectorAll(".filter-img");
         let C_filter = document.getElementById("clear_filter");
+        let queue_items = document.querySelectorAll(".queue-items");
+        let queue_img = document.querySelectorAll(".queue-img");
 
         filter_button.disabled = true;
         C_filter.disabled = true;
+
+        for(let i = 0 ; i < queue_items.length; i++)
+        {
+            queue_items[i].addEventListener("click", () => 
+            {
+                queue_img[i].style.display = "block";
+                queue_items[i].style.backgroundColor = "rgba(64, 165, 24, 0.7)";
+
+                filter_button.disabled = false;
+                C_filter.disabled = false;
+                filter_button.style.cursor = "pointer";
+                C_filter.style.cursor = "pointer";
+
+                for(let i = 0; i < filter.length; i++)
+                {
+                    queue_items[i].style.cursor = "not-allowed";
+                    queue_items[i].style.pointerEvents = "none";
+                } 
+            });
+
+            /* Clear Filter */
+            C_filter.addEventListener("click", () =>
+            {
+                queue_img[i].style.display = "none";
+                queue_items[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
+
+                filter_button.disabled = true;
+                C_filter.disabled = true;
+                filter_button.style.cursor = "not-allowed";
+                C_filter.style.cursor = "not-allowed";
+
+                for(let i = 0; i < filter.length; i++)
+                {
+                    queue_items[i].style.pointerEvents = "";
+                    queue_items[i].style.cursor = "pointer";
+                }
+            });
+        }
 
         for(let i = 0; i < filter.length; i++)
         {
@@ -73,8 +112,8 @@ function Page2(props)
 
                 for(let i = 0; i < filter.length; i++)
                 {
-                    filter[i].style.pointerEvents = "none";
                     filter[i].style.cursor = "not-allowed";
+                    filter[i].style.pointerEvents = "none";
                 } 
             });
 
@@ -100,70 +139,83 @@ function Page2(props)
         filter_button.addEventListener("click", () =>
         {
             let next = document.getElementById("next");
+            let fi;
+            let qi;
             for(let i = 0; i < filter_img.length; i++)
             {
                 if(filter_img[i].style.display == "block")
                 {
-                    let type = filter_img[i].nextSibling.className;
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get("http://localhost:8080/api/queue/filter?type=" + type, [], [], 'json')
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        if(_data.length < 10)
-                        {
-                            next.disabled = true;
-                            next.style.cursor = "not-allowed";
-                        }
-                        if(_data == "")
-                        {
-                            document.querySelector(".pan-main").remove();
-                            document.querySelector(".empty-message").style.display = "block";
-                        }
-                        else 
-                        {
-                            if(document.querySelector(".pan-main") != null)
-                            {
-                                document.querySelector(".pan-main").remove();
-                                let pan_main = document.createElement('div');
-                                let main_elements = document.querySelector(".main-elements");
-                                pan_main.className = "pan-main";
-                                main_elements.appendChild(pan_main);
-
-                                let root = createRoot(pan_main);
-                                flushSync(() => 
-                                {
-                                    root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
-                                    Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                                    />))
-                                });
-                                setTimeout(() => { DetailedView();}, 200);
-                            }
-                            else 
-                            {
-                                let pan_main = document.createElement('div');
-                                let main_elements = document.querySelector(".main-elements");
-                                pan_main.className = "pan-main";
-                                main_elements.appendChild(pan_main);
-
-                                let root = createRoot(pan_main);
-                                flushSync(() => 
-                                {
-                                    root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
-                                    Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                                    />))
-                                });
-                                setTimeout(() => { DetailedView();}, 200);
-                            }
-                        }
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
+                    fi = i;
                 }
-            }
-            Filter_Pagintation(1);
-        });
+            }    
 
+            for(let i = 0; i < queue_img.length; i++)
+            {
+                if(queue_img[i].style.display == "block")
+                {
+                    qi = i;
+                }
+            } 
+
+            let type = filter_img[fi].nextSibling.className;
+            let status = queue_img[qi].nextSibling.className;
+            const api_key = localStorage.getItem('api_key');
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get("http://localhost:8080/api/queue/filter?type=" + type + "&status=" + status, [], [], 'json')
+            .done(function( _data) 
+            {
+                console.log(_data);
+                if(_data.length < 10)
+                {
+                    next.disabled = true;
+                    next.style.cursor = "not-allowed";
+                }
+                if(_data == "")
+                {
+                    document.querySelector(".pan-main").remove();
+                    document.querySelector(".empty-message").style.display = "block";
+                }
+                else 
+                {
+                    if(document.querySelector(".pan-main") != null)
+                    {
+                        document.querySelector(".pan-main").remove();
+                        let pan_main = document.createElement('div');
+                        let main_elements = document.querySelector(".main-elements");
+                        pan_main.className = "pan-main";
+                        main_elements.appendChild(pan_main);
+
+                        let root = createRoot(pan_main);
+                        flushSync(() => 
+                        {
+                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
+                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
+                            />))
+                        });
+                        setTimeout(() => { DetailedView();}, 200);
+                    }
+                    else 
+                    {
+                        let pan_main = document.createElement('div');
+                        let main_elements = document.querySelector(".main-elements");
+                        pan_main.className = "pan-main";
+                        main_elements.appendChild(pan_main);
+
+                        let root = createRoot(pan_main);
+                        flushSync(() => 
+                        {
+                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
+                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
+                            />))
+                        });
+                        setTimeout(() => { DetailedView();}, 200);
+                    }
+                }
+            })
+            .fail( function(xhr) { alert(xhr.responseText); });
+            Filter_Pagintation(1);
+        });  
+    
         function DetailedView()
         {
             let queue = document.querySelector(".queue");
@@ -183,7 +235,6 @@ function Page2(props)
                         if(document.querySelector(".details") != null)
                         //div already exists, remove it, and create another
                         {
-
                             document.querySelector(".details").remove();
                             let details = document.createElement('div');
                             details.className = "details";
@@ -519,6 +570,7 @@ function Page2(props)
             alert(xhr.responseText);
         });
 
+        /*
         let ctx = document.getElementById("queue-graph");
         setTimeout(() =>
         {
@@ -548,47 +600,64 @@ function Page2(props)
             });
         }, 200);
 
+        
         let graph = document.querySelector(".graph");
         setTimeout(() =>
         {
             graph.style.animation = "SlideUp2 0.8s ease-in";
             graph.style.display = "block";
         }, 1200);
+        */
     
     }, []);
 
     return (
         <>
-            <Background />
             <div className = "filter" style = {{display: props.filter_display}}>
                 <div className = "filter-title"><b>Available Filters:</b></div>
-                <div className = "filter-elements">
+                <div className = "filter-elements" style = {{height: '6%'}} disabled>
                     <div className = "filter-elements-text">Filter By Order</div>
                     <div className = "filter-img"/>
                     <div className = "order"></div>
                 </div>
-                <div className = "filter-elements" disabled>
+                <div className = "filter-elements" style = {{height: '6%'}} disabled>
                     <div className = "filter-elements-text">Filter By Product</div>
                     <div className = "filter-img"/>
                     <div className = "product"></div>
                 </div>
-                <div className = "filter-elements" disabled>
+                <div className = "filter-elements" style = {{height: '6%'}} disabled>
                     <div className = "filter-elements-text">Filter By Customer</div>
                     <div className = "filter-img"/>
                     <div className = "customer"></div>
+                </div>
+                
+                <div className = "filter-title"><b>Queue Items</b></div>
+                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                    <div className = "filter-elements-text">In-Queue</div>
+                    <div className = "queue-img"/>
+                    <div className = "in-queue"></div>
+                </div>
+                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                    <div className = "filter-elements-text">Failed</div>
+                    <div className = "queue-img"/>
+                    <div className = "failed"></div>
+                </div>
+                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                    <div className = "filter-elements-text">Processing</div>
+                    <div className = "queue-img"/>
+                    <div className = "processing"></div>
+                </div>
+                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                    <div className = "filter-elements-text">Completed</div>
+                    <div className = "queue-img"/>
+                    <div className = "completed"></div>
                 </div>
                 <br />
                 <div id = "button-hold">
                     <button id = "clear_filter"className = "filter-button">Clear Filter</button>
                     <button id = "_filter"className = "filter-button">Filter Results</button>
                 </div>
-                
-                <br /><br /><br /><br /><br />
-                <div className = "queue-view">
-                    <div className="graph g1" style = {{width: '95%'}}>
-                        <canvas id="queue-graph"></canvas>
-                    </div>
-                </div>
+
             </div>
         </>
     );
@@ -607,3 +676,12 @@ Page2.defaultProps =
 };
 
 export default Page2;
+
+/*
+<br /><br /><br /><br /><br />
+                <div className = "queue-view">
+                    <div className="graph g1" style = {{width: '95%'}}>
+                        <canvas id="queue-graph"></canvas>
+                    </div>
+                </div>
+*/

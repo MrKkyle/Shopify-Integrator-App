@@ -8,7 +8,7 @@ function Restriction_details(props)
         /* Activity of  elements */
 
        let activit = document.querySelectorAll(".flag_value");
-       let slider_ = document.querySelectorAll("#lide");
+       let slider_ = document.querySelectorAll(".lide");
        for(let i = 0; i <activit.length; i++)
        {
             if(activit[i].innerHTML == "app")

@@ -15,7 +15,7 @@ function Detailed_Restriction(props)
                 <td style = {{width: '33%'}} className = "flag_value" >{props.Flag}</td>
                 <td style = {{width: '33%'}}>
                     <label className = "switch" style = {{left: '50%', transform: 'translate(-50%)', marginLeft: '0px'}} id = "slider">
-                        <input type = "checkbox" id = "lide" />
+                        <input type = "checkbox" name = "toggle_switch" className = "lide"/>
                         <span className = "slider round" />
                     </label>
                 </td>

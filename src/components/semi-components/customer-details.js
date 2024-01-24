@@ -40,6 +40,15 @@ function Customer_details(props)
                 pan_details[i].style.color = "black";
             }
         }
+
+        let name = document.querySelectorAll(".p-d-code");
+        let lastname = document.querySelectorAll(".p-d-options");
+
+        for(let i = 0; i < name.length; i++)
+        {
+            if(name[i].innerHTML == "") { name[i].innerHTML = "N/A"; }
+            if(lastname[i].innerHTML == "") { lastname[i].innerHTML = "N/A"; }
+        }
     }, []);
 
     return (

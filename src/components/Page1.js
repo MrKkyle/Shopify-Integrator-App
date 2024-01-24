@@ -57,6 +57,7 @@ function Page1(props)
     {
         /* Ensure the model is shown */
         let navbar = document.getElementById("navbar");
+        let message = document.getElementById("message");
         navbar.style.display = "block";
         
         /* animation for the search bar */
@@ -310,7 +311,18 @@ function Page1(props)
                     }
                 } 
             })
-            .fail( function(xhr) { alert(xhr.responseText); });
+            .fail( function(xhr) 
+            { 
+                message.style.display = "block";
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
+            });
         });
 
         /* Script to automatically format the number of elements on each page */
@@ -334,7 +346,18 @@ function Page1(props)
                 {
                     if(_data == "") { let next = document.getElementById("next"); next.style.cursor = "not-allowed"; next.disabled = true; } 
                 })
-                .fail( function(xhr) { alert(xhr.responseText); });
+                .fail( function(xhr) 
+                { 
+                    message.style.display = "block";
+                    message.innerHTML = JSON.parse(xhr.responseText).error;
+                    message.style.background = "#9f0a0a";
+                    setTimeout(() =>
+                    {
+                        message.innerHTML = "";
+                        message.style.backgroundColor = "transparent";
+                        message.style.display = "none";
+                    }, 1000);
+                });
             }
 
             /* Check done to remove old elements if they exist */
@@ -395,7 +418,18 @@ function Page1(props)
                         });
                         
                     })
-                    .fail( function(xhr) { alert(xhr.responseText); });
+                    .fail( function(xhr) 
+                    {    
+                        message.style.display = "block";
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
+                    });
 
                     let ahead = index + 1;
                     /*  API  */
@@ -405,7 +439,18 @@ function Page1(props)
                         console.log(_data);
                         if(_data == "") { let next = document.getElementById("next"); next.style.cursor = "not-allowed"; next.disabled = true; }  
                     })
-                    .fail( function(xhr) { alert(xhr.responseText); });
+                    .fail( function(xhr) 
+                    { 
+                        message.style.display = "block";
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
+                    });
 
                     Filter_Pagintation(index);
                     setTimeout(() => { DetailedView();}, 200);
@@ -441,7 +486,18 @@ function Page1(props)
 
                     
                     })
-                    .fail( function(xhr) { alert(xhr.responseText); });
+                    .fail( function(xhr) 
+                    { 
+                        message.style.display = "block";
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
+                    });
                     Filter_Pagintation(index);
                     setTimeout(() => { DetailedView();}, 200);
                 });
@@ -500,7 +556,18 @@ function Page1(props)
                         });
 
                     })
-                    .fail( function(xhr) { alert(xhr.responseText); });
+                    .fail( function(xhr) 
+                    { 
+                        message.style.display = "block";
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
+                    });
                     Filter_Pagintation(index);
                     setTimeout(() => { DetailedView();}, 200);
                 });
@@ -535,7 +602,18 @@ function Page1(props)
                         });
                         
                     })
-                    .fail( function(xhr) { alert(xhr.responseText); });
+                    .fail( function(xhr) 
+                    { 
+                        message.style.display = "block";
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
+                    });
                     Filter_Pagintation(index);
                     setTimeout(() => { DetailedView();}, 200);
                 });
@@ -577,7 +655,18 @@ function Page1(props)
                     message.style.display = "none";
                 }, 2000);
             })
-            .fail( function(xhr) { alert(xhr.responseText); }); 
+            .fail( function(xhr) 
+            { 
+                message.style.display = "block";
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
+            }); 
             
         });
 
@@ -612,7 +701,17 @@ function Page1(props)
                     message.style.display = "none";
                 }, 2000);
             })
-            .fail( function(xhr) { alert(xhr.responseText); }); 
+            .fail( function(xhr) 
+            { 
+                message.innerHTML = JSON.parse(xhr.responseText).error;
+                message.style.background = "#9f0a0a";
+                setTimeout(() =>
+                {
+                    message.innerHTML = "";
+                    message.style.backgroundColor = "transparent";
+                    message.style.display = "none";
+                }, 1000);
+            });
         });
     }, []);
 
