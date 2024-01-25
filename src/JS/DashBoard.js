@@ -10,6 +10,7 @@ function Dashboard()
 
     useEffect(()=> 
     {
+        console.log(document.cookie);
         /* Ensures the navbar + model is set correctly */
         let navigation = document.getElementById("navbar");
         let logout = document.getElementById("logout");
@@ -37,6 +38,7 @@ function Dashboard()
         /* logout */
         logout.addEventListener("click", () =>
         {
+            /*
             logout.style.display = "none";
             navigation.style.display = "none";
             header.style.display = "none";
@@ -44,8 +46,25 @@ function Dashboard()
             localStorage.removeItem("username");
             localStorage.removeItem("api_key");
 
-            /* Session Destroy */
             window.location.href = '/';
+            */
+
+            /* Session Destroy & Logout  */
+            const api_key = localStorage.getItem('api_key');            
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.post("http://localhost:8080/api/logout", [], [], 'json')
+            .done(function( _data) 
+            {
+                window.location.href = '/';
+            })
+            .fail( function(xhr) 
+            {
+                message.innerHTML = "Failed to logout";
+                message.style.background = "#9f0a0a";
+                setTimeout(() => { message.innerHTML = ""; message.style.backgroundColor = "transparent"; message.style.display = "none"; }, 2000);
+            });  
+            
+            
         });
 
         //Fetch Graph
@@ -123,7 +142,16 @@ function Dashboard()
 
         setTimeout(() =>
         {
-            let order_label = (graph_data2.days).concat(graph_data3.days);
+            let order_label;
+            if(graph_data2.days == "" && graph_data3.days == "")
+            {
+                order_label = [""];
+            }
+            else 
+            {
+                order_label = (graph_data2.days).concat(graph_data3.days);
+            }
+            
 
             /* FETCH GRAPH */
             new Chart(ctx, {

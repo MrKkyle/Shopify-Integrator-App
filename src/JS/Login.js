@@ -172,14 +172,11 @@ function Login()
             .done(function( _data) 
             {
                 console.log(_data);
-
+                localStorage.setItem('username', _data.username);
+                localStorage.setItem('api_key', _data.api_key);
                 
-                setTimeout(() =>
-                {
-                    message.innerHTML = "";
-                    message.style.backgroundColor = "transparent";
-                    message.style.display = "none";
-                }, 2000);
+                window.location.href = '/dashboard';
+
             })
             .fail( function(xhr) 
             {
