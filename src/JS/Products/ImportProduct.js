@@ -40,7 +40,6 @@ function Import_Product()
                 if(document.querySelector(".output") != null)
                 //div already exists, remove it, and create another
                 {
-
                     document.querySelector(".output").remove();
                     let output = document.querySelector(".output");
                     let div = document.createElement("div");
