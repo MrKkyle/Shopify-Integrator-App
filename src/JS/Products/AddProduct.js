@@ -209,11 +209,7 @@ function Add_Product()
             del.style.display = "none";
         });
 
-        /* Styles for fr-box element */
-        setTimeout(() => 
-        {
-
-        }, 20);
+        
 
         function fetchShopify() 
         {

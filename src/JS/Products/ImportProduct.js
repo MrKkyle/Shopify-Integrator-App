@@ -31,7 +31,7 @@ function Import_Product()
             const api_key = localStorage.getItem('api_key');
             
             let output_div = document.querySelector('.output');
-            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key}, processData: false, contentType: false});
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key}, processData: false, contentType: false, method: 'post'});
             $.post("http://localhost:8080/api/products/import", formData, [], 'multipart/form-data')
             .done(function( _data) 
             {

@@ -61,40 +61,8 @@ function Page2(props)
 
         for(let i = 0 ; i < queue_items.length; i++)
         {
-            queue_items[i].addEventListener("click", () => 
-            {
-                queue_img[i].style.display = "block";
-                queue_items[i].style.backgroundColor = "rgba(64, 165, 24, 0.7)";
-
-                filter_button.disabled = false;
-                C_filter.disabled = false;
-                filter_button.style.cursor = "pointer";
-                C_filter.style.cursor = "pointer";
-
-                for(let i = 0; i < filter.length; i++)
-                {
-                    queue_items[i].style.cursor = "not-allowed";
-                    queue_items[i].style.pointerEvents = "none";
-                } 
-            });
-
-            /* Clear Filter */
-            C_filter.addEventListener("click", () =>
-            {
-                queue_img[i].style.display = "none";
-                queue_items[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
-
-                filter_button.disabled = true;
-                C_filter.disabled = true;
-                filter_button.style.cursor = "not-allowed";
-                C_filter.style.cursor = "not-allowed";
-
-                for(let i = 0; i < filter.length; i++)
-                {
-                    queue_items[i].style.pointerEvents = "";
-                    queue_items[i].style.cursor = "pointer";
-                }
-            });
+            queue_items[i].style.cursor = "not-allowed";
+            //queue_items[i].style.pointerEvents = "none";
         }
 
         for(let i = 0; i < filter.length; i++)
@@ -102,39 +70,58 @@ function Page2(props)
             /* Filter Onclick */
             filter[i].addEventListener("click", () =>
             {
+                for(let i = 0 ; i < queue_items.length; i++)
+                {
+                    console.log(i);
+                    queue_items[i].style.cursor = "pointer";
+                    queue_items[i].style.pointerEvents = "";
+                    queue_items[i].addEventListener("click", () => 
+                    {
+                        queue_img[i].style.display = "block";
+                        queue_items[i].style.backgroundColor = "rgba(64, 165, 24, 0.7)";
+
+                        filter_button.disabled = false;
+                        filter_button.style.cursor = "pointer";
+
+                        for(let i = 0; i < queue_items.length; i++) { queue_items[i].style.pointerEvents = "none"; } 
+                    });
+
+                    C_filter.disabled = false;
+                    C_filter.style.cursor = "pointer";
+                }
+
                 filter_img[i].style.display = "block";
                 filter[i].style.backgroundColor = "rgba(64, 165, 24, 0.7)";
-
-                filter_button.disabled = false;
-                C_filter.disabled = false;
-                filter_button.style.cursor = "pointer";
-                C_filter.style.cursor = "pointer";
-
-                for(let i = 0; i < filter.length; i++)
-                {
-                    filter[i].style.cursor = "not-allowed";
-                    filter[i].style.pointerEvents = "none";
-                } 
+                for(let i = 0; i < filter.length; i++) { filter[i].style.pointerEvents = "none"; } 
             });
+        }
 
-            /* Clear Filter */
-            C_filter.addEventListener("click", () =>
+        /* Clear Filter */
+        C_filter.addEventListener("click", () =>
+        {
+            filter_button.disabled = true;
+            C_filter.disabled = true;
+            filter_button.style.cursor = "not-allowed";
+            C_filter.style.cursor = "not-allowed";
+
+            for(let i = 0; i < filter.length; i++)
             {
                 filter_img[i].style.display = "none";
                 filter[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
 
-                filter_button.disabled = true;
-                C_filter.disabled = true;
-                filter_button.style.cursor = "not-allowed";
-                C_filter.style.cursor = "not-allowed";
-
-                for(let i = 0; i < filter.length; i++)
-                {
-                    filter[i].style.pointerEvents = "";
-                    filter[i].style.cursor = "pointer";
-                }
-            });
-        }
+                filter[i].style.pointerEvents = "";
+                filter[i].style.cursor = "pointer";
+            }
+            for(let i = 0 ; i < queue_items.length; i++)
+            {
+                
+                queue_items[i].style.cursor = "not-allowed";
+                queue_items[i].style.pointerEvents = "none";
+                queue_img[i].style.display = "none";
+                queue_items[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
+                
+            }
+        });
 
         filter_button.addEventListener("click", () =>
         {
@@ -143,18 +130,12 @@ function Page2(props)
             let qi;
             for(let i = 0; i < filter_img.length; i++)
             {
-                if(filter_img[i].style.display == "block")
-                {
-                    fi = i;
-                }
+                if(filter_img[i].style.display == "block") { fi = i; }
             }    
 
             for(let i = 0; i < queue_img.length; i++)
             {
-                if(queue_img[i].style.display == "block")
-                {
-                    qi = i;
-                }
+                if(queue_img[i].style.display == "block") { qi = i; }
             } 
 
             let type = filter_img[fi].nextSibling.className;

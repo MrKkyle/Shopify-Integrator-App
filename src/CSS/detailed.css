@@ -148,8 +148,8 @@
     font-size: 30px;
     font-weight: bold;
     text-decoration: underline;
-    padding-bottom: 45px;
-    padding-top: 60px;
+    margin-bottom: 45px;
+    margin-top: 60px;
 }
 .details-activity 
 {
@@ -256,6 +256,13 @@ tr:hover
 {
     color:#0f538d;
 } 
+/* Quill styles */
+.ql-toolbar, .ql-container 
+{
+    background-color: #f0f8ff61;
+}
+
+
 
 .activee
 {
