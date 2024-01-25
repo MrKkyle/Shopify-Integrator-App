@@ -161,13 +161,12 @@ function Login()
         }); 
     }
 
-
     useEffect(()=> 
     {
         let message = document.getElementById("message");
         window.onload = function(event)
         {
-            $.ajaxSetup({ xhrFields: { withCredentials: true }});
+            $.ajaxSetup({ xhrFields: { withCredentials: true }, dataType: 'jsonp'});
             /* Check done to see if user's cookie already exists */
             $.get("http://localhost:8080/api/google/oauth2/login", [], [], 'json')
             .done(function( _data) 
