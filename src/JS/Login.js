@@ -172,6 +172,10 @@ function Login()
             .done(function( _data) 
             {
                 console.log(_data);
+
+                let form = document.getElementById("form1");
+                form.style.animation = "Fadeout 1s ease-out";
+                form.style.display = "none";
                 localStorage.setItem('username', _data.username);
                 localStorage.setItem('api_key', _data.api_key);
                 
@@ -250,6 +254,9 @@ function Login()
         let google_button = document.querySelector(".google-btn");
         google_button.addEventListener("click", () =>
         {
+            let form = document.getElementById("form1");
+            form.style.animation = "Fadeout 1s ease-out";
+            form.style.display = "none";
             window.location.href = 'http://localhost:8080/api/google/login';
         });
 

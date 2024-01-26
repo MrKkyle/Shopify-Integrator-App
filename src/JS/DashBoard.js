@@ -10,7 +10,6 @@ function Dashboard()
 
     useEffect(()=> 
     {
-        console.log(document.cookie);
         /* Ensures the navbar + model is set correctly */
         let navigation = document.getElementById("navbar");
         let logout = document.getElementById("logout");
@@ -38,20 +37,21 @@ function Dashboard()
         /* logout */
         logout.addEventListener("click", () =>
         {
-            /*
             logout.style.display = "none";
             navigation.style.display = "none";
             header.style.display = "none";
             
             localStorage.removeItem("username");
             localStorage.removeItem("api_key");
-
-            window.location.href = '/';
-            */
-
+            
+            
             /* Session Destroy & Logout  */
-            const api_key = localStorage.getItem('api_key');            
-            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            const api_key = localStorage.getItem('api_key'); 
+            $.ajaxSetup({
+                headers: { Authorization: "ApiKey " + api_key },
+                xhrFields: { withCredentials: true },
+                dataType: "jsonp",
+            });           
             $.post("http://localhost:8080/api/logout", [], [], 'json')
             .done(function( _data) 
             {
@@ -63,6 +63,9 @@ function Dashboard()
                 message.style.background = "#9f0a0a";
                 setTimeout(() => { message.innerHTML = ""; message.style.backgroundColor = "transparent"; message.style.display = "none"; }, 2000);
             });  
+
+            /* Return to Login page */
+            window.location.href = '/';
             
             
         });
