@@ -29,18 +29,19 @@ function Import_Product()
             const formData = new FormData();
             formData.append('file', file);
             const api_key = localStorage.getItem('api_key');
+            console.log(formData);
             
             let output_div = document.querySelector('.output');
-            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key}, processData: false, contentType: false, method: 'post'});
-            $.post("http://localhost:8080/api/products/import", formData, [], 'multipart/form-data')
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key}, processData: false, contentType: "multipart/form-data", method: 'post', crossDomain: true, contentType: false});
+            $.post("http://localhost:8080/api/products/import", formData, [])
             .done(function( _data) 
             {
                 console.log(_data);
                 output_div.style.display = "block";
-                if(document.querySelector(".output") != null)
+                if(document.querySelector(".output-table") != null)
                 //div already exists, remove it, and create another
                 {
-                    document.querySelector(".output").remove();
+                    document.querySelector(".output-table").remove();
                     let output = document.querySelector(".output");
                     let div = document.createElement("div");
                     output.appendChild(div);
@@ -64,7 +65,8 @@ function Import_Product()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                console.log(xhr.responseText);
+                console.log("failed");
             });
         }
     };
@@ -100,7 +102,7 @@ function Import_Product()
                         <label style = {{color: 'white'}}><b>Imports customized products to the application</b></label>
                         <br /><br /><br />
 
-                        <input style = {{color: 'white'}} type={"file"} id = "file-upload-button" name = "file" accept={".csv"} onChange={handleOnChange}/>
+                        <input style = {{color: 'white'}} type="file" id = "file-upload-button" name = "file" accept={".csv"} onChange={handleOnChange}/>
                         <br /><br />
                         <button className = "button" onClick={(e) => { handleOnSubmit(e); }}>IMPORT CSV</button>
                     </div>

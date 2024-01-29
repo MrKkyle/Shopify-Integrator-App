@@ -170,8 +170,7 @@ function Products()
                             /* For some reason it wont pick up the element unless it throw it here */
                             setTimeout(() =>
                             {
-                                
-                                details.querySelector("#description").innerHTML = _data.body_html;
+                                document.querySelector(".ql-editor").innerHTML = _data.body_html;
                                 let _div = details.querySelectorAll(".auto-slideshow-container");
                                 for(let i = 0; i < _div.length; i++)
                                 {
@@ -203,7 +202,9 @@ function Products()
                             /* For some reason it wont pick up the element unless it throw it here */
                             setTimeout(() =>
                             {
-                                details.querySelector("#description").innerHTML = _data.body_html;
+                                document.querySelector(".ql-editor").innerHTML = _data.body_html;
+
+                                //details.querySelector("#description").innerHTML = _data.body_html;
                                 let _div = details.querySelectorAll(".auto-slideshow-container");
                                 for(let i = 0; i < _div.length; i++)
                                 {

@@ -33,7 +33,7 @@ function Output_Table(props)
                 <tr>
                     <td className = "outputs">{props.failed}</td>
                     <td className = "outputs">{props.processed}</td>
-                    <td iclassNamed = "outputs">{props.products_added}</td>
+                    <td className = "outputs">{props.products_added}</td>
                     <td className = "outputs">{props.products_updated}</td>
                     <td className = "outputs">{props.variants_added}</td>
                     <td className = "outputs">{props.variants_updated}</td>

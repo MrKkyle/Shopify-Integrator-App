@@ -257,9 +257,18 @@ tr:hover
     color:#0f538d;
 } 
 /* Quill styles */
-.ql-toolbar, .ql-container 
+.ql-toolbar
 {
     background-color: #f0f8ff61;
+}
+.ql-container 
+{
+    background-color: #f0f8ff61;
+    overflow: initial;
+}
+.ql-snow .ql-tooltip input[type=text] 
+{
+    color: black;
 }
 
 

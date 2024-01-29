@@ -568,6 +568,7 @@ input #file-upload-button
     left: 50%;
     transform: translate(-50%);
     margin-bottom: 40px;
+    margin-top: 40px;
     color: rgb(255, 255, 255);
     font-size: 14px;
 }
