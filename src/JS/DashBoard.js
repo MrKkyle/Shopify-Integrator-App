@@ -40,11 +40,7 @@ function Dashboard()
             logout.style.display = "none";
             navigation.style.display = "none";
             header.style.display = "none";
-            
-            localStorage.removeItem("username");
-            localStorage.removeItem("api_key");
-            
-            
+             
             /* Session Destroy & Logout  */
             const api_key = localStorage.getItem('api_key'); 
             $.ajaxSetup({
@@ -55,7 +51,7 @@ function Dashboard()
             $.post("http://localhost:8080/api/logout", [], [], 'json')
             .done(function( _data) 
             {
-                window.location.href = '/';
+                console.log("done");
             })
             .fail( function(xhr) 
             {
@@ -63,6 +59,9 @@ function Dashboard()
                 message.style.background = "#9f0a0a";
                 setTimeout(() => { message.innerHTML = ""; message.style.backgroundColor = "transparent"; message.style.display = "none"; }, 2000);
             });  
+
+            localStorage.removeItem("username");
+            localStorage.removeItem("api_key");
 
             /* Return to Login page */
             window.location.href = '/';
