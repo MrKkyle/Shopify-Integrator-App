@@ -554,7 +554,7 @@ input #file-upload-button
     transform: translate(-50%, -50%);
     display: none;
     background-color: rgba(92, 92, 92, 0.438);
-    height: 220px;
+    height: auto;
     width: 50%;
     overflow: auto;
     z-index: 3;
