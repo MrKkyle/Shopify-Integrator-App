@@ -459,7 +459,7 @@ function Customers()
             <div className = "main" style = {{left: '50%', top: '53%', transform: 'translate(-50%, -50%)', 
                     height: '100%', backgroundColor: 'transparent', animation:'SlideUp3 1.2s ease-in', width: '100%'}}>
                 <div className = "search">
-                    <form id = "search" className = "search-area" autoComplete = 'off' onSubmit={(event) => SearchCustomer(event)}
+                <form id = "search" name = "search" className = "search-area" autoComplete = 'off' onSubmit={(event) => SearchCustomer(event)}
                     style = {{top: '32px'}}>
                     <input className ="search-area" type="search" placeholder="Search..." 
                         name = "search" value = {inputs.search || ""}  onChange = {handleChange}></input>
