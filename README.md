@@ -6,4 +6,4 @@
 
 ## Additional Information 
 - The front-end was created solely using React.js
-- No bootstrap or tailwind CSS is included in this project's styles.
+- No bootstrap or tailwind CSS is included or used in this project's styles.
