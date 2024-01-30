@@ -190,6 +190,16 @@ function Login()
             });
             
         }
+        
+        /* Google login button */
+        let google_button = document.querySelector(".google-btn");
+        google_button.addEventListener("click", () =>
+        {
+            let form = document.getElementById("form1");
+            form.style.animation = "Fadeout 1s ease-out";
+            form.style.display = "none";
+            window.location.href = 'http://localhost:8080/api/google/login';
+        });
 
         /* Ensure the model is shown */
         let model = document.getElementById("model");
@@ -249,16 +259,7 @@ function Login()
                 setTimeout(() =>{ window.location.reload(); }, 1000);
             }, 1000)
         });
-        
-        /* Google login button */
-        let google_button = document.querySelector(".google-btn");
-        google_button.addEventListener("click", () =>
-        {
-            let form = document.getElementById("form1");
-            form.style.animation = "Fadeout 1s ease-out";
-            form.style.display = "none";
-            window.location.href = 'http://localhost:8080/api/google/login';
-        });
+
 
         /* Rain Functions */
         var makeItRain = function() 
