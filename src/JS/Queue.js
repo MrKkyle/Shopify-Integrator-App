@@ -30,6 +30,7 @@ function Queue()
     {
         /* Ensures the page elements are set correctly */
         let navigation = document.getElementById("navbar");
+        let message = document.getElementById("message");
         window.onload = function(event)
         {
             navigation.style.left = "30%";
@@ -62,7 +63,17 @@ function Queue()
                 />))
             } 
         })
-        .fail( function(xhr) { alert(xhr.responseText); });
+        .fail( function(xhr) 
+        { 
+            message.innerHTML = JSON.parse(xhr.responseText).error;
+            message.style.background = "#9f0a0a";
+            setTimeout(() =>
+            {
+                message.innerHTML = "";
+                message.style.backgroundColor = "transparent";
+                message.style.display = "none";
+            }, 1000);
+        });
 
         /* When the user clicks on the pan elements show info about that specified pan element */
         function DetailedView()
@@ -109,8 +120,15 @@ function Queue()
                         }
                     })
                     .fail( function(xhr) 
-                    {
-                        alert(xhr.responseText);
+                    { 
+                        message.innerHTML = JSON.parse(xhr.responseText).error;
+                        message.style.background = "#9f0a0a";
+                        setTimeout(() =>
+                        {
+                            message.innerHTML = "";
+                            message.style.backgroundColor = "transparent";
+                            message.style.display = "none";
+                        }, 1000);
                     });
                     setTimeout(() =>
                     {
@@ -422,6 +440,7 @@ function Queue()
             <div className = "details">
                 <div className = 'close-button'>&times;</div>
             </div>
+            <div className = 'info-message' id = 'message' />
         </div>
     );
 }

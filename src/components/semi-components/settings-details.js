@@ -45,7 +45,7 @@ function Setting_details(props)
                     Currently Set to:<div style ={{fontWeight:'bold'}}className = "_value">{props.Value}</div>
                 </div>
                 <div className = "true-false"><button style ={{display: 'inline-block'}} className = "true">True</button> <button style ={{display: 'inline-block'}} className = "false">False</button></div>
-                <input type="setting" placeholder = "New Value" className = "_input"></input>
+                <input type="setting" name = "setting_div" placeholder = "New Value" className = "_input"></input>
             </div>
         </>
     );

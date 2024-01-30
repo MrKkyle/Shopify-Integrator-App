@@ -40,12 +40,33 @@ function Dashboard()
             logout.style.display = "none";
             navigation.style.display = "none";
             header.style.display = "none";
-            
+             
+            /* Session Destroy & Logout  */
+            const api_key = localStorage.getItem('api_key'); 
+            $.ajaxSetup({
+                headers: { Authorization: "ApiKey " + api_key },
+                xhrFields: { withCredentials: true },
+                dataType: "jsonp",
+            });           
+            $.post("http://localhost:8080/api/logout", [], [], 'json')
+            .done(function( _data) 
+            {
+                console.log("done");
+            })
+            .fail( function(xhr) 
+            {
+                message.innerHTML = "Failed to logout";
+                message.style.background = "#9f0a0a";
+                setTimeout(() => { message.innerHTML = ""; message.style.backgroundColor = "transparent"; message.style.display = "none"; }, 2000);
+            });  
+
             localStorage.removeItem("username");
             localStorage.removeItem("api_key");
 
-            /* Session Destroy */
+            /* Return to Login page */
             window.location.href = '/';
+            
+            
         });
 
         //Fetch Graph
@@ -123,7 +144,16 @@ function Dashboard()
 
         setTimeout(() =>
         {
-            let order_label = (graph_data2.days).concat(graph_data3.days);
+            let order_label;
+            if(graph_data2.days == "" && graph_data3.days == "")
+            {
+                order_label = [""];
+            }
+            else 
+            {
+                order_label = (graph_data2.days).concat(graph_data3.days);
+            }
+            
 
             /* FETCH GRAPH */
             new Chart(ctx, {

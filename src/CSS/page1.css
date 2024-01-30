@@ -39,7 +39,7 @@ body
     margin-bottom: 20px;
     color: white;
 }
-.filter-elements 
+.filter-elements, .queue-items
 {
     position: relative;
     display: none;
@@ -58,7 +58,7 @@ body
     left: 50%;
     transform: translate(-50%);
 }
-.filter-elements:hover 
+.filter-elements:hover, .queue-items:hover
 {
     background-color: rgba(61, 61, 61, 1);
     color: aliceblue;
@@ -71,7 +71,7 @@ body
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.filter-img 
+.filter-img, .queue-img
 {
     display: none;
     position: absolute;
@@ -399,7 +399,7 @@ input.search-area
     padding: 5px;
     font-size: 15px;
 }
-.p-d-code
+.p-d-code, .p-d-options
 {
     border: none;
     padding: 5px;
@@ -426,7 +426,7 @@ input.search-area
 .p-d-status
 {
     position: absolute;
-    left: 75%;
+    left: 69%;
     font-weight: 400;
 }
 .status
@@ -613,4 +613,28 @@ a
     left: 50%;
     width: 100%;
     transform: translate(-50%);
+}
+@media only screen and (min-device-width : 920px) and (max-device-width : 1100px)
+{
+    .pan-details
+    {
+        position: relative;
+        float: left;
+        height: 100%;
+        width: 72%;
+        font-size: 14px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: left;
+        padding: 4px;
+        transition-duration: 0.4s;
+        pointer-events: none;
+    }
+    .p-d-status 
+    {
+        position: absolute;
+        left: 55%;
+        font-weight: 400;
+    }
 }

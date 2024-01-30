@@ -52,13 +52,17 @@ function Queue_details(props)
         let option = document.querySelectorAll("#options");
         for(let i = 0; i < activity.length; i++)
         {
-            if(activity[i].innerHTML == "in-queue")
+            if(activity[i].innerHTML == "in-queue" || activity[i].innerHTML == "processing")
             {
                 option[i].className = "p-d-load";
             }
             else if(activity[i].innerHTML == "")
             {
                 option[i].className = "p-d-unknown";
+            }
+            else if(activity[i].innerHTML == "completed")
+            {
+                option[i].className = "p-d-true";
             }
             else
             {

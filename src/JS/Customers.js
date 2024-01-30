@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import $ from 'jquery';
 import Customer_details from '../components/semi-components/customer-details';
 import Detailed_customer from '../components/semi-components/Customer/detailed_customer';
+import Detailed_shipping from '../components/semi-components/Customer/detailed_shipping';
 import Page1 from '../components/Page1';
 import '../CSS/page1.css';
 
@@ -183,6 +184,9 @@ function Customers()
                             let rot = createRoot(details);
                             rot.render( <Detailed_customer key={`${_data.title}_${i}`} Customer_ID={_data.id}
                             Customer_firstName={_data.first_name} Customer_lastName={_data.last_name} Customer_Phone={_data.phone}
+                            Customer_address={_data.addresses.map((el, i) => <Detailed_shipping key={`${el.title}_${i}`} 
+                            Address_type={el.address_type[0].toUpperCase() + el.address_type.slice(1)} Shipping1 = {el.address_1} Shipping2 = {el.address_2}
+                            Shipping3 = {el.city} Shipping4 = {el.province} Shipping5 = {el.postal_code} />)}
                             />)
                         }
                         else 
@@ -193,6 +197,9 @@ function Customers()
                             let rot = createRoot(details);
                             rot.render( <Detailed_customer key={`${_data.title}_${i}`} Customer_ID={_data.id}
                             Customer_firstName={_data.first_name} Customer_lastName={_data.last_name} Customer_Phone={_data.phone}
+                            Customer_address={_data.addresses.map((el, i) => <Detailed_shipping key={`${el.title}_${i}`} 
+                            Address_type={el.address_type[0].toUpperCase() + el.address_type.slice(1)} Shipping1 = {el.address_1} Shipping2 = {el.address_2}
+                            Shipping3 = {el.city} Shipping4 = {el.province} Shipping5 = {el.postal_code} />)}
                             />)
                         }
                     })
@@ -452,7 +459,7 @@ function Customers()
             <div className = "main" style = {{left: '50%', top: '53%', transform: 'translate(-50%, -50%)', 
                     height: '100%', backgroundColor: 'transparent', animation:'SlideUp3 1.2s ease-in', width: '100%'}}>
                 <div className = "search">
-                    <form id = "search" className = "search-area" autoComplete = 'off' onSubmit={(event) => SearchCustomer(event)}
+                <form id = "search" name = "search" className = "search-area" autoComplete = 'off' onSubmit={(event) => SearchCustomer(event)}
                     style = {{top: '32px'}}>
                     <input className ="search-area" type="search" placeholder="Search..." 
                         name = "search" value = {inputs.search || ""}  onChange = {handleChange}></input>

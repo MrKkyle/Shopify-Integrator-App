@@ -2,6 +2,9 @@ import {useEffect} from 'react';
 import $ from 'jquery';
 import '../../../CSS/detailed.css';
 import '../../../CSS/page1.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 function Detailed_product(props)
 {
     useEffect(()=> 
@@ -30,6 +33,9 @@ function Detailed_product(props)
         let defaul = document.getElementById("Variants");
         defaul.addEventListener("click", () => { openPage('Variants'); });
         document.getElementById("Product").click();
+
+        /* When the page loads description is already editable */
+        let description = document.querySelector(".ql-editor");
 
         /* When the user clicks on the return button */
         let close = document.querySelector(".rtn-button");
@@ -63,6 +69,11 @@ function Detailed_product(props)
         let slider = document.querySelector(".switch"); let title = document.querySelector("#title");
         edit.addEventListener("click", () =>
         {
+
+            edit.style.backgroundColor= "rgb(72, 101, 128)";
+            edit.style.color="aliceblue";
+            edit.disabled = "true";
+            edit.style.cursor = "not-allowed";
             /* find the number of product_options */
             let product_options = document.querySelectorAll(".product_options"); 
             let d_options = document.getElementById("d_options");
@@ -84,7 +95,7 @@ function Detailed_product(props)
             }
 
 
-            let td_list = document.querySelectorAll("td"); let description = document.getElementById("description");
+            let td_list = document.querySelectorAll("td");
             let variant_updateDate = document.querySelector(".variant-updateDate");
             slider.style.pointerEvents = "auto";
             confirm.style.display = "block";
@@ -92,13 +103,17 @@ function Detailed_product(props)
             {
                 td_list[i].contentEditable = "true";
             }
-            description.contentEditable = "true"; variant_updateDate.contentEditable = "true"; title.contentEditable = "true";
+            variant_updateDate.contentEditable = "true"; title.contentEditable = "true";
             
         });
 
         confirm.addEventListener("click", () =>
         {
-            let td_list = document.querySelectorAll("td"); let description = document.getElementById("description");
+            edit.style.backgroundColor= "white";
+            edit.style.color = "black";
+            edit.disabled = "false";
+            edit.style.cursor = "pointer";
+            let td_list = document.querySelectorAll("td"); let description = document.querySelector(".ql-editor")
             let variant_updateDate = document.querySelector(".variant-updateDate"); let price = document.querySelectorAll(".price");
             let barcode = document.querySelectorAll(".barcode"); let sku = document.querySelectorAll(".sku"); 
             let option1 = document.querySelectorAll(".option1"); let option2 = document.querySelectorAll(".option2"); let option3 = document.querySelectorAll(".option3");
@@ -223,7 +238,7 @@ function Detailed_product(props)
             }
             
             let id = document.querySelector("._id").innerHTML;
-            console.log(object);
+            //console.log(object);
             
             
             const api_key = localStorage.getItem('api_key');
@@ -240,6 +255,7 @@ function Detailed_product(props)
             {
                 alert(xhr.responseText);
             });
+            
             
         });
 
@@ -309,7 +325,9 @@ function Detailed_product(props)
                             </tbody>
                         </table> 
                         <div className = "details-description">Product Description</div>
-                        <div className = "description" id = "description" style = {{resize:'none'}} rows = "5" cols = "80">{props.Product_Description}</div>
+                        <ReactQuill />
+                        <br />  
+
 
                         <div className = "details-description">Product Options</div> 
                         <div className = "details-options">
@@ -343,7 +361,7 @@ function Detailed_product(props)
                 </div>
             </div>
             <div className = "confirm-line">
-                <button className="tablink" id = "confirm" style ={{left: '50%'/*, transform: 'translate(-50%)'*/}}>Save</button>
+                <button className="tablink" id = "confirm" style ={{left: '50%'}}>Save</button>
             </div>
         </div>
     );

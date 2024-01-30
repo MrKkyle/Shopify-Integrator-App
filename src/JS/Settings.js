@@ -110,6 +110,7 @@ function Settings()
             })
             .fail( function(xhr) 
             { 
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -286,6 +287,7 @@ function Settings()
         })
         .fail( function(xhr) 
         { 
+            message.style.display = "block";
             message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
             setTimeout(() =>
@@ -389,6 +391,7 @@ function Settings()
         })
         .fail( function(xhr) 
         { 
+            message.style.display = "block";
             message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
             setTimeout(() =>
@@ -494,6 +497,7 @@ function Settings()
         })
         .fail( function(xhr) 
         { 
+            message.style.display = "block";
             message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
             setTimeout(() =>
@@ -600,6 +604,7 @@ function Settings()
         })
         .fail( function(xhr) 
         { 
+            message.style.display = "block";
             message.innerHTML = JSON.parse(xhr.responseText).error;
             message.style.background = "#9f0a0a";
             setTimeout(() =>
@@ -758,7 +763,7 @@ function Settings()
 
             let rest1 = document.getElementById("r_settings"); let rest2 = document.getElementById("r_settings2");
             let fetch_field = rest1.querySelectorAll(".restriction_name");
-            let switch_fetch = rest1.querySelectorAll ("#lide"); let switch_push = rest2.querySelectorAll("#lide");
+            let switch_fetch = rest1.querySelectorAll(".lide"); let switch_push = rest2.querySelectorAll(".lide");
             let push_field = rest2.querySelectorAll(".restriction_name");
 
             let _fetch = {};
@@ -834,7 +839,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -862,7 +867,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
-                alert(xhr.responseText);
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -891,6 +896,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -919,6 +925,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -979,6 +986,7 @@ function Settings()
                 })
                 .fail( function(xhr) 
                 {
+                    message.style.display = "block";
                     message.innerHTML = JSON.parse(xhr.responseText).error;
                     message.style.background = "#9f0a0a";
                     setTimeout(() =>
@@ -1027,6 +1035,8 @@ function Settings()
             })
             .fail( function(xhr) 
             {
+
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -1149,6 +1159,7 @@ function Settings()
             })
             .fail( function(xhr) 
             {
+                message.style.display = "block";
                 message.innerHTML = JSON.parse(xhr.responseText).error;
                 message.style.background = "#9f0a0a";
                 setTimeout(() =>
@@ -1181,7 +1192,7 @@ function Settings()
             let _switch = document.querySelectorAll(".switch");
             let confirm_line = document.querySelector(".confirm-line");
             let flag_value = document.querySelectorAll(".flag_value");
-            let switch_check = document.querySelectorAll("#lide");
+            let switch_check = document.querySelectorAll(".lide");
 
 
             for(let i = 0; i < _switch.length; i++)

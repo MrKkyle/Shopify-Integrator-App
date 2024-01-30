@@ -30,11 +30,6 @@ function Detailed_customer(props)
             openPage('Customer');
         });
 
-        let defaul = document.getElementById("Variants");
-        defaul.addEventListener("click", () =>
-        {
-            openPage('Variants');
-        });
 
         document.getElementById("Customer").click();
 
@@ -65,15 +60,14 @@ function Detailed_customer(props)
             <div className = 'rtn-button'></div>
             <div className = "button-holder">
                 <button className="tablink" id = "Customer">Customer</button>
-                <button className="tablink" id ="Variants">Shipping</button>
             </div>
         
             <div className="tabcontent" id="_Customer" >
                 <div className = "details-details">
                     <div className = "detailed-image" />
-                    <div className = "detailed" style={{backgroundColor: 'transparent'}}>
+                    <div className = "detailed" style={{backgroundColor: 'transparent', left: '', transform: '', width: '100%'}}>
                         <div className = "details-title">{props.Customer_ID}</div>
-                        <table>
+                        <table style = {{left: '45%'}}>
                             <tbody>
                                 <tr>
                                     <th>Customer Email</th>
@@ -89,23 +83,11 @@ function Detailed_customer(props)
                                 </tr>
                             </tbody>
                         </table>  
-                    </div>
-                    <div className = "details-right" style={{backgroundColor: 'transparent'}}></div>
-                    <div className = "details-left" style={{backgroundColor: 'transparent'}}></div>
-                </div>
-            </div>
 
-            <div className="tabcontent" id="_Variants" >
-                <div className = "details-details">
-                <div className = "detailed-image" />
-                    <div className = "detailed" style={{backgroundColor: 'transparent'}}>
-                        <div className = "details-title"> {props.Customer_firstName} Shipping Addresses</div>
-                        <div className = "variants" id="_variants" >
-                            <h2>Coming Soon ...</h2>
+                        <div>
+                            {props.Customer_address}
                         </div>
                     </div>
-                    <div className = "details-right" style={{backgroundColor: 'transparent'}}></div>
-                    <div className = "details-left" style={{backgroundColor: 'transparent'}}></div>
                 </div>
             </div>
         </div>

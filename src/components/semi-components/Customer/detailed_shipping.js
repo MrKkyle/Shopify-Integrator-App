@@ -18,57 +18,46 @@ function Detailed_shipping(props)
 
     return (
         <>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Customer Firstname</th>
-                        <th>Customer Lastname</th>
-                        <th>Customer company</th>
-                    </tr>
-                    <tr>
-                        <td>{props.Customer_firstName}</td>
-                        <td>{props.Customer_lastName}</td>
-                        <td>{props.Customer_company}</td>
-                    </tr>
-                </tbody>
-            </table> 
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Shipping Address 1</th>
-                    </tr>
-                    <tr>
-                        <td>{props.Shipping1}</td>
-                    </tr>
+            <div className = "details-tables">
+                <h2>{props.Address_type}</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th> Address 1</th>
+                        </tr>
+                        <tr>
+                            <td>{props.Shipping1}</td>
+                        </tr>
 
-                    <tr>
-                        <th>Shipping Address 2</th>
-                    </tr>
-                    <tr>
-                        <td>{props.Shipping2}</td>
-                    </tr>
+                        <tr>
+                            <th> Address 2</th>
+                        </tr>
+                        <tr>
+                            <td>{props.Shipping2}</td>
+                        </tr>
 
-                    <tr>
-                        <th>Shipping Address 3</th>
-                    </tr>
-                    <tr>
-                        <td>{props.Shipping3}</td>
-                    </tr>
+                        <tr>
+                            <th> Address 3</th>
+                        </tr>
+                        <tr>
+                            <td>{props.Shipping3}</td>
+                        </tr>
 
-                    <tr>
-                        <th>Shipping Address 4</th>
-                    </tr>
-                    <tr>
-                        <td>{props.Shipping4}</td>
-                    </tr>
-                    <tr>
-                        <th>Shipping Address 5</th>
-                    </tr>
-                    <tr>
-                        <td>{props.Shipping5}</td>
-                    </tr>
-                </tbody>
-            </table> 
+                        <tr>
+                            <th> Address 4</th>
+                        </tr>
+                        <tr>
+                            <td>{props.Shipping4}</td>
+                        </tr>
+                        <tr>
+                            <th> Address 5</th>
+                        </tr>
+                        <tr>
+                            <td>{props.Shipping5}</td>
+                        </tr>
+                    </tbody>
+                </table> 
+            </div>    
         </>
     );
 }
