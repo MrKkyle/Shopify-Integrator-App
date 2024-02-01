@@ -127,7 +127,7 @@ function Page1(props)
             C_filter.addEventListener("click", () =>
             {
                 filter_img[i].style.display = "none";
-                filter[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
+                filter[i].style.background = "linear-gradient(to bottom, #2020209c, #11111936)";
             });
             
         }
@@ -737,8 +737,8 @@ function Page1(props)
                 <br/>
 
                 <div id = "button-hold">
-                    <button id = "clear_filter"className = "filter-button">Clear Filter</button>
-                    <button id = "_filter"className = "filter-button">Filter Results</button>
+                    <button id = "clear_filter"className = "filter-button _filter">Clear Filter</button>
+                    <button id = "_filter"className = "filter-button clear">Filter Results</button>
                 </div>
                 
                 <br/><br/>

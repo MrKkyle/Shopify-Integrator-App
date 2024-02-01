@@ -37,10 +37,11 @@ function Dashboard()
         /* logout */
         logout.addEventListener("click", () =>
         {
-            logout.style.display = "none";
-            navigation.style.display = "none";
-            header.style.display = "none";
-             
+            let container = document.querySelector(".container");
+
+            container.style.animation = "Fadeout 1s ease-out";
+            navigation.style.animation = "Fadeout 1s ease-out";
+
             /* Session Destroy & Logout  */
             const api_key = localStorage.getItem('api_key'); 
             $.ajaxSetup({
@@ -64,7 +65,14 @@ function Dashboard()
             localStorage.removeItem("api_key");
 
             /* Return to Login page */
-            window.location.href = '/';
+            setTimeout(() => 
+            {
+                container.style.display = "none";
+                navigation.style.display = "none";
+                window.location.href = '/';
+            }, 900);
+            
+            
             
             
         });

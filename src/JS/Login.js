@@ -44,13 +44,17 @@ function Login()
             message.innerHTML = "Login Sucessful";
             message.style.background = "#1a5e12";
 
+            let form = document.getElementById("form1");
+            let navbar = document.getElementById("navbar");
+            navbar.style.display = "none"; form.style.display = "none";
+            
             setTimeout(() =>
             {
                 message.innerHTML = "";
                 message.style.backgroundColor = "transparent";
                 message.style.display = "none";
                 window.location.href = '/dashboard';
-            }, 1000);
+            }, 2000);
         })
         .fail( function(xhr) 
         {
@@ -174,12 +178,16 @@ function Login()
                 console.log(_data);
 
                 let form = document.getElementById("form1");
-                form.style.animation = "Fadeout 1s ease-out";
-                form.style.display = "none";
+                let navbar = document.getElementById("navbar");
+                let rain = document.querySelector(".back-row-toggle");
+                navbar.style.display = "none"; form.style.display = "none"; rain.style.display = "none";
+
                 localStorage.setItem('username', _data.username);
                 localStorage.setItem('api_key', _data.api_key);
                 
-                window.location.href = '/dashboard';
+                setTimeout(() => { window.location.href = '/dashboard'; }, 1500);
+                
+
 
             })
             .fail( function(xhr) 
@@ -196,9 +204,16 @@ function Login()
         google_button.addEventListener("click", () =>
         {
             let form = document.getElementById("form1");
+            let rain = document.querySelector(".back-row-toggle");
             form.style.animation = "Fadeout 1s ease-out";
-            form.style.display = "none";
-            window.location.href = 'http://localhost:8080/api/google/login';
+            rain.style.animation = "Fadeout 1s ease-out";
+            setTimeout(() => 
+            {
+                form.style.display = "none";
+                rain.style.display = "none";
+                window.location.href = 'http://localhost:8080/api/google/login';
+            }, 900);
+            
         });
 
         /* Ensure the model is shown */
