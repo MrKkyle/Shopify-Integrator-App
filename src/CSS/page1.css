@@ -352,7 +352,7 @@ input.search-area
     position: relative;
     float: left;
     height: 100%;
-    width: 80%;
+    width: 60%;
     font-size: 14px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -640,7 +640,7 @@ a
         position: relative;
         float: left;
         height: 100%;
-        width: 72%;
+        width: 50%;
         font-size: 14px;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
