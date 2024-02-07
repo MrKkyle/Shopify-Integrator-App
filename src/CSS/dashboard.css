@@ -161,7 +161,7 @@
 }
 
 .logout_button {
-    background-color: rgba(165, 165, 165, 0.95);
+    background-color: rgba(201, 201, 201, 0.95);
     color: rgb(37, 37, 37);
     border: none;
     outline: none;
@@ -180,7 +180,8 @@
 }
 .logout_button:hover 
 {
-    background-color: rgb(72, 101, 128);
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     color: aliceblue;
 }
 
@@ -232,7 +233,7 @@ table {
     padding: 10px 15px;
     font-size: 12px;
     animation: bubble 1s ease-in-out;
-    background-color: rgba(165, 165, 165, 0.95);
+    background-color: rgba(201, 201, 201, 0.95);
     color: rgb(37, 37, 37);
     border: none;
     outline: none;
@@ -242,7 +243,8 @@ table {
 }
 .bubble:hover 
 {
-    background-color: rgb(72, 101, 128);
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     color: aliceblue;
 }
 .bub1 

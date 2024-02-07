@@ -145,7 +145,7 @@ function Dashboard()
         setTimeout(() =>
         {
             let order_label;
-            if(graph_data2.days == "" && graph_data3.days == "")
+            if(graph_data2.days == null && graph_data3.days == null)
             {
                 order_label = [""];
             }
