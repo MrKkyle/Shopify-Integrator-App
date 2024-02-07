@@ -240,6 +240,7 @@ input.search-area
     width: 260px;
     border: 1px solid #8d8d8d;
     color: #cdcdcd;
+    border-radius: 10px;
     display: block;
     position: relative;
     left: 50%;

@@ -226,7 +226,8 @@ input[type = setting]
 }
 .mini-setting:hover
 {
-    background-color: rgb(64, 97, 128);
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     color: aliceblue;
 }
 .a

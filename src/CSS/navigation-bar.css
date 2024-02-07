@@ -63,7 +63,8 @@
 
 .navbar a:hover, .dropdown:hover .dropbtn 
 {
-    background-color: rgb(72, 101, 128);
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     color: aliceblue;
 }
 
@@ -91,7 +92,8 @@
 .dropdown-content a:hover 
 {
     color:#333;
-    background-color: rgb(72, 101, 128);
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     text-decoration: underline;
 }
 
