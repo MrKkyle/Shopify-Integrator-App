@@ -532,6 +532,40 @@ function Products()
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         });
+
+        /* Re-Sync function runs every 2 minutes*/
+        var timerID = setInterval(function() 
+        {
+            /*  API  */
+            const api_key = localStorage.getItem('api_key');
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get("http://localhost:8080/api/products?page=1", [], [])
+            .done(function( _data) 
+            {
+                console.log(_data);
+
+                document.querySelector(".pan-main").remove();
+                let div = document.createElement("div");
+                div.className = "pan-main";
+                div.id = "pan-main";
+                let main = document.querySelector(".main-elements");
+                main.appendChild(div);
+                let root = createRoot(div);
+
+                flushSync(() => 
+                { 
+                    root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
+                    Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
+                    Product_Image={el.product_images.map((el, i) => el.src)}
+                    /> )) 
+                });
+                Pagintation(1);
+                setTimeout(() => { DetailedView();}, 200);
+            })
+            .fail( function(xhr) { alert(xhr.responseText); });
+        }, 120 * 1000); 
+        
+        //clearInterval(timerID);
     }, []);
     
     return (

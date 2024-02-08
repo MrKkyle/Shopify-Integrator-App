@@ -82,7 +82,8 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/fetch", [], [], 'json')
         .done(function( _data) 
         {
-
+            console.log("data here");
+            console.log(_data);
             if(_data.amounts.length == "" && _data.hours == "")
             {
                 status.className = "disabled_status";

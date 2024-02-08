@@ -451,6 +451,40 @@ function Customers()
         }
         Pagintation(1);
         setTimeout(() => { DetailedView();}, 200);
+
+        /* Re-Sync function runs every 30 seconds minutes*/
+        var timerID = setInterval(function() 
+        {
+            /*  API  */
+            const api_key = localStorage.getItem('api_key');
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get("http://localhost:8080/api/customers?page=1", [], [])
+            .done(function( _data) 
+            {
+                console.log(_data);
+
+                document.querySelector(".pan-main").remove();
+                let div = document.createElement("div");
+                div.className = "pan-main";
+                div.id = "pan-main";
+                let main = document.querySelector(".main-elements");
+                main.appendChild(div);
+                let root = createRoot(div);
+
+                flushSync(() => 
+                { 
+                    root.render(_data.map((el, i) => <Customer_details key={`${el.title}_${i}`} Customer_ID={el.id}
+                    Customer_firstName={el.first_name} Customer_lastName={el.last_name} Customer_Phone={el.phone}
+                    />))
+                });
+                setTimeout(() => { DetailedView();}, 200);
+                Pagintation(1);
+            })
+            .fail( function(xhr) { alert(xhr.responseText); });
+
+        }, 120 * 1000); 
+        
+        //clearInterval(timerID);
         
     }, []);
 
