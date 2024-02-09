@@ -288,19 +288,6 @@ function Orders()
         }
 
         /* Script to automatically format the number of elements on each page */
-        const content = document.querySelector('.center'); 
-        const paginationContainer = document.createElement('div');
-        const paginationDiv = document.body.appendChild(paginationContainer);
-        paginationContainer.classList.add('pagination');
-        content.appendChild(paginationContainer);
-
-        document.querySelector(".pan-main").remove();
-        let div = document.createElement("div");
-        div.className = "pan-main";
-        div.id = "pan-main";
-        let _main = document.querySelector(".main-elements");
-        _main.appendChild(div);
-
         function Pagintation(index)
         {
 
@@ -323,10 +310,13 @@ function Orders()
             if(document.getElementById("next") != null && document.getElementById("prev") != null && document.getElementById("hod") != null)
             //If they exist remove them, and create new based on the new index value
             {
-                document.getElementById("next").remove();
-                document.getElementById("prev").remove();
-                document.getElementById("hod").remove();
 
+                let nextPage = document.getElementById("next");
+                let prevPage = document.getElementById("prev");
+                let pageButton = document.getElementById("hod");
+                pageButton.innerHTML = index;
+
+                /*
                 const pageButton = document.createElement('button');
                 pageButton.id = "hod";
                 pageButton.className = "active";
@@ -342,15 +332,18 @@ function Orders()
                 prevPage.id = "prev";
                 prevPage.innerHTML = "←";
                 paginationDiv.appendChild(prevPage);
+                */
+
                 if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
                 else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
                 else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
+                
 
                 nextPage.addEventListener("click", () =>
                 {
                     index = index + 1;
                     /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/orders?page=" + index;
+                    const page = "http://localhost:8080/api/order?page=" + index;
                     /*  API  */
                     const api_key = localStorage.getItem('api_key');
                     $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
@@ -367,15 +360,14 @@ function Orders()
                         let root = createRoot(div);
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} 
-                            /> )) 
+                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} /> ))
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
 
                     let ahead = index + 1;
                     /*  API  */
-                    $.get('http://localhost:8080/api/orders?page=' + ahead, [], [])
+                    $.get('http://localhost:8080/api/order?page=' + ahead, [], [])
                     .done(function( _data) 
                     {
                         console.log(_data);
@@ -396,7 +388,7 @@ function Orders()
                 {
                     index = index - 1;
                     /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/orders?page=" + index;
+                    const page = "http://localhost:8080/api/order?page=" + index;
 
                     /*  API  */
                     const api_key = localStorage.getItem('api_key');
@@ -416,8 +408,7 @@ function Orders()
 
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} 
-                            /> )) 
+                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} /> )) 
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
@@ -428,21 +419,10 @@ function Orders()
             else 
             //If they dont exist create new ones 
             {
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
+                let nextPage = document.getElementById("next");
+                let prevPage = document.getElementById("prev");
+                let pageButton = document.getElementById("hod");
                 pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
-
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
 
                 if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
                 else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
@@ -451,7 +431,7 @@ function Orders()
                 {
                     index = index + 1;
                     /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/orders?page=" + index;
+                    const page = "http://localhost:8080/api/order?page=" + index;
                     /*  API  */
                     const api_key = localStorage.getItem('api_key');
                     $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
@@ -469,8 +449,7 @@ function Orders()
 
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} 
-                            /> )) 
+                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} /> ))
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
@@ -481,7 +460,7 @@ function Orders()
                 {
                     index = index - 1;
                     /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/orders?page=" + index;
+                    const page = "http://localhost:8080/api/order?page=" + index;
 
                     /*  API  */
                     const api_key = localStorage.getItem('api_key');
@@ -500,8 +479,7 @@ function Orders()
 
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} 
-                            /> )) 
+                            root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} /> ))
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
@@ -560,7 +538,13 @@ function Orders()
                     <div className = "empty-message">No results found.</div>
                     <div className = "pan-main" id = "pan-main"></div>
                 </div>
-                <div className = "center" id = "pag"></div>
+                <div className = "center" id = "pag" style ={{top: '45px'}}>
+                    <div className = "pagination">
+                        <button className = "active" id = "hod"></button>
+                        <button id = "next">→</button>
+                        <button id = "prev">←</button>
+                    </div>
+                </div>
             </div>
 
             <Page1 filter_display = "none"/>

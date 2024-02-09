@@ -150,19 +150,6 @@ function Queue()
         }
 
         /* Script to automatically format the number of elements on each page */
-        const content = document.querySelector('.center'); 
-        const paginationContainer = document.createElement('div');
-        const paginationDiv = document.body.appendChild(paginationContainer);
-        paginationContainer.classList.add('pagination');
-        content.appendChild(paginationContainer);
-
-        document.querySelector(".pan-main").remove();
-        let div = document.createElement("div");
-        div.className = "pan-main";
-        div.id = "pan-main";
-        let main = document.querySelector(".main-elements");
-        main.appendChild(div);
-
         function Pagintation(index)
         {
             let ahead = index + 1;
@@ -184,25 +171,12 @@ function Queue()
             if(document.getElementById("next") != null && document.getElementById("prev") != null && document.getElementById("hod") != null)
             //If they exist remove them, and create new based on the new index value
             {
-                document.getElementById("next").remove();
-                document.getElementById("prev").remove();
-                document.getElementById("hod").remove();
 
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
+                let nextPage = document.getElementById("next");
+                let prevPage = document.getElementById("prev");
+                let pageButton = document.getElementById("hod");
                 pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
 
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
                 if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
                 else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
                 else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
@@ -229,16 +203,16 @@ function Queue()
                         let root = createRoot(div);
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
-                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id} 
-                            />))
+                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
+                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
+                            /> )) 
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
 
                     let ahead = index + 1;
                     /*  API  */
-                    $.get('http://localhost:8080/api/products?page=' + ahead, [], [])
+                    $.get('http://localhost:8080/api/queue?page=' + ahead, [], [])
                     .done(function( _data) 
                     {
                         console.log(_data);
@@ -279,9 +253,9 @@ function Queue()
 
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} 
+                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
                             Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                            />))
+                            /> )) 
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
@@ -292,21 +266,10 @@ function Queue()
             else 
             //If they dont exist create new ones 
             {
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
+                let nextPage = document.getElementById("next");
+                let prevPage = document.getElementById("prev");
+                let pageButton = document.getElementById("hod");
                 pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
-
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
 
                 if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
                 else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
@@ -333,9 +296,9 @@ function Queue()
 
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
+                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
                             Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                            />))
+                            /> ))  
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
@@ -365,16 +328,16 @@ function Queue()
 
                         flushSync(() => 
                         { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
+                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
                             Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                            />))
+                            />)) 
                         });
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
                     setTimeout(() => { DetailedView();}, 200);
                 });
-            } 
+            }  
         }
         Pagintation(1);
         setTimeout(() => { DetailedView();}, 200);
@@ -464,7 +427,13 @@ function Queue()
 
                     </div>
                 </div>
-                <div className = "center" id = "pag"></div>
+                <div className = "center" id = "pag" style ={{top: '45px'}}>
+                    <div className = "pagination">
+                        <button className = "active" id = "hod"></button>
+                        <button id = "next">→</button>
+                        <button id = "prev">←</button>
+                    </div>
+                </div>
             </div>
 
             <Page2 title = "Queue"/>
