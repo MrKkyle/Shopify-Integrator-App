@@ -381,7 +381,7 @@ function Orders()
                     .fail( function(xhr) { alert(xhr.responseText); });
 
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
 
                 prevPage.addEventListener("click", () =>
@@ -413,7 +413,7 @@ function Orders()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
             }
             else 
@@ -454,7 +454,7 @@ function Orders()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
                 prevPage.addEventListener("click", () =>
                 {
@@ -484,12 +484,12 @@ function Orders()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
             } 
         }
         Pagintation(1);
-        setTimeout(() => { DetailedView();}, 200);
+        setTimeout(() => { DetailedView();}, 300);
 
         /* Re-Sync function runs every 30 seconds minutes*/
         var timerID = setInterval(function() 
@@ -511,7 +511,7 @@ function Orders()
                 let root = createRoot(div);
 
                 flushSync(() => { root.render(_data.map((el, i) => <Order_details key={`${el.title}_${i}`} /> )) });
-                setTimeout(() => { DetailedView();}, 200);
+                setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
             })
             .fail( function(xhr) { alert(xhr.responseText); });

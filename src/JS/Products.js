@@ -351,7 +351,7 @@ function Products()
                     .fail( function(xhr) { alert(xhr.responseText); });
 
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
 
                 prevPage.addEventListener("click", () =>
@@ -386,7 +386,7 @@ function Products()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
             }
             else 
@@ -430,7 +430,7 @@ function Products()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
                 prevPage.addEventListener("click", () =>
                 {
@@ -463,12 +463,12 @@ function Products()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
             } 
         }
         Pagintation(1);
-        setTimeout(() => { DetailedView();}, 200);
+        setTimeout(() => { DetailedView();}, 300);
 
         let C_filter = document.getElementById("clear_filter");
         C_filter.addEventListener("click", () => 
@@ -508,7 +508,7 @@ function Products()
                 Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
                 Product_Image={el.product_images.map((el, i) => el.src)}
                 /> )) 
-                setTimeout(() => { DetailedView();}, 200);
+                setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
@@ -541,7 +541,7 @@ function Products()
                     /> )) 
                 });
                 Pagintation(1);
-                setTimeout(() => { DetailedView();}, 200);
+                setTimeout(() => { DetailedView();}, 300);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         },  240 * 1000); 

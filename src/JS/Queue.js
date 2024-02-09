@@ -226,7 +226,7 @@ function Queue()
                     .fail( function(xhr) { alert(xhr.responseText); });
 
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
 
                 prevPage.addEventListener("click", () =>
@@ -260,7 +260,7 @@ function Queue()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
             }
             else 
@@ -303,7 +303,7 @@ function Queue()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
                 prevPage.addEventListener("click", () =>
                 {
@@ -335,12 +335,12 @@ function Queue()
                     })
                     .fail( function(xhr) { alert(xhr.responseText); });
                     Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
+                    setTimeout(() => { DetailedView();}, 300);
                 });
             }  
         }
         Pagintation(1);
-        setTimeout(() => { DetailedView();}, 200);
+        setTimeout(() => { DetailedView();}, 300);
 
         let C_filter = document.getElementById("clear_filter");
         C_filter.addEventListener("click", () => 
@@ -372,7 +372,7 @@ function Queue()
                 root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
                 Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
                 />))
-                setTimeout(() => { DetailedView();}, 200);
+                setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
@@ -402,7 +402,7 @@ function Queue()
                 root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
                 Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
                 />))
-                setTimeout(() => { DetailedView();}, 200);
+                setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
