@@ -117,7 +117,7 @@ function Page1(props)
             close[i].addEventListener("click", () =>
             {
                 filter_img[i].style.display = "none";
-                filter[i].style.backgroundColor = "rgba(61, 61, 61, 0.7)";
+                filter[i].style.background = "linear-gradient(to bottom, #2020209c, #11111936)";
                 filter_input[i].style.display = "none";
                 let element = close[i].parentElement;
                 element.querySelector(".input_field").value = "";

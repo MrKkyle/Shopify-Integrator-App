@@ -130,6 +130,7 @@ body
 {
     font-size: 18px;
     padding: 20px;
+    color: white;
 }
 .filter-input
 {   
@@ -204,6 +205,7 @@ input[type = vendor], input[type = category], input[type = type]
 	box-sizing: border-box;
     background-color: transparent;
     border-radius: 0px;
+    color: white;
 }
 
 /* Search element */
@@ -330,7 +332,7 @@ input.search-area
     transform: translate(0%, -50%);
     background-size: cover;
     background-position: center;
-    background-color: rgb(177 177 177);
+    background-color: rgb(177 177 177 / 34%);
 }
 .img-2
 {

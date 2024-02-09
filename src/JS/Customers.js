@@ -482,7 +482,7 @@ function Customers()
             })
             .fail( function(xhr) { alert(xhr.responseText); });
 
-        }, 120 * 1000); 
+        }, 240 * 1000); 
         
         //clearInterval(timerID);
         

@@ -139,8 +139,9 @@ function Products()
         /* When the user clicks on the pan elements show info about that specified pan element */
         function DetailedView()
         {
-            let products = document.querySelector(".products");
+            let products = document.querySelector(".products")
             let pan = document.querySelectorAll(".pan");
+            
             for(let i = 0; i < pan.length; i++)
             {
                 pan[i].addEventListener("click", () =>
@@ -563,7 +564,7 @@ function Products()
                 setTimeout(() => { DetailedView();}, 200);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
-        }, 120 * 1000); 
+        },  240 * 1000); 
         
         //clearInterval(timerID);
     }, []);
