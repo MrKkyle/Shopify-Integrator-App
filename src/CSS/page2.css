@@ -338,7 +338,15 @@ input[type = setting]
     background-color: rgba(194, 194, 194, 0.842);
 }
 
-
+.queue-view 
+{
+    display: none;
+    top: 15%;
+    position: absolute;
+    z-index: 5;
+    width: 90%;
+    height: 100%;
+}
 /* Webhook div */
 .webhook_div {
     margin: 0;

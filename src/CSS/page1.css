@@ -39,7 +39,7 @@ body
     margin-bottom: 20px;
     color: white;
 }
-.filter-elements, .queue-items
+.filter-elements, .queue-items, .graph-view
 {
     position: relative;
     display: none;
@@ -64,7 +64,7 @@ body
     color: white;
     background: linear-gradient(to bottom, #2020209c, #11111936);
 }
-.filter-elements:hover, .queue-items:hover
+.filter-elements:hover, .queue-items:hover, .graph-view:hover
 {
 	color: rgb(255, 255, 255);
     box-shadow: 0 0 6px rgba(240, 248, 255, 0.822);

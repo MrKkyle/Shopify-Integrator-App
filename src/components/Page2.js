@@ -551,7 +551,7 @@ function Page2(props)
             alert(xhr.responseText);
         });
 
-        /*
+        
         let ctx = document.getElementById("queue-graph");
         setTimeout(() =>
         {
@@ -588,7 +588,48 @@ function Page2(props)
             graph.style.animation = "SlideUp2 0.8s ease-in";
             graph.style.display = "block";
         }, 1200);
-        */
+
+        /* Script for the queue-view graph */
+        let queue_graph_div = document.querySelector(".queue-view");
+        let close_queue = document.getElementById("queue-close");
+        let view_graph = document.getElementById("queue_view");
+        let main_elements = document.querySelector(".main-elements");
+        let _filter = document.querySelector(".filter").children;
+        
+        view_graph.addEventListener("click", () => 
+        {
+            queue_graph_div.style.display = "block";
+            for(let i = 0; i < _filter.length; i++)
+            {
+                _filter[i].style.display = "none";
+            }
+            for(let i = 0; i < main_elements.length; i++)
+            {
+                main_elements[i].style.display = "none";
+            }
+            setTimeout(() => 
+            {
+                queue_graph_div.style.animation = "FadeIn 1s ease-in";
+            }, 1000);
+
+            close_queue.addEventListener("click", () => 
+            {
+                queue_graph_div.style.animation = "Fadeout 1s ease-out";
+                for(let i = 0; i < _filter.length; i++)
+                {
+                    _filter[i].style.display = "block";
+                }
+                for(let i = 0; i < main_elements.length; i++)
+                {
+                    main_elements[i].style.display = "block";
+                }
+                setTimeout(() => 
+                {
+                    queue_graph_div.style.display = "none";
+                }, 1000);
+            });
+        });
+        
     
     }, []);
 
@@ -638,7 +679,14 @@ function Page2(props)
                     <button id = "clear_filter"className = "filter-button">Clear Filter</button>
                     <button id = "_filter"className = "filter-button">Filter Results</button>
                 </div>
-
+                <br />
+                <button id = "queue_view" className = "graph-view">View Graph</button>
+            </div>
+            <div className = "queue-view">
+                <div className = 'close-button' id = "queue-close">&times;</div>
+                <div className="graph g1" style = {{width: '70%', left:'24%', top:'12%'}}>
+                    <canvas id="queue-graph"></canvas>
+                </div>
             </div>
         </>
     );
