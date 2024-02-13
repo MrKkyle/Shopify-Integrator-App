@@ -406,7 +406,7 @@ function Queue()
                 Pagintation(1);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
-        }, 30 * 1000); 
+        }, 5 * 1000); 
         
         //clearInterval(timerID);
 
