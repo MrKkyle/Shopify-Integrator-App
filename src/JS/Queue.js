@@ -140,7 +140,7 @@ function Queue()
                 Pagintation(1);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
-        }, 5 * 1000); 
+        }, 15 * 1000); 
         
         //clearInterval(timerID);
 

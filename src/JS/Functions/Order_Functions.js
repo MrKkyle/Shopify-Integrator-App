@@ -77,7 +77,6 @@ export function DetailedView()
                             Address3 ={el.city} Address4={el.suburb} Address5={el.postal_code}
                             />))
                         }
-                        
                     }, 10);    
                 }
                 else 
