@@ -593,40 +593,26 @@ function Page2(props)
         let queue_graph_div = document.querySelector(".queue-view");
         let close_queue = document.getElementById("queue-close");
         let view_graph = document.getElementById("queue_view");
-        let main_elements = document.querySelector(".main-elements");
+        let main_elements = document.querySelector(".main-elements").children;
+        let pagination = document.querySelector(".pagination");
         let _filter = document.querySelector(".filter").children;
+
         
         view_graph.addEventListener("click", () => 
         {
+            navbar.style.left = "0%"; navbar.style.width = "100%";
+            search.style.display = "none"; pagination.style.display = "none";
             queue_graph_div.style.display = "block";
-            for(let i = 0; i < _filter.length; i++)
-            {
-                _filter[i].style.display = "none";
-            }
-            for(let i = 0; i < main_elements.length; i++)
-            {
-                main_elements[i].style.display = "none";
-            }
-            setTimeout(() => 
-            {
-                queue_graph_div.style.animation = "FadeIn 1s ease-in";
-            }, 1000);
+            for(let i = 0; i < _filter.length; i++) { _filter[i].style.display = "none"; }
+            for(let i = 0; i < main_elements.length; i++) { main_elements[i].style.display = "none"; }
+            setTimeout(() => { queue_graph_div.style.animation = "FadeIn 1s ease-in"; }, 1000);
 
             close_queue.addEventListener("click", () => 
             {
-                queue_graph_div.style.animation = "Fadeout 1s ease-out";
-                for(let i = 0; i < _filter.length; i++)
-                {
-                    _filter[i].style.display = "block";
-                }
-                for(let i = 0; i < main_elements.length; i++)
-                {
-                    main_elements[i].style.display = "block";
-                }
-                setTimeout(() => 
-                {
-                    queue_graph_div.style.display = "none";
-                }, 1000);
+                queue_graph_div.style.animation = "Fadeout 1s ease-out"; navbar.style.left = "30%"; navbar.style.width = "70%";
+                for(let i = 0; i < _filter.length; i++) { _filter[i].style.display = "block"; }
+                for(let i = 0; i < main_elements.length; i++) { main_elements[i].style.display = "block"; }
+                setTimeout(() => {queue_graph_div.style.display = "none"; search.style.display = "none"; pagination.style.display = "block"; }, 1000);
             });
         });
         
