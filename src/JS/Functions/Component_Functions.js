@@ -60,7 +60,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -96,7 +95,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + ahead, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 if(_data == "") { let next = document.getElementById("next"); next.style.cursor = "not-allowed"; next.disabled = true; }  
             })
             .fail( function(xhr) 
@@ -128,7 +126,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -185,7 +182,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -231,7 +227,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");

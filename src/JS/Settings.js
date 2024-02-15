@@ -42,7 +42,6 @@ function Settings()
             $.get('http://localhost:8080/api/inventory/config', [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 for(let i = 0; i < _data.warehouses.length; i++)
                 {
@@ -83,7 +82,6 @@ function Settings()
                     $.post("http://localhost:8080/api/inventory/map", JSON.stringify(object), [], 'json')
                     .done(function( _data) 
                     {
-                        console.log(_data);
                         let info = document.getElementById("info-message");
                         info.innerHTML = "success";
                         info.style.display = "block";  
@@ -199,7 +197,6 @@ function Settings()
         $.get("http://localhost:8080/api/settings", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             
             let root;
             let _main = document.querySelector(".app-settings");
@@ -302,7 +299,6 @@ function Settings()
         $.get("http://localhost:8080/api/shopify/settings", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             
             let root;
             let _main = document.querySelector("._shopify");
@@ -818,15 +814,11 @@ function Settings()
 
             const api_key = localStorage.getItem('api_key');
 
-            console.log(fetch_restrict);
-            console.log(push_restrict);
-
             /* Fetch Restriction Put Setting */
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key}});
             $.ajax({ type: 'PUT', url: "http://localhost:8080/api/fetch/restriction", contentType: 'json', data: JSON.stringify(fetch_restrict)})
             .done(function (_data) 
             {
-                console.log(_data);
                 let info = document.getElementById("info-message");
                 info.innerHTML = "success";
                 info.style.display = "block";  
@@ -854,7 +846,6 @@ function Settings()
             $.ajax({ type: 'PUT', url: "http://localhost:8080/api/push/restriction", contentType: 'json', data: JSON.stringify(push_restrict)})
             .done(function (_data) 
             {
-                console.log(_data);
                 let info = document.getElementById("info-message");
                 info.innerHTML = "success";
                 info.style.display = "block";  
@@ -883,7 +874,6 @@ function Settings()
             $.ajax({ type: 'PUT', url: "http://localhost:8080/api/settings", contentType: 'json', data: JSON.stringify(app_object)})
             .done(function (_data) 
             {
-                console.log(_data);
                 let info = document.getElementById("info-message");
                 info.innerHTML = "success";
                 info.style.display = "block";  
@@ -912,7 +902,6 @@ function Settings()
             contentType: 'json', data: JSON.stringify(_shopify_object)})
             .done(function (_data) 
             {
-                console.log(_data);
                 let info = document.getElementById("info-message");
                 info.innerHTML = "success";
                 info.style.display = "block";  
@@ -970,7 +959,6 @@ function Settings()
                 $.post("http://localhost:8080/api/settings/webhook", JSON.stringify(domain), [], 'json')
                 .done(function( _data) 
                 {
-                    console.log(_data);
 
                     let info = document.getElementById("info-message");
                     info.innerHTML = "success";
@@ -1022,7 +1010,6 @@ function Settings()
             $.post("http://localhost:8080/api/inventory/warehouse?reindex=false", JSON.stringify(body), [], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
                 let info = document.getElementById("info-message");
                 info.innerHTML = _data.message;
                 info.style.display = "block";  
@@ -1119,7 +1106,6 @@ function Settings()
             $.get("http://localhost:8080/api/inventory/map", [], [], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
                 let info = document.getElementById("info-message");
                 info.innerHTML = _data;
                 info.style.display = "block";

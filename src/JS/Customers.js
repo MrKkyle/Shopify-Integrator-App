@@ -23,7 +23,6 @@ function Customers()
     const SearchCustomer = (event) =>
     {
         event.preventDefault();
-        console.log(inputs);
     }
 
     useEffect(()=> 
@@ -46,7 +45,6 @@ function Customers()
         $.get("http://localhost:8080/api/customers?page=1", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 document.querySelector(".empty-message").style.display = "block";
@@ -94,8 +92,6 @@ function Customers()
             $.get("http://localhost:8080/api/customers/search?q=" + document.getElementsByName("search")[0].value,[],[], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
-
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -126,7 +122,6 @@ function Customers()
                 $.get("http://localhost:8080/api/customers?page=1", [], [])
                 .done(function( _data) 
                 {
-                    console.log(_data);
                     let filter_button = document.getElementById("_filter");
                     let C_filter = document.getElementById("clear_filter");
                     filter_button.disabled = true;

@@ -48,7 +48,7 @@ function Dashboard()
             $.post("http://localhost:8080/api/logout", [], [], 'json')
             .done(function( _data) 
             {
-                console.log("done");
+                console.log("logout");
             })
             .fail( function(xhr) 
             {
@@ -78,8 +78,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/fetch", [], [], 'json')
         .done(function( _data) 
         {
-            console.log("data here");
-            console.log(_data);
             if(_data.amounts.length == "" && _data.hours == "")
             {
                 status.className = "disabled_status";
@@ -105,7 +103,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/orders?status=not_paid", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 status.className = "disabled_status";
@@ -128,7 +125,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/orders?status=paid", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             graph_data3 = _data;
         })
         .fail( function(xhr) 
@@ -222,7 +218,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/inventory/warehouse", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 let bubble = document.createElement("div");

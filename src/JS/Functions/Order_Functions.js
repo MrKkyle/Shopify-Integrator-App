@@ -22,7 +22,7 @@ export function DetailedView()
             $.get("http://localhost:8080/api/orders/" + id, [], [], 'json')
             .done(function(_data) 
             {   
-                console.log(_data);
+
                 if(document.querySelector(".details") != null)
                 //div already exists, remove it, and create another
                 {
@@ -151,7 +151,7 @@ export function Pagintation(index)
     $.get('http://localhost:8080/api/orders?page=' + ahead, [], [])
     .done(function( _data) 
     {
-        console.log(_data);
+
         if(_data == "")
         {
             let next = document.getElementById("next");
@@ -205,7 +205,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -225,7 +224,6 @@ export function Pagintation(index)
             $.get('http://localhost:8080/api/order?page=' + ahead, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 if(_data == "")
                 {
                     let next = document.getElementById("next");
@@ -251,7 +249,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -293,7 +290,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -323,7 +319,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";

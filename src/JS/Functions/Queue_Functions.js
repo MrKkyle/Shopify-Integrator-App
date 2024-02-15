@@ -21,7 +21,6 @@ export function DetailedView()
             $.get("http://localhost:8080/api/queue/" + id, [], [], 'json')
             .done(function(_data) 
             {   
-                console.log(_data);
                 if(document.querySelector(".details") != null)
                 //div already exists, remove it, and create another
                 {
@@ -86,7 +85,6 @@ export function Pagintation(index)
     $.get('http://localhost:8080/api/queue?page=' + ahead, [], [])
     .done(function( _data) 
     {
-        console.log(_data);
         if(_data == "")
         {
             let next = document.getElementById("next");
@@ -122,7 +120,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -144,7 +141,6 @@ export function Pagintation(index)
             $.get('http://localhost:8080/api/queue?page=' + ahead, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 if(_data == "")
                 {
                     let next = document.getElementById("next");
@@ -170,7 +166,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -214,7 +209,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -246,7 +240,6 @@ export function Pagintation(index)
             $.get(page, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -286,7 +279,6 @@ export function Filter_Pagintation(index)
                 $.get("http://localhost:8080/api/queue/filter?type=" + type + "?page="+ ahead, [], [], 'json')
                 .done(function( _data) 
                 {
-                    console.log(_data);
                     if(_data.length < 10)
                     {
                         next.disabled = true;
@@ -362,7 +354,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -386,7 +377,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + ahead, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 if(_data == "") { let next = document.getElementById("next"); next.style.cursor = "not-allowed"; next.disabled = true; }  
             })
             .fail( function(xhr) { alert(xhr.responseText); });
@@ -406,7 +396,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -453,7 +442,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -487,7 +475,6 @@ export function Filter_Pagintation(index)
             $.get("http://localhost:8080/api/products/filter?type=" + type + "&vendor=" + vendor + "&category=" + category + "&page=" + index, [], [])
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");

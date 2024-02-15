@@ -42,7 +42,6 @@ function Queue()
         $.get("http://localhost:8080/api/queue?page=1", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 document.querySelector(".empty-message").style.display = "block";
@@ -121,7 +120,6 @@ function Queue()
             $.get("http://localhost:8080/api/queue?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 let filter_button = document.getElementById("_filter");
                 let C_filter = document.getElementById("clear_filter");
                 filter_button.disabled = true;

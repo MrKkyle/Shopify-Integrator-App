@@ -26,8 +26,6 @@ function Login()
         let re = document.querySelector(".result-container");
         re.style.display = "none";
 
-        console.log(inputs);
-
         let message = document.getElementById("message");
         message.style.display = "block";
 
@@ -35,7 +33,6 @@ function Login()
         $.post("http://localhost:8080/api/login", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
         {
-            console.log(_data);
 
             /* Sets the user information for this session */
             localStorage.setItem('api_key', _data.api_key);
@@ -81,12 +78,9 @@ function Login()
         let message = document.getElementById("message");
         message.style.display = "block";
         
-        console.log(inputs);
-        
         $.post("http://localhost:8080/api/register", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
         {
-            console.log(_data);
 
             let div = document.querySelector(".pre");
             let rot = createRoot(div);
@@ -123,14 +117,12 @@ function Login()
     const Register_auth = (event) =>
     {
         event.preventDefault();
-        console.log(inputs);
         let message = document.getElementById("message");
         message.style.display = "block";
 
         $.post("http://localhost:8080/api/preregister", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
         {
-            console.log(_data);
 
             message.innerHTML = "Email sent";
             message.style.background = "#1a5e12";
@@ -179,7 +171,6 @@ function Login()
             $.get("http://localhost:8080/api/google/oauth2/login", [], [], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
 
                 let rain = document.querySelector(".back-row-toggle"); rain.style.display = "none";
 

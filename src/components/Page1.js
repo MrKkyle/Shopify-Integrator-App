@@ -137,7 +137,6 @@ function Page1(props)
             $.get("http://localhost:8080/api/products/filter?type=" +type + "&" + "vendor="+ vendor +"&category="+category,[], [], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
                 category = ""; type = ""; vendor = "";
                 
                 if(_data.length < 10)
@@ -224,7 +223,6 @@ function Page1(props)
             $.get("http://localhost:8080/api/shopify/fetch", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 fetch.disabled = false;
                 fetch.style.cursor = "pointer";
                 fetch.style.backgroundColor = "rgba(61, 61, 61, 0.55)";
@@ -270,7 +268,6 @@ function Page1(props)
             $.post("http://localhost:8080/api/shopify/sync", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 push.disabled = false;
                 push.style.cursor = "pointer";
                 push.style.backgroundColor = "rgba(61, 61, 61, 0.55)";

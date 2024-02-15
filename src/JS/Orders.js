@@ -42,7 +42,6 @@ function Orders()
         $.get("http://localhost:8080/api/orders?page=1", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 document.querySelector(".empty-message").style.display = "block";
@@ -72,7 +71,6 @@ function Orders()
             $.get("http://localhost:8080/api/orders/search?q=" + document.getElementsByName("search")[0].value,[],[], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -101,7 +99,6 @@ function Orders()
                 $.get("http://localhost:8080/api/orders?page=1", [], [])
                 .done(function( _data) 
                 {
-                    console.log(_data);
                     let filter_button = document.getElementById("_filter");
                     let C_filter = document.getElementById("clear_filter");
                     filter_button.disabled = true;
