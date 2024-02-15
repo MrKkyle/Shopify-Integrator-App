@@ -23,7 +23,7 @@
     position: absolute;
     display: block;
     overflow: hidden;
-    background: linear-gradient(to bottom, #202020c7, #111119f0); 
+    background: linear-gradient(to bottom, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
     height: 100%;
     width: 100%;
     animation: FadeIn ease-in 1s;
@@ -144,7 +144,7 @@
     height: max-content;
     border-width: 1px;
     font-size: 20px;
-    top: 50px;
+    top: 47px;
     color: white;
     display: none;
     background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.1));

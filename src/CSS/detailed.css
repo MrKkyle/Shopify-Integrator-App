@@ -12,7 +12,7 @@
     width: 7%;
     position: relative;
     transition-duration: 0.4s;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
 }
 .tablink:hover 
 {
@@ -65,7 +65,7 @@
 }    
 .details-details 
 {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: system-ui;
     font-size: 13px;
     background-color: rgba(255, 255, 255, 0.7);
     width: 100%;
@@ -221,7 +221,7 @@
 }
 table 
 {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: system-ui;
     border-collapse: collapse;
     width: 80%;
     position: relative;
@@ -493,7 +493,7 @@ input:checked + .slider:before
 textarea {
     overflow: auto;
     border: none;
-    font-family: "Times New Roman", Times, serif;
+    font-family: system-ui;
     resize: none;
     box-sizing: border-box;
     transition-duration: 0.4s;

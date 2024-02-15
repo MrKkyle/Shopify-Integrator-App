@@ -154,24 +154,6 @@ export function Pagintation(index)
         let pageButton = document.getElementById("hod");
         pageButton.innerHTML = index;
 
-        /*
-        const pageButton = document.createElement('button');
-        pageButton.id = "hod";
-        pageButton.className = "active";
-        pageButton.innerHTML = index;
-        paginationDiv.appendChild(pageButton);
-
-        const nextPage = document.createElement('button');
-        nextPage.id = "next";
-        nextPage.innerHTML = "→";
-        paginationDiv.appendChild(nextPage);
-
-        const prevPage = document.createElement('button');
-        prevPage.id = "prev";
-        prevPage.innerHTML = "←";
-        paginationDiv.appendChild(prevPage);
-        */
-
         if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
         else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
         else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
@@ -222,7 +204,7 @@ export function Pagintation(index)
             .fail( function(xhr) { alert(xhr.responseText); });
 
             Pagintation(index);
-            setTimeout(() => { DetailedView();}, 300);
+            setTimeout(() => { DetailedView();}, 400);
         });
 
         prevPage.addEventListener("click", () =>
@@ -257,7 +239,7 @@ export function Pagintation(index)
             })
             .fail( function(xhr) { alert(xhr.responseText); });
             Pagintation(index);
-            setTimeout(() => { DetailedView();}, 300);
+            setTimeout(() => { DetailedView();}, 400);
         });
     }
     else 
@@ -301,7 +283,7 @@ export function Pagintation(index)
             })
             .fail( function(xhr) { alert(xhr.responseText); });
             Pagintation(index);
-            setTimeout(() => { DetailedView();}, 300);
+            setTimeout(() => { DetailedView();}, 400);
         });
         prevPage.addEventListener("click", () =>
         {
@@ -334,7 +316,7 @@ export function Pagintation(index)
             })
             .fail( function(xhr) { alert(xhr.responseText); });
             Pagintation(index);
-            setTimeout(() => { DetailedView();}, 300);
+            setTimeout(() => { DetailedView();}, 400);
         });
     }
 }

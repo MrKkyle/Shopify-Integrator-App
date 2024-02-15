@@ -12,7 +12,7 @@
 .navbar 
 {
     background-color: rgba(201, 201, 201, 0.95);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     transition-duration: 0.2s;
     position: relative;
     z-index: 3;
@@ -56,7 +56,7 @@
     color: rgb(34, 33, 33);
     padding: 14px 16px;
     background-color: inherit;
-    font-family: inherit;
+    font-family: system-ui;
     margin: 0;
     cursor: pointer;
 }

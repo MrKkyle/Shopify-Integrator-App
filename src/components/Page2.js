@@ -284,39 +284,39 @@ function Page2(props)
         <>
             <div className = "filter" style = {{display: props.filter_display}}>
                 <div className = "filter-title"><b>Available Filters:</b></div>
-                <div className = "filter-elements" style = {{height: '6%'}} disabled>
+                <div className = "filter-elements" disabled>
                     <div className = "filter-elements-text">Filter By Order</div>
                     <div className = "filter-img"/>
                     <div className = "order"></div>
                 </div>
-                <div className = "filter-elements" style = {{height: '6%'}} disabled>
+                <div className = "filter-elements" disabled>
                     <div className = "filter-elements-text">Filter By Product</div>
                     <div className = "filter-img"/>
                     <div className = "product"></div>
                 </div>
-                <div className = "filter-elements" style = {{height: '6%'}} disabled>
+                <div className = "filter-elements" disabled>
                     <div className = "filter-elements-text">Filter By Customer</div>
                     <div className = "filter-img"/>
                     <div className = "customer"></div>
                 </div>
                 
                 <div className = "filter-title"><b>Queue Items</b></div>
-                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                <div className = "queue-items" disabled>
                     <div className = "filter-elements-text">In-Queue</div>
                     <div className = "queue-img"/>
                     <div className = "in-queue"></div>
                 </div>
-                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                <div className = "queue-items" disabled>
                     <div className = "filter-elements-text">Failed</div>
                     <div className = "queue-img"/>
                     <div className = "failed"></div>
                 </div>
-                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                <div className = "queue-items" disabled>
                     <div className = "filter-elements-text">Processing</div>
                     <div className = "queue-img"/>
                     <div className = "processing"></div>
                 </div>
-                <div className = "queue-items" style = {{height: '6%'}} disabled>
+                <div className = "queue-items" disabled>
                     <div className = "filter-elements-text">Completed</div>
                     <div className = "queue-img"/>
                     <div className = "completed"></div>

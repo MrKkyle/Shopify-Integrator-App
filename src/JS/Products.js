@@ -88,7 +88,7 @@ function Products()
                 Product_Image={el.product_images.map((el, i) => el.src)}
                 /> )) 
 
-                setTimeout(() => { DetailedView(); }, 200);
+                setTimeout(() => { DetailedView(); }, 400);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         });
@@ -123,7 +123,7 @@ function Products()
                     Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
                     Product_Image={el.product_images.map((el, i) => el.src)}
                     /> ))
-                    setTimeout(() => { DetailedView(); }, 200);
+                    setTimeout(() => { DetailedView(); }, 400);
                     Pagintation(1);
                 })
                 .fail( function(xhr) { alert(xhr.responseText); });
@@ -132,7 +132,7 @@ function Products()
 
 
         Pagintation(1);
-        setTimeout(() => { DetailedView();}, 300);
+        setTimeout(() => { DetailedView();}, 400);
 
         let C_filter = document.getElementById("clear_filter");
         C_filter.addEventListener("click", () => 
@@ -187,8 +187,6 @@ function Products()
             $.get("http://localhost:8080/api/products?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
-
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";

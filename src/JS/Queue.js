@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import {useEffect, useState} from 'react';
+import { flushSync } from 'react-dom';
 import $ from 'jquery';
 import Page2 from '../components/Page2';
 import Queue_details from '../components/semi-components/queue-details';
@@ -122,25 +123,30 @@ function Queue()
             $.get("http://localhost:8080/api/queue?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
-
-                let root;
-                let pan_main;
-                if(document.querySelector(".pan-main") != null){ document.querySelector(".pan-main").remove(); }
-            
-                pan_main = document.createElement('div');
-                let main_elements = document.querySelector(".main-elements");
-                pan_main.className = "pan-main";
-                main_elements.appendChild(pan_main);
-                root = createRoot(pan_main);
-                root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
-                Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                />))
-                setTimeout(() => { DetailedView();}, 300);
-                Pagintation(1);
+                if(document.querySelector(".pan-main") != null)
+                {
+                    document.querySelector(".pan-main").remove();
+                }
+                let div = document.createElement("div");
+                div.className = "pan-main";
+                div.id = "pan-main";
+                if(document.querySelector(".main-elements") != null)
+                {
+                    let main = document.querySelector(".main-elements");
+                    main.appendChild(div);
+                    let root = createRoot(div);
+                    flushSync(() => 
+                    { 
+                        root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
+                        Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
+                        />))
+                    });
+                    Pagintation(1);
+                    setTimeout(() => { DetailedView();}, 300);
+                }
             })
             .fail( function(xhr) { alert(xhr.responseText); });
-        }, 15 * 1000); 
+        }, 10 * 1000); 
         
         //clearInterval(timerID);
 
@@ -157,9 +163,7 @@ function Queue()
                 </div>
                 <div className = "main-elements" style={{top: '53%'}}>
                     <div className = "empty-message">No results found.</div>
-                    <div className = "pan-main" id = "pan-main">
-
-                    </div>
+                    <div className = "pan-main" id = "pan-main"></div>
                 </div>
                 <div className = "center" id = "pag" style ={{top: '45px'}}>
                     <div className = "pagination">

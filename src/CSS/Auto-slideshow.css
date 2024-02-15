@@ -33,7 +33,7 @@
     text-align: center;
     position: relative;
     background-color: transparent;
-    font-family: monospace;
+    font-family: system-ui;
 }
 
 .active 

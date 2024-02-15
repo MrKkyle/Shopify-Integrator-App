@@ -160,8 +160,6 @@ function Orders()
             $.get("http://localhost:8080/api/order?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
-
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
                 div.className = "pan-main";
@@ -198,7 +196,7 @@ function Orders()
                     <div className = "empty-message">No results found.</div>
                     <div className = "pan-main" id = "pan-main"></div>
                 </div>
-                <div className = "center" id = "pag" style ={{top: '45px'}}>
+                <div className = "center" id = "pag" style ={{top: '38px'}}>
                     <div className = "pagination">
                         <button className = "active" id = "hod"></button>
                         <button id = "next">→</button>

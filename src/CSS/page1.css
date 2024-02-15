@@ -2,8 +2,7 @@
 body 
 {
     overflow: auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    font-family: system-ui;}
 /* Filter elements */
 .filter 
 {
@@ -19,7 +18,7 @@ body
     animation: SlideUp 1.2s ease-in;
     z-index: 1;
     overflow: auto;
-    background: linear-gradient(to bottom, #202020c7, #111119f0);
+    background: linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
 }
 .filter:hover 
 {
@@ -32,7 +31,7 @@ body
     padding: 20px;
     text-align: center;
     font-size: 18px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     width: 100%;
     top: 0;
     left: 0;
@@ -46,7 +45,7 @@ body
     display: none;
     margin-bottom: 10px;
     text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: system-ui;
     width: 60%;
     height: 5%;
     top: 0;
@@ -63,7 +62,7 @@ body
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.514);
     border-radius: 4px;
     color: white;
-    background: linear-gradient(to bottom, #2020209c, #11111936);
+    background: linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
 }
 .filter-elements:hover, .queue-items:hover, .graph-view:hover
 {
@@ -73,7 +72,7 @@ body
 .filter-elements-text 
 {
     position: relative;
-    font-size: 15px;
+    font-size: 13px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -108,7 +107,7 @@ body
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.514);
     border-radius: 4px;
     color: white;
-    background: linear-gradient(to bottom, #2020209c, #11111936);
+    background: linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
 }
 .filter-button:hover
 {
@@ -155,9 +154,9 @@ body
     display: none;
     margin-bottom: 10px;
     text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: system-ui;
     width: 60%;
-    height: 6%;
+    height: 5%;
     top: 0;
     left: 0;
     transition-duration: 0.5s;
@@ -172,7 +171,7 @@ body
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.514);
     border-radius: 4px;
     color: white;
-    background: linear-gradient(to bottom, #2020209c, #11111936);
+    background: linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
 }
 .fetch-product:hover, .push-product:hover
 {
@@ -267,7 +266,7 @@ input.search-area
     animation: SlideUp2 1.2s ease-in;
     overflow: hidden;
     transition-duration: 0.4s;
-    background: linear-gradient(to bottom, #202020c7, #111119f0);
+    background: linear-gradient(to right, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
 }
 .main:hover 
 {
@@ -359,7 +358,7 @@ input.search-area
     font-size: 14px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     text-align: left;
     padding: 4px;
     transition-duration: 0.4s;
@@ -419,6 +418,7 @@ input.search-area
     border: none;
     padding: 5px;
     font-size: 15px;
+    font-weight: bold;
 }
 .p-d-code, .p-d-options
 {
@@ -595,7 +595,7 @@ a
     transform: translate(-50%);
     font-size: 16px;
     color: black;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     border-bottom: 1px solid rgb(0, 0, 0);
     padding: 10px;
     -webkit-user-select: none;
@@ -631,7 +631,7 @@ a
     transform: translate(-50%, -50%);
     color: white;
     font-size: 16px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: system-ui;
     background-color: rgba(61, 61, 61, 0.8);
     user-select: none;
 }
@@ -655,7 +655,7 @@ a
         font-size: 14px;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: system-ui;
         text-align: left;
         padding: 4px;
         transition-duration: 0.4s;
