@@ -17,6 +17,7 @@
     position: relative;
     z-index: 3;
     width: 100%;
+    display: none;
 }
 .navbar:hover 
 {

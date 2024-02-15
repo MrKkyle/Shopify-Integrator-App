@@ -19,7 +19,7 @@ function Settings()
         let message = document.getElementById("message");
         navigation.style.left = "25%";
         navigation.style.position = "absolute";
-        navigation.style.width = "75%";
+        navigation.style.width = "75%"; navigation.style.display = "block";
 
 
         /* Onclick for the Warehouse setting */

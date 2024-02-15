@@ -111,7 +111,7 @@ function Page1(props)
             close[i].addEventListener("click", () =>
             {
                 filter_img[i].style.display = "none";
-                filter[i].style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));";
+                filter[i].style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
                 filter_input[i].style.display = "none";
                 let element = close[i].parentElement;
                 element.querySelector(".input_field").value = "";
@@ -121,7 +121,7 @@ function Page1(props)
             C_filter.addEventListener("click", () =>
             {
                 filter_img[i].style.display = "none";
-                filter[i].style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));";
+                filter[i].style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
             });
             
         }
@@ -133,8 +133,6 @@ function Page1(props)
             let type = document.querySelector(".type").innerHTML;
             let vendor = document.querySelector(".vendor").innerHTML;
             let next = document.getElementById("next");
-
-            console.log(category); console.log(type); console.log(vendor); 
 
             $.get("http://localhost:8080/api/products/filter?type=" +type + "&" + "vendor="+ vendor +"&category="+category,[], [], 'json')
             .done(function( _data) 

@@ -244,11 +244,7 @@ function Page2(props)
 
         
         let graph = document.querySelector(".graph");
-        setTimeout(() =>
-        {
-            graph.style.animation = "SlideUp2 0.8s ease-in";
-            graph.style.display = "block";
-        }, 1200);
+        setTimeout(() => { graph.style.display = "block"; }, 1200);
 
         /* Script for the queue-view graph */
         let queue_graph_div = document.querySelector(".queue-view");
@@ -257,7 +253,6 @@ function Page2(props)
         let main_elements = document.querySelector(".main-elements").children;
         let pagination = document.querySelector(".pagination");
         let _filter = document.querySelector(".filter").children;
-
         
         view_graph.addEventListener("click", () => 
         {
@@ -330,8 +325,8 @@ function Page2(props)
                 <button id = "queue_view" className = "graph-view">View Graph</button>
             </div>
             <div className = "queue-view">
-                <div className = 'close-button' id = "queue-close">&times;</div>
-                <div className="graph g1" style = {{width: '70%', left:'24%', top:'12%'}}>
+                <div className = 'close-button' id = "queue-close" style = {{top: '50px'}}>&times;</div>
+                <div className="graph g1" style = {{width: '70%', left:'24%', top:'30%', animation: 'none'}}>
                     <canvas id="queue-graph"></canvas>
                 </div>
             </div>
@@ -352,12 +347,3 @@ Page2.defaultProps =
 };
 
 export default Page2;
-
-/*
-<br /><br /><br /><br /><br />
-                <div className = "queue-view">
-                    <div className="graph g1" style = {{width: '95%'}}>
-                        <canvas id="queue-graph"></canvas>
-                    </div>
-                </div>
-*/

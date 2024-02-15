@@ -33,10 +33,8 @@ function Customers()
         let main = document.querySelector(".main");
         window.onload = function(event)
         {
-            navigation.style.left = "0%";
-            navigation.style.position = "relative";
-            navigation.style.width = "100%";
-            main.style.animation = "SlideUp3 1.2s ease-in";
+            navigation.style.left = "0%"; navigation.style.position = "relative"; navigation.style.width = "100%";
+            main.style.animation = "SlideUp3 1.2s ease-in"; navigation.style.display = "block";
         }
 
         /*  API  */
@@ -185,9 +183,17 @@ function Customers()
             })
             .fail( function(xhr) { alert(xhr.responseText); });
 
-        }, 240 * 1000); 
+        }, 60 * 1000); 
         
-        //clearInterval(timerID);
+        /*  Clicking on the dropdowns clears the timeout */
+        let dropdown = document.querySelectorAll(".dropdown");
+        for(let i = 0; i < dropdown.length; i++)
+        {
+            dropdown[i].addEventListener("click", () => 
+            {
+                clearInterval(timerID);
+            });
+        }
         
     }, []);
 

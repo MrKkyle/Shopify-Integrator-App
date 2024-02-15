@@ -341,10 +341,10 @@ input[type = setting]
 .queue-view 
 {
     display: none;
-    top: 15%;
+    top: 0;
     position: absolute;
     z-index: 5;
-    width: 90%;
+    width: 100%;
     height: 100%;
 }
 /* Webhook div */

@@ -170,6 +170,10 @@ function Login()
         let message = document.getElementById("message");
         window.onload = function(event)
         {
+            let form = document.getElementById("form1");
+            let navbar = document.getElementById("navbar");
+            navbar.style.display = "none"; form.style.display = "none";
+
             $.ajaxSetup({ xhrFields: { withCredentials: true }, dataType: 'jsonp'});
             /* Check done to see if user's cookie already exists */
             $.get("http://localhost:8080/api/google/oauth2/login", [], [], 'json')
@@ -177,18 +181,12 @@ function Login()
             {
                 console.log(_data);
 
-                let form = document.getElementById("form1");
-                let navbar = document.getElementById("navbar");
-                let rain = document.querySelector(".back-row-toggle");
-                navbar.style.display = "none"; form.style.display = "none"; rain.style.display = "none";
+                let rain = document.querySelector(".back-row-toggle"); rain.style.display = "none";
 
                 localStorage.setItem('username', _data.username);
                 localStorage.setItem('api_key', _data.api_key);
                 
                 setTimeout(() => { window.location.href = '/dashboard'; }, 1500);
-                
-
-
             })
             .fail( function(xhr) 
             {
@@ -219,14 +217,16 @@ function Login()
         /* Ensure the model is shown */
         let model = document.getElementById("model");
         let navbar = document.getElementById("navbar");
+        let form1 = document.getElementById("form1")
         navbar.style.display = "none";
         model.style.display = "block";
+
+        setTimeout(() => { form1.style.display = "block"; setTimeout(() => { form1.style.animation = "FadeIn ease-in 1s"; }, 1000); }, 2000);
         
         /* The swapping of forms */
         let register_button = document.getElementById("reg");
         let return_button = document.querySelector(".return-button");
         let return_button2 = document.querySelector(".return-button2");
-        let form1 = document.getElementById("form1");
         let form2 = document.getElementById("form2");
         let form3 = document.getElementById("form3");
         register_button.addEventListener("click", () =>

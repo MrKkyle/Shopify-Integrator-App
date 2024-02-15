@@ -23,13 +23,9 @@ function Dashboard()
         let main = document.querySelector(".container");
 
 
-        navigation.style.left = "0%";
-        navigation.style.position = "absolute";
-        navigation.style.width = "100%";
+        navigation.style.left = "0%"; navigation.style.position = "absolute";
+        navigation.style.width = "100%"; navigation.style.display = "block";
         logout.style.display = "block"; 
-
-
-
 
         const userName = localStorage.getItem('username');
         document.querySelector(".welcome_text").innerHTML = "Welcome back, " + userName;
@@ -291,7 +287,6 @@ function Dashboard()
             header.style.animation = "appear 1s ease-in"; header.style.display = "block"; 
             header.style.position = "relative";
         }, 1500);
-
 
     }, []);
 

@@ -28,10 +28,8 @@ function Products()
         /* Ensures the page elements are set correctly */
         let navigation = document.getElementById("navbar");
         let empty_message = document.querySelector('.empty-message');
-        navigation.style.left = "30%";
-        navigation.style.position = "absolute";
-        navigation.style.width = "70%";
-        navigation.style.animation = "MoveLeft 0.8s ease";
+        navigation.style.left = "30%"; navigation.style.position = "absolute"; navigation.style.width = "70%";
+        navigation.style.animation = "MoveLeft 0.8s ease"; navigation.style.display = "block";
 
         /*  API INITIAL-REQUEST */
         const api_key = localStorage.getItem('api_key');
@@ -134,6 +132,36 @@ function Products()
         Pagintation(1);
         setTimeout(() => { DetailedView();}, 400);
 
+        /* Re-Sync function runs every 2 minutes*/
+        var timerID = setInterval(function()
+        {
+            /*  API  */
+            const api_key = localStorage.getItem('api_key');
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get("http://localhost:8080/api/products?page=1", [], [])
+            .done(function( _data) 
+            {
+                document.querySelector(".pan-main").remove();
+                let div = document.createElement("div");
+                div.className = "pan-main";
+                div.id = "pan-main";
+                let main = document.querySelector(".main-elements");
+                main.appendChild(div);
+                let root = createRoot(div);
+
+                flushSync(() => 
+                { 
+                    root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
+                    Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
+                    Product_Image={el.product_images.map((el, i) => el.src)}
+                    /> )) 
+                });
+                Pagintation(1);
+                setTimeout(() => { DetailedView();}, 300);
+            })
+            .fail( function(xhr) { alert(xhr.responseText); });
+        },  60 * 1000); 
+
         let C_filter = document.getElementById("clear_filter");
         C_filter.addEventListener("click", () => 
         {
@@ -142,9 +170,9 @@ function Products()
             let type = document.getElementById("_type")
             let vendor = document.getElementById("_vendor");
 
-            category.value = "";
-            type.value = "";
-            vendor.value = "";
+            category.value = ""; category.style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
+            type.value = ""; type.style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
+            vendor.value = ""; vendor.style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
 
             const api_key = localStorage.getItem('api_key');
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
@@ -174,41 +202,52 @@ function Products()
                 /> )) 
                 setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
+                setInterval(function() 
+                {
+                    /*  API  */
+                    const api_key = localStorage.getItem('api_key');
+                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+                    $.get("http://localhost:8080/api/products?page=1", [], [])
+                    .done(function( _data) 
+                    {
+                        document.querySelector(".pan-main").remove();
+                        let div = document.createElement("div");
+                        div.className = "pan-main";
+                        div.id = "pan-main";
+                        let main = document.querySelector(".main-elements");
+                        main.appendChild(div);
+                        let root = createRoot(div);
+        
+                        flushSync(() => 
+                        { 
+                            root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
+                            Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
+                            Product_Image={el.product_images.map((el, i) => el.src)}
+                            /> )) 
+                        });
+                        Pagintation(1);
+                        setTimeout(() => { DetailedView();}, 300);
+                    })
+                    .fail( function(xhr) { alert(xhr.responseText); });
+                }, 60 * 1000);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         });
 
-        /* Re-Sync function runs every 2 minutes*/
-        var timerID = setInterval(function() 
-        {
-            /*  API  */
-            const api_key = localStorage.getItem('api_key');
-            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-            $.get("http://localhost:8080/api/products?page=1", [], [])
-            .done(function( _data) 
-            {
-                document.querySelector(".pan-main").remove();
-                let div = document.createElement("div");
-                div.className = "pan-main";
-                div.id = "pan-main";
-                let main = document.querySelector(".main-elements");
-                main.appendChild(div);
-                let root = createRoot(div);
+        /* Local filter onclick to stop the product resync */
+        let filter_button = document.getElementById("_filter");
+        filter_button.addEventListener("click", () => { clearInterval(timerID); });
 
-                flushSync(() => 
-                { 
-                    root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
-                    Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
-                    Product_Image={el.product_images.map((el, i) => el.src)}
-                    /> )) 
-                });
-                Pagintation(1);
-                setTimeout(() => { DetailedView();}, 300);
-            })
-            .fail( function(xhr) { alert(xhr.responseText); });
-        },  240 * 1000); 
-        
-        //clearInterval(timerID);
+        /*  Clicking on the dropdowns clears the timeout */
+        let dropdown = document.querySelectorAll(".dropdown");
+        for(let i = 0; i < dropdown.length; i++)
+        {
+            dropdown[i].addEventListener("click", () => 
+            {
+                clearInterval(timerID);
+            });
+        }
+            
     }, []);
     
     return (
