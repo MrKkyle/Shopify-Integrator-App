@@ -23,7 +23,7 @@
     position: absolute;
     display: block;
     overflow: hidden;
-    background: linear-gradient(to bottom, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
+    background: linear-gradient(to bottom, rgb(0 0 0 / 61%), rgb(0 0 0 / 43%));
     height: 100%;
     width: 100%;
     animation: FadeIn ease-in 1s;

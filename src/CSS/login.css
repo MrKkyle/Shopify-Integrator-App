@@ -330,8 +330,9 @@ output .span--hidden
 }
 .details-right label:hover
 {
-    background-color: rgb(72, 101, 128);
-    color: aliceblue;
+    color:#333;
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
 }
 .modal-container label 
 {
@@ -341,7 +342,9 @@ output .span--hidden
 {
     background-color: #fcfafa;
     color: rgb(37, 37, 37);
-    background-color: rgb(72, 101, 128);
+    color:#333;
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     color: aliceblue;
     border: none;
     outline: none;
@@ -361,8 +364,10 @@ output .span--hidden
 }
 .submiit:hover 
 {
-    background-color: rgb(29, 74, 116);
-    color: aliceblue;
+    color:#333;
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
+    text-decoration: underline;
 }
 
 input #file-upload-button 

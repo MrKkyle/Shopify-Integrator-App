@@ -1053,7 +1053,7 @@ function Settings()
                     true_false.style.display = "none";
                 }
             }
-        }, 400);
+        }, 500);
 
         //If the user changes any of the input fields/buttons show the save button
         setTimeout(() =>
