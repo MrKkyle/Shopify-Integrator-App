@@ -23,13 +23,9 @@ function Dashboard()
         let main = document.querySelector(".container");
 
 
-        navigation.style.left = "0%";
-        navigation.style.position = "absolute";
-        navigation.style.width = "100%";
+        navigation.style.left = "0%"; navigation.style.position = "absolute";
+        navigation.style.width = "100%"; navigation.style.display = "block";
         logout.style.display = "block"; 
-
-
-
 
         const userName = localStorage.getItem('username');
         document.querySelector(".welcome_text").innerHTML = "Welcome back, " + userName;
@@ -37,10 +33,11 @@ function Dashboard()
         /* logout */
         logout.addEventListener("click", () =>
         {
-            logout.style.display = "none";
-            navigation.style.display = "none";
-            header.style.display = "none";
-             
+            let container = document.querySelector(".container");
+
+            container.style.animation = "Fadeout 1s ease-out";
+            navigation.style.animation = "Fadeout 1s ease-out";
+
             /* Session Destroy & Logout  */
             const api_key = localStorage.getItem('api_key'); 
             $.ajaxSetup({
@@ -51,7 +48,7 @@ function Dashboard()
             $.post("http://localhost:8080/api/logout", [], [], 'json')
             .done(function( _data) 
             {
-                console.log("done");
+                console.log("logout");
             })
             .fail( function(xhr) 
             {
@@ -64,9 +61,12 @@ function Dashboard()
             localStorage.removeItem("api_key");
 
             /* Return to Login page */
-            window.location.href = '/';
-            
-            
+            setTimeout(() => 
+            {
+                container.style.display = "none";
+                navigation.style.display = "none";
+                window.location.href = '/';
+            }, 900);   
         });
 
         //Fetch Graph
@@ -78,7 +78,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/fetch", [], [], 'json')
         .done(function( _data) 
         {
-
             if(_data.amounts.length == "" && _data.hours == "")
             {
                 status.className = "disabled_status";
@@ -104,7 +103,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/orders?status=not_paid", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 status.className = "disabled_status";
@@ -127,7 +125,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/stats/orders?status=paid", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             graph_data3 = _data;
         })
         .fail( function(xhr) 
@@ -221,7 +218,6 @@ function Dashboard()
         $.get("http://localhost:8080/api/inventory/warehouse", [], [], 'json')
         .done(function(_data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 let bubble = document.createElement("div");
@@ -286,7 +282,6 @@ function Dashboard()
             header.style.animation = "appear 1s ease-in"; header.style.display = "block"; 
             header.style.position = "relative";
         }, 1500);
-
 
     }, []);
 

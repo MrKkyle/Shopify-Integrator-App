@@ -4,16 +4,9 @@ import {useEffect, useState} from 'react';
 import $ from 'jquery';
 import Page1 from '../components/Page1';
 import Pan_details from '../components/semi-components/pan-detail';
-import Detailed_product from '../components/semi-components/Product/detailed_product';
-import Product_Variants from '../components/semi-components/Product/product_variants';
-import Detailed_Images from '../components/semi-components/Product/detailed_images';
-import Detailed_Images2 from '../components/semi-components/Product/detailed_images2';
-import Detailed_Price from '../components/semi-components/Product/detailed_prices';
-import Detailed_Quantities from '../components/semi-components/Product/detailed_quantities';
-import Detailed_Options from '../components/semi-components/Product/detailed_options';
+import { DetailedView, Pagintation } from './Functions/Product_Functions';
 
 import '../CSS/page1.css';
-
 function Products()
 {
     const[inputs, setInputs] = useState({});
@@ -34,10 +27,9 @@ function Products()
     {
         /* Ensures the page elements are set correctly */
         let navigation = document.getElementById("navbar");
-        navigation.style.left = "30%";
-        navigation.style.position = "absolute";
-        navigation.style.width = "70%";
-        navigation.style.animation = "MoveLeft 0.8s ease";
+        let empty_message = document.querySelector('.empty-message');
+        navigation.style.left = "30%"; navigation.style.position = "absolute"; navigation.style.width = "70%";
+        navigation.style.animation = "MoveLeft 0.8s ease"; navigation.style.display = "block";
 
         /*  API INITIAL-REQUEST */
         const api_key = localStorage.getItem('api_key');
@@ -45,10 +37,9 @@ function Products()
         $.get("http://localhost:8080/api/products?page=1", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             if(_data == "")
             {
-                document.querySelector(".empty-message").style.display = "block";
+                empty_message.style.display = "block";
             }
             else 
             {
@@ -79,7 +70,6 @@ function Products()
                     next.disabled = true;
                     next.style.cursor = "not-allowed";
                 }
-                console.log(_data);
 
                 document.querySelector(".pan-main").remove();
                 let div = document.createElement("div");
@@ -94,7 +84,7 @@ function Products()
                 Product_Image={el.product_images.map((el, i) => el.src)}
                 /> )) 
 
-                setTimeout(() => { DetailedView(); }, 200);
+                setTimeout(() => { DetailedView(); }, 400);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         });
@@ -109,7 +99,6 @@ function Products()
                 $.get("http://localhost:8080/api/products?page=1", [], [])
                 .done(function( _data) 
                 {
-                    console.log(_data);
                     let filter_button = document.getElementById("_filter");
                     let C_filter = document.getElementById("clear_filter");
                     filter_button.disabled = true;
@@ -129,365 +118,46 @@ function Products()
                     Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
                     Product_Image={el.product_images.map((el, i) => el.src)}
                     /> ))
-                    setTimeout(() => { DetailedView(); }, 200);
+                    setTimeout(() => { DetailedView(); }, 400);
                     Pagintation(1);
                 })
                 .fail( function(xhr) { alert(xhr.responseText); });
             }
         });
 
-        /* When the user clicks on the pan elements show info about that specified pan element */
-        function DetailedView()
+
+        Pagintation(1);
+        setTimeout(() => { DetailedView();}, 400);
+
+        /* Re-Sync function runs every 2 minutes*/
+        var timerID = setInterval(function()
         {
-            let products = document.querySelector(".products");
-            let pan = document.querySelectorAll(".pan");
-            for(let i = 0; i < pan.length; i++)
-            {
-                pan[i].addEventListener("click", () =>
-                {
-                    let id = pan[i].querySelector(".p-d-id").innerHTML;
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get("http://localhost:8080/api/products/" + id, [], [], 'json')
-                    .done(function(_data) 
-                    {   
-                        console.log(_data);
-                        if(document.querySelector(".details") != null)
-                        //div already exists, remove it, and create another
-                        {
-
-                            document.querySelector(".details").remove();
-                            let details = document.createElement('div');
-                            details.className = "details";
-                            products.appendChild(details);
-
-                            let rot = createRoot(details);
-                            rot.render( <Detailed_product key={`${_data.title}_${i}`} Product_Title = {_data.title} Product_Category={_data.category} Product_Code={_data.product_code}
-                                Product_Type={_data.product_type} Product_Vendor={_data.vendor} Product_ID={_data.id} Product_Activity={_data.active}
-                                Product_Options={_data.options.map((el, i) => <Detailed_Options key={`${el.title}_${i}`} Option_Value={el.value} Option_Name = {el.position} />)}
-                            />) 
-                            /* For some reason it wont pick up the element unless it throw it here */
-                            setTimeout(() =>
-                            {
-                                document.querySelector(".ql-editor").innerHTML = _data.body_html;
-                                let _div = details.querySelectorAll(".auto-slideshow-container");
-                                for(let i = 0; i < _div.length; i++)
-                                {
-                                    let _root = createRoot(_div[i]);
-                                    if(i == 0) { _root.render( _data.product_images.map((el, i) => <Detailed_Images key={`${el.title}_${i}`} Image1 = {el.src}/> )) }
-                                    else { _root.render( _data.product_images.map((el, i) => <Detailed_Images2 key={`${el.title}_${i}`} Image1 = {el.src}/> )) }
-                                }
-                                let new_div = details.querySelector(".variants"); 
-                                let rt = createRoot(new_div);
-                                rt.render( _data.variants.map((el, i) => <Product_Variants key={`${el.title}_${i}`} Variant_Title = {el.id}
-                                Variant_Barcode={el.barcode} Variant_SKU={el.sku} Variant_UpdateDate={el.updated_at} 
-                                Option1={el.option1} Option2={el.option2} Option3={el.option3} 
-                                Price={el.variant_price_tiers.map((el, i) => <Detailed_Price key={`${el.title}_${i}`} Price_Name={el.name} Price_Value={el.value}  />)}
-                                Quantities={el.variant_quantities.map((el, i) => <Detailed_Quantities key={`${el.title}_${i}`} quantity_value = {el.value} 
-                                quantity_name={el.name}/>)}
-                                />))
-                            }, 20);
-                        }
-                        else 
-                        //create new div
-                        {
-                            let details = document.createElement('details');
-                            products.appendChild(details);
-                            let rot = createRoot(details);
-                            rot.render( <Detailed_product key={`${_data.title}_${i}`} Product_Title = {_data.title} Product_Category={_data.category} Product_Code={_data.product_code}
-                                Product_Type={_data.product_type} Product_Vendor={_data.vendor} Product_ID={_data.id} Product_Activity={_data.active}
-                                Product_Options={_data.options.map((el, i) => <Detailed_Options key={`${el.title}_${i}`} Option_Value={el.value} Option_Name = {el.position} />)} 
-                            />) 
-                            /* For some reason it wont pick up the element unless it throw it here */
-                            setTimeout(() =>
-                            {
-                                document.querySelector(".ql-editor").innerHTML = _data.body_html;
-
-                                //details.querySelector("#description").innerHTML = _data.body_html;
-                                let _div = details.querySelectorAll(".auto-slideshow-container");
-                                for(let i = 0; i < _div.length; i++)
-                                {
-                                    let _root = createRoot(_div[i]);
-                                    if(i == 0)
-                                    {
-                                        _root.render( _data.product_images.map((el, i) => <Detailed_Images key={`${el.title}_${i}`} Image1 = {el.src}/> ))
-                                    }
-                                    else 
-                                    {
-                                        _root.render( _data.product_images.map((el, i) => <Detailed_Images2 key={`${el.title}_${i}`} Image1 = {el.src}/> ))
-                                    }
-                                }
-                                let new_div = details.querySelector(".variants"); 
-                                let rt = createRoot(new_div);
-                                rt.render( _data.variants.map((el, i) => <Product_Variants key={`${el.title}_${i}`} Variant_Title = {el.id}
-                                Variant_Barcode={el.barcode} Variant_SKU={el.sku} Variant_UpdateDate={el.updated_at} 
-                                Option1={el.option1} Option2={el.option2} Option3={el.option3} 
-                                Price={el.variant_price_tiers.map((el, i) => <Detailed_Price key={`${el.title}_${i}`} Price_Name={el.name} Price_Value={el.value}  />)}
-                                Quantities={el.variant_quantities.map((el, i) => <Detailed_Quantities key={`${el.title}_${i}`} quantity_value = {el.value} 
-                                quantity_name={el.name}/>)}
-                                /> ))
-                            }, 20);
-                        }
-                    })
-                    .fail( function(xhr) 
-                    {
-                        alert(xhr.responseText);
-                    });
-                    setTimeout(() =>
-                    {
-                        let filter = document.querySelector(".filter");
-                        let main = document.querySelector(".main");
-                        let navbar = document.getElementById("navbar");
-                        let details = document.querySelector(".details");
-
-                        filter.style.animation = "Fadeout 0.5s ease-out";
-                        main.style.animation = "Fadeout 0.5s ease-out";
-                        navbar.style.animation = "Fadeout 0.5s ease-out";
-                        filter.style.display = "none";
-                        main.style.display = "none";
-                        navbar.style.display = "none";
-                        details.style.display = "block";
-                    }, 50);
-                });
-            } 
-        }
-
-        /* Script to automatically format the number of elements on each page */
-        const content = document.querySelector('.center'); 
-        const paginationContainer = document.createElement('div');
-        const paginationDiv = document.body.appendChild(paginationContainer);
-        paginationContainer.classList.add('pagination');
-        content.appendChild(paginationContainer);
-
-        document.querySelector(".pan-main").remove();
-        let div = document.createElement("div");
-        div.className = "pan-main";
-        div.id = "pan-main";
-        let main = document.querySelector(".main-elements");
-        main.appendChild(div);
-
-        /* pagination Function for elements */
-        function Pagintation(index)
-        {
-
-            let ahead = index + 1;
             /*  API  */
-            $.get('http://localhost:8080/api/products?page=' + ahead, [], [])
+            const api_key = localStorage.getItem('api_key');
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get("http://localhost:8080/api/products?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
-                if(_data == "")
-                {
-                    let next = document.getElementById("next");
-                    next.style.cursor = "not-allowed";
-                    next.disabled = true;
-                } 
+                document.querySelector(".pan-main").remove();
+                let div = document.createElement("div");
+                div.className = "pan-main";
+                div.id = "pan-main";
+                let main = document.querySelector(".main-elements");
+                main.appendChild(div);
+                let root = createRoot(div);
+
+                flushSync(() => 
+                { 
+                    root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
+                    Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
+                    Product_Image={el.product_images.map((el, i) => el.src)}
+                    /> )) 
+                });
+                Pagintation(1);
+                setTimeout(() => { DetailedView();}, 300);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
-
-            /* Check done to remove old elements if they exist */
-            if(document.getElementById("next") != null && document.getElementById("prev") != null && document.getElementById("hod") != null)
-            //If they exist remove them, and create new based on the new index value
-            {
-                document.getElementById("next").remove();
-                document.getElementById("prev").remove();
-                document.getElementById("hod").remove();
-
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
-                pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
-
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
-                if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
-                else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                
-
-                nextPage.addEventListener("click", () =>
-                {
-                    index = index + 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/products?page=" + index;
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
-                            Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
-                            Product_Image={el.product_images.map((el, i) => el.src)}
-                            /> )) 
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-
-                    let ahead = index + 1;
-                    /*  API  */
-                    $.get('http://localhost:8080/api/products?page=' + ahead, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        if(_data == "")
-                        {
-                            let next = document.getElementById("next");
-                            next.style.cursor = "not-allowed";
-                            next.disabled = true;
-                        } 
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-
-                prevPage.addEventListener("click", () =>
-                {
-                    index = index - 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/products?page=" + index;
-
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
-                            Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
-                            Product_Image={el.product_images.map((el, i) => el.src)}
-                            /> )) 
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-            }
-            else 
-            //If they dont exist create new ones 
-            {
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
-                pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
-
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
-
-                if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
-                else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                nextPage.addEventListener("click", () =>
-                {
-                    index = index + 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/products?page=" + index;
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
-                            Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
-                            Product_Image={el.product_images.map((el, i) => el.src)}
-                            /> ))  
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-                prevPage.addEventListener("click", () =>
-                {
-                    index = index - 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/products?page=" + index;
-
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
-                            Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
-                            Product_Image={el.product_images.map((el, i) => el.src)}
-                            /> )) 
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-            } 
-        }
-        Pagintation(1);
-        setTimeout(() => { DetailedView();}, 200);
+        },  60 * 1000); 
 
         let C_filter = document.getElementById("clear_filter");
         C_filter.addEventListener("click", () => 
@@ -497,16 +167,15 @@ function Products()
             let type = document.getElementById("_type")
             let vendor = document.getElementById("_vendor");
 
-            category.value = "";
-            type.value = "";
-            vendor.value = "";
+            category.value = ""; category.style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
+            type.value = ""; type.style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
+            vendor.value = ""; vendor.style.background = "linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%))";
 
             const api_key = localStorage.getItem('api_key');
             $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
             $.get("http://localhost:8080/api/products?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 let filter_button = document.getElementById("_filter");
                 let C_filter = document.getElementById("clear_filter");
                 filter_button.disabled = true;
@@ -527,11 +196,54 @@ function Products()
                 Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
                 Product_Image={el.product_images.map((el, i) => el.src)}
                 /> )) 
-                setTimeout(() => { DetailedView();}, 200);
+                setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
+                setInterval(function() 
+                {
+                    /*  API  */
+                    const api_key = localStorage.getItem('api_key');
+                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+                    $.get("http://localhost:8080/api/products?page=1", [], [])
+                    .done(function( _data) 
+                    {
+                        document.querySelector(".pan-main").remove();
+                        let div = document.createElement("div");
+                        div.className = "pan-main";
+                        div.id = "pan-main";
+                        let main = document.querySelector(".main-elements");
+                        main.appendChild(div);
+                        let root = createRoot(div);
+        
+                        flushSync(() => 
+                        { 
+                            root.render(_data.map((el, i) => <Pan_details key={`${el.title}_${i}`} Product_Title={el.title} Product_ID={el.id} Product_Activity={el.active}
+                            Product_Type={el.product_type} Product_Code={el.product_code} Product_Category={el.category} Product_Vendor={el.vendor}
+                            Product_Image={el.product_images.map((el, i) => el.src)}
+                            /> )) 
+                        });
+                        Pagintation(1);
+                        setTimeout(() => { DetailedView();}, 300);
+                    })
+                    .fail( function(xhr) { alert(xhr.responseText); });
+                }, 60 * 1000);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         });
+
+        /* Local filter onclick to stop the product resync */
+        let filter_button = document.getElementById("_filter");
+        filter_button.addEventListener("click", () => { clearInterval(timerID); });
+
+        /*  Clicking on the dropdowns clears the timeout */
+        let dropdown = document.querySelectorAll(".dropdown");
+        for(let i = 0; i < dropdown.length; i++)
+        {
+            dropdown[i].addEventListener("click", () => 
+            {
+                clearInterval(timerID);
+            });
+        }
+            
     }, []);
     
     return (
@@ -549,7 +261,13 @@ function Products()
 
                     </div>
                 </div>
-                <div className = "center" id = "pag" style ={{top: '45px'}}></div>
+                <div className = "center" id = "pag" style ={{top: '45px'}}>
+                    <div className = "pagination">
+                        <button className = "active" id = "hod"></button>
+                        <button id = "next">→</button>
+                        <button id = "prev">←</button>
+                    </div>
+                </div>
             </div>
 
             <Page1 title = "Products"/>

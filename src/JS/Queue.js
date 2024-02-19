@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
-import { flushSync } from 'react-dom';
 import {useEffect, useState} from 'react';
+import { flushSync } from 'react-dom';
 import $ from 'jquery';
 import Page2 from '../components/Page2';
 import Queue_details from '../components/semi-components/queue-details';
-import Detailed_queue from '../components/semi-components/Queue/detailed_queue';
+import { DetailedView, Pagintation } from './Functions/Queue_Functions';
 
 
 import '../CSS/page1.css';
@@ -23,7 +23,6 @@ function Queue()
     const SearchProduct = (event) =>
     {
         event.preventDefault();
-
     }
 
     useEffect(()=> 
@@ -33,10 +32,8 @@ function Queue()
         let message = document.getElementById("message");
         window.onload = function(event)
         {
-            navigation.style.left = "30%";
-            navigation.style.position = "absolute";
-            navigation.style.width = "70%";
-            navigation.style.animation = "MoveLeft 0.8s ease";
+            navigation.style.left = "30%"; navigation.style.position = "absolute"; navigation.style.display = "block";
+            navigation.style.width = "70%"; navigation.style.animation = "MoveLeft 0.8s ease";
         }
 
         /*  API INITIAL-REQUEST */
@@ -45,7 +42,6 @@ function Queue()
         $.get("http://localhost:8080/api/queue?page=1", [], [])
         .done(function( _data) 
         {
-            console.log(_data);
             if(_data == "")
             {
                 document.querySelector(".empty-message").style.display = "block";
@@ -75,309 +71,44 @@ function Queue()
             }, 1000);
         });
 
-        /* When the user clicks on the pan elements show info about that specified pan element */
-        function DetailedView()
+        Pagintation(1);
+        setTimeout(() => { DetailedView();}, 300);
+
+
+        /* Re-Sync function runs every 30 seconds minutes*/
+        var timerID = setInterval(function() 
         {
-            let queue = document.querySelector(".queue");
-            let pan = document.querySelectorAll(".pan");
-            for(let i = 0; i < pan.length; i++)
-            {
-                pan[i].addEventListener("click", () =>
-                {
-                    let id = pan[i].querySelector(".p-d-id").innerHTML;
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get("http://localhost:8080/api/queue/" + id, [], [], 'json')
-                    .done(function(_data) 
-                    {   
-                        console.log(_data);
-                        if(document.querySelector(".details") != null)
-                        //div already exists, remove it, and create another
-                        {
-
-                            document.querySelector(".details").remove();
-                            let details = document.createElement('div');
-                            details.className = "details";
-                            queue.appendChild(details);
-
-                            let rot = createRoot(details);
-                            rot.render( <Detailed_queue key={`${_data.title}_${i}`} Queue_Status={_data.status} Queue_Description={_data.description}
-                            Queue_Type={_data.queue_type} Queue_Instruction={_data.instruction} Queue_ID={_data.id} Created_At={_data.created_at} 
-                            Updated_At={_data.updated_at}
-                            />)
-                        }
-                        else 
-                        //create new div
-                        {
-                            let details = document.createElement('details');
-                            queue.appendChild(details);
-                            let rot = createRoot(details);
-                            rot.render( <Detailed_queue key={`${_data.title}_${i}`} Queue_Status={_data.status} Queue_Description={_data.description}
-                            Queue_Type={_data.queue_type} Queue_Instruction={_data.instruction} Queue_ID={_data.id} Created_At={_data.created_at} 
-                            Updated_At={_data.updated_at}
-                            />)
-                        }
-                    })
-                    .fail( function(xhr) 
-                    { 
-                        message.innerHTML = JSON.parse(xhr.responseText).error;
-                        message.style.background = "#9f0a0a";
-                        setTimeout(() =>
-                        {
-                            message.innerHTML = "";
-                            message.style.backgroundColor = "transparent";
-                            message.style.display = "none";
-                        }, 1000);
-                    });
-                    setTimeout(() =>
-                    {
-                        let filter = document.querySelector(".filter");
-                        let main = document.querySelector(".main");
-                        let navbar = document.getElementById("navbar");
-                        let details = document.querySelector(".details");
-
-                        filter.style.animation = "Fadeout 0.5s ease-out";
-                        main.style.animation = "Fadeout 0.5s ease-out";
-                        navbar.style.animation = "Fadeout 0.5s ease-out";
-                        filter.style.display = "none";
-                        main.style.display = "none";
-                        navbar.style.display = "none";
-                        details.style.display = "block";
-                    }, 50);
-                });
-            } 
-        }
-
-        /* Script to automatically format the number of elements on each page */
-        const content = document.querySelector('.center'); 
-        const paginationContainer = document.createElement('div');
-        const paginationDiv = document.body.appendChild(paginationContainer);
-        paginationContainer.classList.add('pagination');
-        content.appendChild(paginationContainer);
-
-        document.querySelector(".pan-main").remove();
-        let div = document.createElement("div");
-        div.className = "pan-main";
-        div.id = "pan-main";
-        let main = document.querySelector(".main-elements");
-        main.appendChild(div);
-
-        function Pagintation(index)
-        {
-            let ahead = index + 1;
             /*  API  */
-            $.get('http://localhost:8080/api/queue?page=' + ahead, [], [])
+            const api_key = localStorage.getItem('api_key');
+            $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+            $.get("http://localhost:8080/api/queue?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
-                if(_data == "")
+                if(document.querySelector(".pan-main") != null)
                 {
-                    let next = document.getElementById("next");
-                    next.style.cursor = "not-allowed";
-                    next.disabled = true;
-                } 
+                    document.querySelector(".pan-main").remove();
+                }
+                let div = document.createElement("div");
+                div.className = "pan-main";
+                div.id = "pan-main";
+                if(document.querySelector(".main-elements") != null)
+                {
+                    let main = document.querySelector(".main-elements");
+                    main.appendChild(div);
+                    let root = createRoot(div);
+                    flushSync(() => 
+                    { 
+                        root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
+                        Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
+                        />))
+                    });
+                    Pagintation(1);
+                    setTimeout(() => { DetailedView();}, 300);
+                }
             })
             .fail( function(xhr) { alert(xhr.responseText); });
+        }, 10 * 1000); 
 
-            /* Check done to remove old elements if they exist */
-            if(document.getElementById("next") != null && document.getElementById("prev") != null && document.getElementById("hod") != null)
-            //If they exist remove them, and create new based on the new index value
-            {
-                document.getElementById("next").remove();
-                document.getElementById("prev").remove();
-                document.getElementById("hod").remove();
-
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
-                pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
-
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
-                if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
-                else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                
-
-                nextPage.addEventListener("click", () =>
-                {
-                    index = index + 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/queue?page=" + index;
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
-                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id} 
-                            />))
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-
-                    let ahead = index + 1;
-                    /*  API  */
-                    $.get('http://localhost:8080/api/products?page=' + ahead, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        if(_data == "")
-                        {
-                            let next = document.getElementById("next");
-                            next.style.cursor = "not-allowed";
-                            next.disabled = true;
-                        } 
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-
-                prevPage.addEventListener("click", () =>
-                {
-                    index = index - 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/queue?page=" + index;
-
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} 
-                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                            />))
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-            }
-            else 
-            //If they dont exist create new ones 
-            {
-                const pageButton = document.createElement('button');
-                pageButton.id = "hod";
-                pageButton.className = "active";
-                pageButton.innerHTML = index;
-                paginationDiv.appendChild(pageButton);
-
-                const nextPage = document.createElement('button');
-                nextPage.id = "next";
-                nextPage.innerHTML = "→";
-                paginationDiv.appendChild(nextPage);
-
-                const prevPage = document.createElement('button');
-                prevPage.id = "prev";
-                prevPage.innerHTML = "←";
-                paginationDiv.appendChild(prevPage);
-
-                if(index == 1) { prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                else if(index > 1) { prevPage.style.cursor = "pointer"; prevPage.disabled = false; nextPage.disabled = false; }
-                else if(index <= 1) {prevPage.disabled = true; prevPage.style.cursor = "not-allowed"; }
-                nextPage.addEventListener("click", () =>
-                {
-                    index = index + 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/queue?page=" + index;
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
-                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                            />))
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-                prevPage.addEventListener("click", () =>
-                {
-                    index = index - 1;
-                    /* Fetches the data from page, based on the page / index value */
-                    const page = "http://localhost:8080/api/queue?page=" + index;
-
-                    /*  API  */
-                    const api_key = localStorage.getItem('api_key');
-                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
-                    $.get(page, [], [])
-                    .done(function( _data) 
-                    {
-                        console.log(_data);
-                        document.querySelector(".pan-main").remove();
-                        let div = document.createElement("div");
-                        div.className = "pan-main";
-                        div.id = "pan-main";
-                        let main = document.querySelector(".main-elements");
-                        main.appendChild(div);
-                        let root = createRoot(div);
-
-                        flushSync(() => 
-                        { 
-                            root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`}
-                            Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
-                            />))
-                        });
-                    })
-                    .fail( function(xhr) { alert(xhr.responseText); });
-                    Pagintation(index);
-                    setTimeout(() => { DetailedView();}, 200);
-                });
-            } 
-        }
-        Pagintation(1);
-        setTimeout(() => { DetailedView();}, 200);
 
         let C_filter = document.getElementById("clear_filter");
         C_filter.addEventListener("click", () => 
@@ -389,17 +120,26 @@ function Queue()
             $.get("http://localhost:8080/api/queue?page=1", [], [])
             .done(function( _data) 
             {
-                console.log(_data);
                 let filter_button = document.getElementById("_filter");
-                let C_filter = document.getElementById("clear_filter");
                 filter_button.disabled = true;
                 C_filter.disabled = true;
                 filter_button.style.cursor = "not-allowed";
                 C_filter.style.cursor = "not-allowed";
 
-                let root;
-                let pan_main;
+                let root; let pan_main; let next = document.getElementById("next");
+                let _pan = document.querySelector(".pan-main");
                 if(document.querySelector(".pan-main") != null){ document.querySelector(".pan-main").remove(); }
+
+                if(_data.length < 10)
+                {
+                    next.disabled = true;
+                    next.style.cursor = "not-allowed";
+                }
+                if(_data == "")
+                {
+                    _pan.remove();
+                    document.querySelector(".empty-message").style.display = "block";
+                }
             
                 pan_main = document.createElement('div');
                 let main_elements = document.querySelector(".main-elements");
@@ -409,12 +149,59 @@ function Queue()
                 root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
                 Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
                 />))
-                setTimeout(() => { DetailedView();}, 200);
+                
+                setTimeout(() => { DetailedView();}, 300);
                 Pagintation(1);
+
+                var timerID = setInterval(function() 
+                {
+                    /*  API  */
+                    const api_key = localStorage.getItem('api_key');
+                    $.ajaxSetup({ headers: { 'Authorization': 'ApiKey ' + api_key} });
+                    $.get("http://localhost:8080/api/queue?page=1", [], [])
+                    .done(function( _data) 
+                    {
+                        if(document.querySelector(".pan-main") != null)
+                        {
+                            document.querySelector(".pan-main").remove();
+                        }
+                        let div = document.createElement("div");
+                        div.className = "pan-main";
+                        div.id = "pan-main";
+                        if(document.querySelector(".main-elements") != null)
+                        {
+                            let main = document.querySelector(".main-elements");
+                            main.appendChild(div);
+                            let root = createRoot(div);
+                            flushSync(() => 
+                            { 
+                                root.render(_data.map((el, i) => <Queue_details key={`${el.title}_${i}`} Queue_Updated_At={el.updated_at} Queue_Creation_Date={el.created_at} 
+                                Queue_Type={el.queue_type} Queue_Instruction={el.instruction} Queue_Status={el.status} Queue_ID={el.id}
+                                />))
+                            });
+                            Pagintation(1);
+                            setTimeout(() => { DetailedView();}, 300);
+                        }
+                    })
+                    .fail( function(xhr) { alert(xhr.responseText); });
+                }, 10 * 1000);
             })
             .fail( function(xhr) { alert(xhr.responseText); });
         });
 
+        /* Local filter onclick to stop the product resync */
+        let filter_button = document.getElementById("_filter");
+        filter_button.addEventListener("click", () => { clearInterval(timerID); });
+
+        /*  Clicking on the dropdowns clears the timeout */
+        let dropdown = document.querySelectorAll(".dropdown");
+        for(let i = 0; i < dropdown.length; i++)
+        {
+            dropdown[i].addEventListener("click", () => 
+            {
+                clearInterval(timerID);
+            });
+        }
 
     }, []);
     
@@ -429,11 +216,15 @@ function Queue()
                 </div>
                 <div className = "main-elements" style={{top: '53%'}}>
                     <div className = "empty-message">No results found.</div>
-                    <div className = "pan-main" id = "pan-main">
-
+                    <div className = "pan-main" id = "pan-main"></div>
+                </div>
+                <div className = "center" id = "pag" style ={{top: '45px'}}>
+                    <div className = "pagination">
+                        <button className = "active" id = "hod"></button>
+                        <button id = "next">→</button>
+                        <button id = "prev">←</button>
                     </div>
                 </div>
-                <div className = "center" id = "pag"></div>
             </div>
 
             <Page2 title = "Queue"/>

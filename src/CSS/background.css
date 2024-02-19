@@ -145,7 +145,7 @@ body
 }
 .image .text {
     font-size: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     padding: 4px;
     text-align: center;
     position: absolute;
@@ -206,7 +206,7 @@ body
     padding-right: 500px;
     text-align: center;  
     font-size: 14px;
-    font-family: monospace;
+    font-family: system-ui;
     color: aliceblue;
     position: relative;
     left: 2%;
@@ -217,7 +217,7 @@ body
 }
 .container .text 
 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     font-size: 20px;
     width: 40%;
     position: relative;
@@ -316,7 +316,7 @@ body
 .image .para-text 
 {
     font-size: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     padding: 10px;
     text-align: center;
     position: absolute;

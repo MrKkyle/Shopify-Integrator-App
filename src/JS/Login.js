@@ -26,8 +26,6 @@ function Login()
         let re = document.querySelector(".result-container");
         re.style.display = "none";
 
-        console.log(inputs);
-
         let message = document.getElementById("message");
         message.style.display = "block";
 
@@ -35,7 +33,6 @@ function Login()
         $.post("http://localhost:8080/api/login", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
         {
-            console.log(_data);
 
             /* Sets the user information for this session */
             localStorage.setItem('api_key', _data.api_key);
@@ -44,13 +41,17 @@ function Login()
             message.innerHTML = "Login Sucessful";
             message.style.background = "#1a5e12";
 
+            let form = document.getElementById("form1");
+            let navbar = document.getElementById("navbar");
+            navbar.style.display = "none"; form.style.display = "none";
+            
             setTimeout(() =>
             {
                 message.innerHTML = "";
                 message.style.backgroundColor = "transparent";
                 message.style.display = "none";
                 window.location.href = '/dashboard';
-            }, 1000);
+            }, 2000);
         })
         .fail( function(xhr) 
         {
@@ -77,12 +78,9 @@ function Login()
         let message = document.getElementById("message");
         message.style.display = "block";
         
-        console.log(inputs);
-        
         $.post("http://localhost:8080/api/register", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
         {
-            console.log(_data);
 
             let div = document.querySelector(".pre");
             let rot = createRoot(div);
@@ -119,14 +117,12 @@ function Login()
     const Register_auth = (event) =>
     {
         event.preventDefault();
-        console.log(inputs);
         let message = document.getElementById("message");
         message.style.display = "block";
 
         $.post("http://localhost:8080/api/preregister", JSON.stringify(inputs),[], 'json')
         .done(function( _data) 
         {
-            console.log(_data);
 
             message.innerHTML = "Email sent";
             message.style.background = "#1a5e12";
@@ -166,21 +162,22 @@ function Login()
         let message = document.getElementById("message");
         window.onload = function(event)
         {
+            let form = document.getElementById("form1");
+            let navbar = document.getElementById("navbar");
+            navbar.style.display = "none"; form.style.display = "none";
+
             $.ajaxSetup({ xhrFields: { withCredentials: true }, dataType: 'jsonp'});
             /* Check done to see if user's cookie already exists */
             $.get("http://localhost:8080/api/google/oauth2/login", [], [], 'json')
             .done(function( _data) 
             {
-                console.log(_data);
 
-                let form = document.getElementById("form1");
-                form.style.animation = "Fadeout 1s ease-out";
-                form.style.display = "none";
+                let rain = document.querySelector(".back-row-toggle"); rain.style.display = "none";
+
                 localStorage.setItem('username', _data.username);
                 localStorage.setItem('api_key', _data.api_key);
                 
-                window.location.href = '/dashboard';
-
+                setTimeout(() => { window.location.href = '/dashboard'; }, 1500);
             })
             .fail( function(xhr) 
             {
@@ -196,22 +193,31 @@ function Login()
         google_button.addEventListener("click", () =>
         {
             let form = document.getElementById("form1");
+            let rain = document.querySelector(".back-row-toggle");
             form.style.animation = "Fadeout 1s ease-out";
-            form.style.display = "none";
-            window.location.href = 'http://localhost:8080/api/google/login';
+            rain.style.animation = "Fadeout 1s ease-out";
+            setTimeout(() => 
+            {
+                form.style.display = "none";
+                rain.style.display = "none";
+                window.location.href = 'http://localhost:8080/api/google/login';
+            }, 900);
+            
         });
 
         /* Ensure the model is shown */
         let model = document.getElementById("model");
         let navbar = document.getElementById("navbar");
+        let form1 = document.getElementById("form1")
         navbar.style.display = "none";
         model.style.display = "block";
+
+        setTimeout(() => { form1.style.display = "block"; setTimeout(() => { form1.style.animation = "FadeIn ease-in 1s"; }, 1000); }, 2000);
         
         /* The swapping of forms */
         let register_button = document.getElementById("reg");
         let return_button = document.querySelector(".return-button");
         let return_button2 = document.querySelector(".return-button2");
-        let form1 = document.getElementById("form1");
         let form2 = document.getElementById("form2");
         let form3 = document.getElementById("form3");
         register_button.addEventListener("click", () =>

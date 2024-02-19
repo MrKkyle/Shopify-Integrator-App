@@ -36,13 +36,12 @@ function Export_Product()
     {
 
         /* Fix any incorrect elements */
-        let navigation = document.getElementById("navbar");
-        let modal = document.getElementById("model");
+        let navigation = document.getElementById("navbar"); let modal = document.getElementById("model");
+        let modal_content = document.querySelector(".modal-content");
+        navigation.style.zIndex = "3"; modal_content.style.display = "block";
         modal.style.display = "block";
-        navigation.style.animation = "MoveRight 1.2s ease";
-        navigation.style.position = "fixed";
-        navigation.style.left = "0%";
-        navigation.style.width = "100%";
+        navigation.style.animation = "MoveRight 1.2s ease"; navigation.style.position = "fixed";
+        navigation.style.left = "0%"; navigation.style.width = "100%"; navigation.style.display = "block";
 
     }, []);
 

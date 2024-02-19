@@ -12,7 +12,7 @@ function Queue_details(props)
             for(let i = 0; i < pan.length; i ++)
             {
                 pan[i].style.display = "block";
-                pan[i].style.animation = "appear 0.4s ease-in";
+                pan[i].style.animation = "appear 0.1s ease-in";
             }
         }, 1400);
 

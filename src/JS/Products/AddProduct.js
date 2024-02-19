@@ -111,21 +111,15 @@ function Add_Product()
 
     useEffect(() =>
     {
-        window.onload = function(event)
-        {
-            let navbar = document.getElementById("navbar");
-            navbar.style.display = "none";
-        }
         /* Fix any incorrect elements */
-        let navigation = document.getElementById("navbar");
-        let modal = document.getElementById("model");
+        let navigation = document.getElementById("navbar"); let modal = document.getElementById("model");
         let message = document.getElementById("message");
 
+        let modal_content = document.querySelector(".modal-content");
+        navigation.style.zIndex = "3"; modal_content.style.display = "block";
         modal.style.display = "block";
-        navigation.style.animation = "MoveRight 1.2s ease";
-        navigation.style.position = "fixed";
-        navigation.style.left = "0%";
-        navigation.style.width = "100%";
+        navigation.style.animation = "MoveRight 1.2s ease"; navigation.style.position = "fixed";
+        navigation.style.left = "0%"; navigation.style.width = "100%"; navigation.style.display = "block";
 
         function openPage(pageName) 
         {
@@ -142,9 +136,8 @@ function Add_Product()
             }
 
             document.getElementById("_" + pageName).style.display = "block";
-            document.getElementById(pageName).style.backgroundColor = "rgb(72, 101, 128)";
-            document.getElementById(pageName).style.color = "black";
-            
+            document.getElementById(pageName).style.backgroundColor = "#2196F3";
+            document.getElementById(pageName).style.color = "#333";
         }
 
         let home = document.getElementById("Product");

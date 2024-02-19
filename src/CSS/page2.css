@@ -5,7 +5,7 @@
     height: 100%;
     left: 25%;
     width: 75%;
-    background: linear-gradient(to bottom, #202020c7, #111119f0);
+    background: linear-gradient(to right, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
     overflow: auto;
     transition-duration: 0.4s;
     overflow: hidden;
@@ -23,7 +23,7 @@
     left: 0;
     height: 100%;
     width: 25%;
-    background: linear-gradient(to bottom, #202020c7, #111119f0);
+    background: linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
     overflow: auto;
     transition-duration: 0.4s;
     z-index:2;
@@ -53,7 +53,7 @@
     position: relative;
     text-align: left;
     padding: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     font-size: 20px;
     border-bottom: 1px solid aliceblue; 
     color: white;
@@ -69,7 +69,7 @@
     height: auto;
     left: 50%;
     transform: translate(-50%);
-    background-color:rgb(240, 248, 255, 0.6);
+    background: linear-gradient(to left, rgb(221 221 221), rgb(255 255 255 / 58%));
     border-radius: 5px;
     transition-duration: 0.4s;
     padding-top: 15px;
@@ -89,7 +89,7 @@
     width: 100%;
     height: auto;
     padding: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     font-size: 15px;
     border-bottom: 1px solid black;
     font-weight: bold;
@@ -101,7 +101,7 @@
     width: 100%;
     height: auto;
     padding: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     font-size: 13px;
 }
 .description
@@ -126,7 +126,7 @@
 
 .value, .id
 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     text-align: center;
 }
 .button-on-off, .webhook-button
@@ -185,11 +185,10 @@ input[type = setting]
     transform: translate(-50%);
     font-size: 16px;
     color: rgb(255, 255, 255);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     padding: 10px;
     user-select: none;
-    background-color:#c5c5c511;
-
+    border-bottom: 1px solid white;
 }
 .shopify 
 {
@@ -199,7 +198,7 @@ input[type = setting]
     transform: translate(-50%);
     font-size: 16px;
     color: black;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     border-bottom: 1px solid rgb(255, 255, 255);
     padding: 10px;
     user-select: none;
@@ -211,11 +210,10 @@ input[type = setting]
     left: 50%;
     transform: translate(-50%);
     font-size: 11px;
-    background-color: white;
-    color: black;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     padding: 5px;
     border-radius: 10px;
+    margin-bottom: 5px;
     margin-top: 5px;
     border: none;
     width: 170px;
@@ -223,10 +221,15 @@ input[type = setting]
     height: auto;
     cursor: pointer;
     transition-duration: 0.4s;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.514);
+    color: white;
+    background: linear-gradient(to left, rgb(78 78 78 / 61%), rgb(50 50 66 / 43%));
 }
 .mini-setting:hover
 {
-    background-color: rgb(64, 97, 128);
+    background-color: #2196F3;
+    box-shadow: 0 0 1px #2196F3;
     color: aliceblue;
 }
 .a
@@ -265,7 +268,7 @@ input[type = setting]
     font-size: 11px;
     background-color: rgb(255, 255, 255);
     color: black;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui;
     padding: 5px;
     border-radius: 10px;
     margin: 5px;
@@ -312,7 +315,7 @@ input[type = setting]
 }
 .warehouse-mapp .table 
 {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: system-ui;
     border-collapse: collapse;
     width: 80%;
     position: relative;
@@ -337,7 +340,15 @@ input[type = setting]
     background-color: rgba(194, 194, 194, 0.842);
 }
 
-
+.queue-view 
+{
+    display: none;
+    top: 0;
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+}
 /* Webhook div */
 .webhook_div {
     margin: 0;
