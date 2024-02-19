@@ -121,15 +121,25 @@ function Queue()
             .done(function( _data) 
             {
                 let filter_button = document.getElementById("_filter");
-                let C_filter = document.getElementById("clear_filter");
                 filter_button.disabled = true;
                 C_filter.disabled = true;
                 filter_button.style.cursor = "not-allowed";
                 C_filter.style.cursor = "not-allowed";
 
-                let root;
-                let pan_main;
+                let root; let pan_main; let next = document.getElementById("next");
+                let _pan = document.querySelector(".pan-main");
                 if(document.querySelector(".pan-main") != null){ document.querySelector(".pan-main").remove(); }
+
+                if(_data.length < 10)
+                {
+                    next.disabled = true;
+                    next.style.cursor = "not-allowed";
+                }
+                if(_data == "")
+                {
+                    _pan.remove();
+                    document.querySelector(".empty-message").style.display = "block";
+                }
             
                 pan_main = document.createElement('div');
                 let main_elements = document.querySelector(".main-elements");
