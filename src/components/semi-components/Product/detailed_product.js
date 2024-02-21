@@ -23,7 +23,7 @@ function Detailed_product(props)
                 tablinks[i].style.backgroundColor = "";
             }
             document.getElementById("_" + pageName).style.display = "block";
-            document.getElementById(pageName).style.backgroundColor = "rgb(72, 101, 128)";
+            document.getElementById(pageName).style.backgroundColor = "#2196F3";
             document.getElementById(pageName).style.color = "black";
         }
 
@@ -70,8 +70,8 @@ function Detailed_product(props)
         edit.addEventListener("click", () =>
         {
 
-            edit.style.backgroundColor= "rgb(72, 101, 128)";
-            edit.style.color="aliceblue";
+            edit.style.backgroundColor= "#2196F3";
+            edit.style.color="black";
             edit.disabled = "true";
             edit.style.cursor = "not-allowed";
             /* find the number of product_options */
